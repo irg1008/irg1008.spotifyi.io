@@ -54,7 +54,6 @@ const Playlists = () => {
   >();
   const getPlaylists = async () => {
     const res = await withSpotify(() => spotify.getUserPlaylists());
-    console.log(res)
     setPlaylists(res.items);
   };
 
