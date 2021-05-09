@@ -10,6 +10,8 @@ const Home = tw.div`
   justify-center
   space-y-5
   relative
+  mb-40
+  mt-10
 `;
 
 const Title = tw.h1`
@@ -17,7 +19,7 @@ const Title = tw.h1`
   text-white
   font-extralight
   animate-pulse
-  mt-5
+  my-5
   w-full
   text-center
 `;

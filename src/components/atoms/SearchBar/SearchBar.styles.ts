@@ -23,6 +23,7 @@ const Icon = tw(SearchIcon)`
   top-0
   mt-2.5 mr-4  
   h-5
+  opacity-60
 `;
 
 export default { Input, Icon, Container };
