@@ -1,7 +1,11 @@
 import { createGlobalStyle } from "styled-components";
-import tw, { theme, GlobalStyles as TwinGlobalStyle } from "twin.macro";
+import { GlobalStyles as TwinGlobalStyle } from "twin.macro";
 
 const CustomGlobalStyle = createGlobalStyle`
+  input[type="search"]::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      display: none;
+  }
 `;
 
 const GlobalStyle = () => (

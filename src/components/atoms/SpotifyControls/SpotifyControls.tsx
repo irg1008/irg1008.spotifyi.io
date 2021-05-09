@@ -1,6 +1,43 @@
 import useSpotify from "hooks/useSpotify";
 import { useCallback, useEffect, useState } from "react";
 import Styled from "./SpotifyControls.styles";
+import { Variants, Variant } from "framer-motion";
+
+interface CustomVariants extends Variants {
+  hide: Variant;
+  show: Variant;
+}
+
+const buttonsCont: CustomVariants = {
+  hide: {
+    translateY: 100,
+  },
+  show: {
+    translateY: 0,
+    transition: {
+      type: "spring",
+      duration: 2,
+      bounce: 0,
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const button: CustomVariants = {
+  hide: {
+    opacity: 0,
+    translateY: "100%",
+  },
+  show: {
+    opacity: 1,
+    translateY: 0,
+    transition: {
+      duration: 2,
+      type: "spring",
+      bounce: 0.15,
+    },
+  },
+};
 
 const SpotifyControls = () => {
   const { spotify, withSpotify } = useSpotify();
@@ -38,14 +75,14 @@ const SpotifyControls = () => {
   }, []);
 
   return (
-    <Styled.Controls>
-      <Styled.Button onClick={previous}>
+    <Styled.Controls initial="hide" animate="show" variants={buttonsCont}>
+      <Styled.Button onClick={previous} variants={button}>
         <Styled.Previous />
       </Styled.Button>
-      <Styled.Button onClick={togglePlay}>
+      <Styled.Button onClick={togglePlay} variants={button}>
         {isPlaying ? <Styled.Pause /> : <Styled.Play />}
       </Styled.Button>
-      <Styled.Button onClick={next}>
+      <Styled.Button onClick={next} variants={button}>
         <Styled.Next />
       </Styled.Button>
     </Styled.Controls>

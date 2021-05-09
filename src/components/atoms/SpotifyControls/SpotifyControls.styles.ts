@@ -1,14 +1,15 @@
 import tw from "twin.macro";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import {
   PlayIcon,
   PauseIcon,
   ArrowCircleRightIcon,
   ArrowCircleLeftIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/solid";
 
-const Controls = tw.div`
+const Controls = tw(motion.div)`
   flex
   justify-center
   w-full
@@ -26,14 +27,13 @@ const Controls = tw.div`
   space-x-4
 `;
 
-const Button = tw.button`
+const Button = tw(motion.button)`
   bg-white
-  bg-opacity-80
   p-4 rounded-md
   focus:outline-none
   shadow-md
   text-4xl
-`;
+  `;
 
 const iconHeight = tw`h-8`;
 
