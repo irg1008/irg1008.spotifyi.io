@@ -19,6 +19,8 @@ const Title = styled.h1`
     font-extrabold
     mb-20
     drop-shadow-2xl
+    text-center
+    md:text-4xl
   `}
 `;
 
