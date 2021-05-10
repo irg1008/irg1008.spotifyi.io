@@ -2,46 +2,8 @@ import useSpotify from "hooks/useSpotify";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import SpotifyControls from "components/atoms/SpotifyControls";
 import Styled from "./SpotifyHome.styles";
-import { Variants, Variant } from "framer-motion";
 import SearchBar from "components/atoms/SearchBar";
-
-interface CustomVariants extends Variants {
-  hide: Variant;
-  show: Variant;
-}
-
-const card: CustomVariants = {
-  hide: {
-    opacity: 0,
-    scale: 0.9,
-    translateY: -40,
-  },
-  show: {
-    opacity: 1,
-    scale: 1,
-    translateY: 0,
-    transition: {
-      duration: 1.5,
-      type: "spring",
-      bounce: 0.15,
-    },
-  },
-};
-
-const cardImg: CustomVariants = {
-  hide: {
-    rotate: 0,
-  },
-  show: {
-    rotate: -12,
-    scale: 0.8,
-    transition: {
-      duration: 2,
-      type: "spring",
-      bounce: 0.15,
-    },
-  },
-};
+import SpotifyTracks from "components/atoms/SpotifyTracks";
 
 const Tracks = () => {
   const { spotify, withSpotify } = useSpotify();
@@ -51,6 +13,7 @@ const Tracks = () => {
   const [value, setValue] = useState("");
 
   // Filter tracks.
+  const filterTracks = (value: string) => setValue(value);
   const filteredTracks =
     useMemo(
       () =>
@@ -59,17 +22,32 @@ const Tracks = () => {
             t.name.toLowerCase().includes(value?.toLowerCase()) ||
             t.artists.some((a) => a.name.toLowerCase().includes(value))
         ),
-      [value]
+      [value, tracks]
     ) || tracks;
-  const filterTracks = (value: string) => setValue(value);
 
   // Get tracks.
+  const fetchTracks = async function* () {
+    const limit = 50;
+    let offset = 0;
+
+    while (true) {
+      const res = await withSpotify(() =>
+        spotify.getMySavedTracks({ limit, offset })
+      );
+
+      const newTracks = res?.items.map((i) => i.track);
+      yield* newTracks;
+
+      const total = res.total;
+      offset += limit;
+      if (offset > total) break;
+    }
+  };
+
   const getTracks = useCallback(async () => {
-    const res = await withSpotify(() =>
-      spotify.getMySavedTracks({ limit: 50 })
-    );
-    const tracks = res?.items?.map((item) => item.track);
-    setTracks(tracks);
+    const fetchedTracks: typeof tracks = [];
+    for await (const i of fetchTracks()) fetchedTracks.push(i);
+    setTracks(fetchedTracks);
   }, []);
 
   // ON LOAD.
@@ -78,38 +56,11 @@ const Tracks = () => {
   }, []);
 
   return (
-    Array.isArray(tracks) && (
-      <>
-        <Styled.Title>SONGS</Styled.Title>
-        <SearchBar ph="Searh name or artist" onChange={filterTracks} />
-        {filteredTracks?.length === 0 ? (
-          <Styled.NotFoundText>
-            No songs match search parameters
-          </Styled.NotFoundText>
-        ) : (
-          <Styled.Songs initial="hide" animate="show">
-            {filteredTracks?.map((t) => (
-              <Styled.Card key={t.id} variants={card}>
-                <Styled.SongTitle>{t.name}</Styled.SongTitle>
-                <Styled.SongArtist>
-                  {t.artists.map((a) => a.name).join(" - ")}
-                </Styled.SongArtist>
-                <a href={t.external_urls.spotify} target="_blank">
-                  <Styled.SongImg
-                    src={t.album?.images[0].url}
-                    alt={t.name}
-                    variants={cardImg}
-                  />
-                </a>
-                <Styled.Audio controls>
-                  <source src={t.preview_url} />
-                </Styled.Audio>
-              </Styled.Card>
-            ))}
-          </Styled.Songs>
-        )}
-      </>
-    )
+    <>
+      <Styled.Title>SONGS</Styled.Title>
+      <SearchBar ph="Searh name or artist" onChange={filterTracks} />
+      <SpotifyTracks tracks={filteredTracks} />
+    </>
   );
 };
 

@@ -1,9 +1,8 @@
 import tw from "twin.macro";
 
 const Layout = tw.div`
-  w-screen
+  w-full
   h-screen
-  overflow-x-hidden
 `;
 
 const Main = tw.main`
