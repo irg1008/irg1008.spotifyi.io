@@ -3,14 +3,21 @@ import tw from "twin.macro";
 const Home = tw.div`
   text-xl
   font-semibold
+  w-full
+  h-full
+`;
+
+const Tracks = tw.div`
+  space-y-5
   flex
   flex-col
   items-center
   justify-center
-  space-y-5
   mb-40
-  mt-10
-`;
+  mt-20
+  w-full
+  h-full
+`
 
 const Title = tw.h1`
   text-6xl
@@ -22,7 +29,37 @@ const Title = tw.h1`
   text-center
 `;
 
+const Navbar = tw.div`
+  w-full
+  fixed
+  top-0
+  flex
+  justify-end
+  items-center
+  bg-black
+  bg-opacity-50
+  p-4
+  backdrop-filter
+  backdrop-grayscale
+  backdrop-blur-md
+  shadow-md
+  border-b-2
+  left-0
+`;
+
+const LogOut = tw.button`
+  p-2
+  border-2
+  text-white
+  hover:bg-white
+  hover:bg-opacity-20
+  transition-colors
+`;
+
 export default {
   Home,
   Title,
+  Navbar,
+  LogOut,
+  Tracks
 };

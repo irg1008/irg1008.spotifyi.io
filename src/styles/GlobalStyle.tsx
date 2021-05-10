@@ -6,6 +6,13 @@ const CustomGlobalStyle = createGlobalStyle`
       -webkit-appearance: none;
       display: none;
   }
+
+  button {
+    outline: none;
+    &:focus {
+      outline: none;
+    }
+  }
 `;
 
 const GlobalStyle = () => (

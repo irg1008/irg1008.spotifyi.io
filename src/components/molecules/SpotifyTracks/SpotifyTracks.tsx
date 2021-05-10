@@ -82,7 +82,7 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
   const [offset, setOffset] = useState(0);
   const [partial, setPartial] = useState<typeof tracks>([]);
 
-  const limit = 20;
+  const limit = 30;
 
   const appendNewTracks = (reset?: boolean) => {
     const initOffset = reset ? 0 : offset;

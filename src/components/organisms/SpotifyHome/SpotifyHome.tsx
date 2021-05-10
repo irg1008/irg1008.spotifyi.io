@@ -5,6 +5,7 @@ import Styled from "./SpotifyHome.styles";
 import SearchBar from "components/atoms/SearchBar";
 import SpotifyTracks from "components/molecules/SpotifyTracks";
 import Loading from "components/atoms/Loading";
+import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
 
 const Tracks = () => {
   const { spotify, withSpotify } = useSpotify();
@@ -60,7 +61,7 @@ const Tracks = () => {
   }, []);
 
   return (
-    <>
+    <Styled.Tracks>
       {tracksLoaded ? (
         <Styled.Title>Songs</Styled.Title>
       ) : (
@@ -68,7 +69,17 @@ const Tracks = () => {
       )}
       <SearchBar ph="Searh name or artist" onChange={filterTracks} />
       {tracksLoaded && <SpotifyTracks tracks={filteredTracks} />}
-    </>
+    </Styled.Tracks>
+  );
+};
+
+const Navbar = () => {
+  const { dispatch } = useSpotifyConsumer();
+  const logOut = () => dispatch({ type: "LOG_OUT" });
+  return (
+    <Styled.Navbar>
+      <Styled.LogOut onClick={logOut}>Log Out</Styled.LogOut>
+    </Styled.Navbar>
   );
 };
 
@@ -76,6 +87,7 @@ const SpotifyHome = () => {
   return (
     <Styled.Home>
       <Tracks />
+      <Navbar />
       <SpotifyControls />
     </Styled.Home>
   );

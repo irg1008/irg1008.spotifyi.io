@@ -24,7 +24,7 @@ const useSpotify = () => {
 
         // Set new token.
         dispatch({
-          type: "SET_ACCESS_TOKEN",
+          type: "LOG_IN",
           payload: { access_token, refresh_token },
         });
 

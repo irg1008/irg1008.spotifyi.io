@@ -7,7 +7,12 @@ import {
   useState,
 } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
-import { ISpotifyTokenResponse, setLocalData, getLocalData } from "lib/spotify";
+import {
+  ISpotifyTokenResponse,
+  setLocalData,
+  getLocalData,
+  removeLocalData,
+} from "lib/spotify";
 import Loading from "components/atoms/Loading";
 
 interface ISpotifyState {
@@ -20,21 +25,30 @@ const initialState: ISpotifyState = {
   isLogged: false,
 };
 
-type TAction = {
-  type: "SET_ACCESS_TOKEN";
-  payload: ISpotifyTokenResponse;
-};
+type TAction =
+  | {
+      type: "LOG_IN";
+      payload: ISpotifyTokenResponse;
+    }
+  | {
+      type: "LOG_OUT";
+    };
 
 const reducer = (state: ISpotifyState, action: TAction): ISpotifyState => {
   const { spotify } = state;
   switch (action.type) {
-    case "SET_ACCESS_TOKEN": {
+    case "LOG_IN": {
       const { access_token } = action.payload;
 
       spotify.setAccessToken(access_token);
       setLocalData(action.payload);
 
       return { ...state, isLogged: true };
+    }
+    case "LOG_OUT": {
+      removeLocalData();
+
+      return { ...state, isLogged: false };
     }
     default:
       throw new Error("Invalid spotify action");
@@ -62,9 +76,8 @@ const SpotifyProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const persistanceAuth = () => {
       const data = getLocalData();
-      if (data.access_token && data.refresh_token) {
-        dispatch({ type: "SET_ACCESS_TOKEN", payload: data });
-      }
+      if (data.access_token && data.refresh_token)
+        dispatch({ type: "LOG_IN", payload: data });
     };
 
     if (!state.isLogged) {

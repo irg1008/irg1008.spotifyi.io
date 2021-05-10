@@ -26,5 +26,16 @@ const getLocalData = (): ISpotifyTokenResponse => {
   return { access_token, refresh_token };
 };
 
-export { getRedirectUri, spotifyBaseUri, setLocalData, getLocalData };
+const removeLocalData = () => {
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+};
+
+export {
+  getRedirectUri,
+  spotifyBaseUri,
+  setLocalData,
+  getLocalData,
+  removeLocalData,
+};
 export type { ISpotifyTokenResponse };

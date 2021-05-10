@@ -9,7 +9,7 @@ const getAuthUrl = () =>
     axios.post(baseApiUrl + "authUrl", { redirectUri: getRedirectUri() })
   );
 
-const logIn = (code: string) =>
+const getToken = (code: string) =>
   withMiddle(() =>
     axios.post(baseApiUrl + "logIn", { code, redirectUri: getRedirectUri() })
   );
@@ -17,4 +17,4 @@ const logIn = (code: string) =>
 const getNewToken = (refreshToken: string) =>
   withMiddle(() => axios.post(baseApiUrl + "getNewToken", { refreshToken }));
 
-export { getAuthUrl, logIn, getNewToken };
+export { getAuthUrl, getToken, getNewToken };
