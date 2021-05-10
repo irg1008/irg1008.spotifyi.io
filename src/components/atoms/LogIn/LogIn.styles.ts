@@ -9,25 +9,21 @@ const LogIn = tw.div`
   p-3
   rounded-xl
   shadow-md
+  my-2
 `;
 
 const Title = styled.h1`
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
   ${tw`
-    text-8xl
+    text-2xl
     text-white
     font-extrabold
     mb-20
     drop-shadow-2xl
-    text-center
-    md:text-4xl
-  `}
-`;
-
-const Container = tw.div`
-  flex
-  flex-col
-  justify-around
+    max-w-4xl
+    md:text-8xl
+    sm:text-4xl
+    `}
 `;
 
 const Button = tw(motion.button)`
@@ -45,23 +41,26 @@ const Button = tw(motion.button)`
   text-xl
 `;
 
-const Info = tw.div`
+const Container = tw.div`
   flex
   justify-center
   items-center
   space-y-2
   flex-col
-  text-green-100
+  p-2
+  text-center
 `;
 
 const InfoText = tw.p`
   text-xl
+  text-green-100
 `;
 
 const Arrow = tw(ArrowUpIcon)`
+  text-green-100
   h-6
   animate-bounce
   mt-2
 `;
 
-export default { LogIn, Button, Info, InfoText, Arrow, Title, Container };
+export default { LogIn, Button, Container, InfoText, Arrow, Title };

@@ -10,7 +10,7 @@ const LogIn = () => {
   };
 
   return (
-    <>
+    <Styled.Container>
       <Styled.Title>SPOTIFY API SONG TEST</Styled.Title>
       <Styled.LogIn>
         <Styled.Button
@@ -28,11 +28,11 @@ const LogIn = () => {
           LOG IN
         </Styled.Button>
       </Styled.LogIn>
-      <Styled.Info>
+      <Styled.Container>
         <Styled.Arrow />
         <Styled.InfoText>Drag to Log In with Spotify</Styled.InfoText>
-      </Styled.Info>
-    </>
+      </Styled.Container>
+    </Styled.Container>
   );
 };
 
