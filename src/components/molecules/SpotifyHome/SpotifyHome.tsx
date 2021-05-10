@@ -45,21 +45,24 @@ const Tracks = () => {
   };
 
   const getTracks = useCallback(async () => {
+    setTracksLoaded(false);
     const fetchedTracks: typeof tracks = [];
     for await (const i of fetchTracks()) fetchedTracks.push(i);
     setTracks(fetchedTracks);
+    setTracksLoaded(true);
   }, []);
 
   // ON LOAD.
+  const [tracksLoaded, setTracksLoaded] = useState<boolean>();
   useEffect(() => {
     getTracks();
   }, []);
 
   return (
     <>
-      <Styled.Title>SONGS</Styled.Title>
+      <Styled.Title>{tracksLoaded ? "Songs" : "Loading Songs..."}</Styled.Title>
       <SearchBar ph="Searh name or artist" onChange={filterTracks} />
-      <SpotifyTracks tracks={filteredTracks} />
+      {tracksLoaded && <SpotifyTracks tracks={filteredTracks} />}
     </>
   );
 };
