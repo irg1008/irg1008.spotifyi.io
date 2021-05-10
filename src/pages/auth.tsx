@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { logIn } from "middleware/spotify";
 import { useSpotify } from "providers/SpotifyProvider";
 import { ISpotifyTokenResponse } from "lib/spotify";
+import Loading from "components/atoms/Loading";
 
 const Auth = () => {
   const router = useRouter();
@@ -36,7 +37,7 @@ const Auth = () => {
   return (
     <>
       <Head title="Redirecting..." />
-      <h2>Redirecting...</h2>
+      <Loading text="Redirecting..." />
     </>
   );
 };

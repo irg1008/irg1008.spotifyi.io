@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import GlobalStyle from "styles/GlobalStyle";
 import Styled from "./Layout.styles";
+import Loading from "components/atoms/Loading";
 
 const Layout: React.FC = ({ children }) => (
   <Styled.Layout>
@@ -28,7 +29,7 @@ const DynamicLayout: React.FC = ({ children }) => {
 
   return (
     <>
-      {loading && <div>Loading</div>}
+      {loading && <Loading />}
       <GlobalStyle />
       <Layout>{children}</Layout>
     </>

@@ -1,5 +1,5 @@
 import Head from "components/atoms/Head";
-import SpotifyHome from "components/molecules/SpotifyHome";
+import SpotifyHome from "components/organisms/SpotifyHome";
 import LogIn from "components/atoms/LogIn";
 import { useSpotify } from "providers/SpotifyProvider";
 

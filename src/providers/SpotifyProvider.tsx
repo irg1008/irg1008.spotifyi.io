@@ -8,6 +8,7 @@ import {
 } from "react";
 import SpotifyWebApi from "spotify-web-api-js";
 import { ISpotifyTokenResponse, setLocalData, getLocalData } from "lib/spotify";
+import Loading from "components/atoms/Loading";
 
 interface ISpotifyState {
   spotify: SpotifyWebApi.SpotifyWebApiJs;
@@ -69,11 +70,11 @@ const SpotifyProvider: React.FC = ({ children }) => {
     if (!state.isLogged) {
       persistanceAuth();
     }
-      setLoading(false);
+    setLoading(false);
   }, []);
 
   return loading ? (
-    <div>Loading</div>
+    <Loading />
   ) : (
     <SpotifyContext.Provider value={{ state, dispatch }}>
       {children}

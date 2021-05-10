@@ -3,7 +3,8 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import SpotifyControls from "components/atoms/SpotifyControls";
 import Styled from "./SpotifyHome.styles";
 import SearchBar from "components/atoms/SearchBar";
-import SpotifyTracks from "components/atoms/SpotifyTracks";
+import SpotifyTracks from "components/molecules/SpotifyTracks";
+import Loading from "components/atoms/Loading";
 
 const Tracks = () => {
   const { spotify, withSpotify } = useSpotify();
@@ -60,7 +61,11 @@ const Tracks = () => {
 
   return (
     <>
-      <Styled.Title>{tracksLoaded ? "Songs" : "Loading Songs..."}</Styled.Title>
+      {tracksLoaded ? (
+        <Styled.Title>Songs</Styled.Title>
+      ) : (
+        <Loading text="Loading Songs..." />
+      )}
       <SearchBar ph="Searh name or artist" onChange={filterTracks} />
       {tracksLoaded && <SpotifyTracks tracks={filteredTracks} />}
     </>

@@ -1,8 +1,8 @@
 import Styled from "./SpotifyTracks.styles";
 import { Variants, Variant } from "framer-motion";
-import useReachingBottom from "hooks/useReachingBottom";
-import useScroll from "hooks/useScroll";
-import { useEffect, useMemo, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useEffect, useState } from "react";
+import Loading from "components/atoms/Loading";
 
 interface CustomVariants extends Variants {
   hide: Variant;
@@ -87,15 +87,15 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
   const appendNewTracks = (reset?: boolean) => {
     const initOffset = reset ? 0 : offset;
     const endOffset = initOffset + limit;
-    
+
     const slicedTracks = tracks?.slice(initOffset, endOffset);
 
     if (slicedTracks) {
       const newPartial =
         reset || !partial ? slicedTracks : partial.concat(slicedTracks);
 
-      setPartial(newPartial);
       setOffset(endOffset);
+      setPartial(newPartial);
     }
   };
 
@@ -103,14 +103,19 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
     appendNewTracks(true);
   }, [tracks]);
 
-  useReachingBottom(appendNewTracks);
-
   return (
-    <Styled.Songs initial="hide" animate="anim">
-      {partial?.map((track) => (
-        <SpotifyCard key={track.id} {...{ track }} />
-      ))}
-    </Styled.Songs>
+    <InfiniteScroll
+      dataLength={partial.length}
+      next={appendNewTracks}
+      hasMore={offset < tracks.length}
+      loader={<Loading text="Fetching more songs..." />}
+    >
+      <Styled.Songs initial="hide" animate="anim">
+        {partial?.map((track) => (
+          <SpotifyCard key={track.id} {...{ track }} />
+        ))}
+      </Styled.Songs>
+    </InfiniteScroll>
   );
 };
 
