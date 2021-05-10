@@ -62,13 +62,15 @@ const Tracks = () => {
 
   return (
     <Styled.Tracks>
+      <Styled.Title>Songs</Styled.Title>
       {tracksLoaded ? (
-        <Styled.Title>Songs</Styled.Title>
+        <>
+          <SearchBar ph="Searh name or artist" onChange={filterTracks} />
+          <SpotifyTracks tracks={filteredTracks} />
+        </>
       ) : (
         <Loading text="Loading Songs..." />
       )}
-      <SearchBar ph="Searh name or artist" onChange={filterTracks} />
-      {tracksLoaded && <SpotifyTracks tracks={filteredTracks} />}
     </Styled.Tracks>
   );
 };

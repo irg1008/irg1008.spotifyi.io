@@ -5,6 +5,11 @@ const Home = tw.div`
   font-semibold
   w-full
   h-full
+  pb-40
+  pt-20
+  flex
+  items-center
+  justify-center
 `;
 
 const Tracks = tw.div`
@@ -13,8 +18,6 @@ const Tracks = tw.div`
   flex-col
   items-center
   justify-center
-  mb-40
-  mt-20
   w-full
   h-full
 `

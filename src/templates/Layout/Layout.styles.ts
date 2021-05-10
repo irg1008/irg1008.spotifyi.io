@@ -8,8 +8,6 @@ const Layout = tw.div`
 const Main = tw.main`
   min-w-full
   min-h-full
-  w-auto
-  h-auto
   bg-gradient-to-b
   from-green-500
   to-gray-500
