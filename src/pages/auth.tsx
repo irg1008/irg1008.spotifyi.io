@@ -4,11 +4,13 @@ import { useEffect } from "react";
 import { getToken } from "middleware/spotify";
 import { useSpotify } from "providers/SpotifyProvider";
 import { ISpotifyTokenResponse } from "lib/spotify";
-import Loading from "components/atoms/Loading";
 
 const Auth = () => {
   const router = useRouter();
-  const { dispatch } = useSpotify();
+  const {
+    dispatch,
+    state: { isLogged },
+  } = useSpotify();
 
   useEffect(() => {
     const checkLogIn = async () => {
@@ -31,13 +33,12 @@ const Auth = () => {
   }, [router.query]);
 
   useEffect(() => {
-    router.replace("/");
-  }, []);
+    isLogged && router.replace("/");
+  }, [isLogged]);
 
   return (
     <>
       <Head title="Redirecting..." />
-      <Loading text="Redirecting..." />
     </>
   );
 };

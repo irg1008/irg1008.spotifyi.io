@@ -86,12 +86,12 @@ const SpotifyProvider: React.FC = ({ children }) => {
     setLoading(false);
   }, []);
 
-  return loading ? (
-    <Loading />
-  ) : (
-    <SpotifyContext.Provider value={{ state, dispatch }}>
-      {children}
-    </SpotifyContext.Provider>
+  return (
+    !loading && (
+      <SpotifyContext.Provider value={{ state, dispatch }}>
+        {children}
+      </SpotifyContext.Provider>
+    )
   );
 };
 

@@ -11,6 +11,7 @@ const LogIn = () => {
 
   return (
     <>
+      <Styled.Title>SPOTIFY API SONG TEST</Styled.Title>
       <Styled.LogIn>
         <Styled.Button
           drag

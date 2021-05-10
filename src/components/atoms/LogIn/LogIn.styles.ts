@@ -1,6 +1,7 @@
 import tw from "twin.macro";
 import { motion } from "framer-motion";
 import { ArrowUpIcon } from "@heroicons/react/outline";
+import styled from "styled-components";
 
 const LogIn = tw.div`
   bg-white
@@ -8,6 +9,23 @@ const LogIn = tw.div`
   p-3
   rounded-xl
   shadow-md
+`;
+
+const Title = styled.h1`
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  ${tw`
+    text-8xl
+    text-white
+    font-extrabold
+    mb-20
+    drop-shadow-2xl
+  `}
+`;
+
+const Container = tw.div`
+  flex
+  flex-col
+  justify-around
 `;
 
 const Button = tw(motion.button)`
@@ -44,4 +62,4 @@ const Arrow = tw(ArrowUpIcon)`
   mt-2
 `;
 
-export default { LogIn, Button, Info, InfoText, Arrow };
+export default { LogIn, Button, Info, InfoText, Arrow, Title, Container };
