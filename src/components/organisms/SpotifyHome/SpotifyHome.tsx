@@ -78,9 +78,34 @@ const Tracks = () => {
 const Navbar = () => {
   const { dispatch } = useSpotifyConsumer();
   const logOut = () => dispatch({ type: "LOG_OUT" });
+
+  const { spotify, withSpotify } = useSpotify();
+
+  // Get user pipeline.
+  const [user, setUser] = useState<SpotifyApi.CurrentUsersProfileResponse>();
+  const fetchUser = async () => await withSpotify(() => spotify.getMe());
+  const getUser = async () => {
+    const user = await fetchUser();
+    setUser(user);
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  console.log(user);
+
   return (
     <Styled.Navbar>
       <Styled.LogOut onClick={logOut}>Log Out</Styled.LogOut>
+      {user?.product === "premium" ? (
+        <Styled.PremiumIcon />
+      ) : (
+        <Styled.PoorIcon />
+      )}
+      <Styled.Name>{user?.display_name}</Styled.Name>
+      <a href={user?.uri} target="_blank">
+        <Styled.Img src={user?.images[0].url} />
+      </a>
     </Styled.Navbar>
   );
 };
