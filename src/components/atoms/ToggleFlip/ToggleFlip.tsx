@@ -6,8 +6,8 @@ const ToggleFlip = () => {
   const isDark = theme === "dark";
 
   return (
-    <Styled.Flip onClick={toggleTheme}>
-      <Styled.InnerFlip flipped={isDark}>
+    <Styled.Flip>
+      <Styled.InnerFlip flipped={isDark} onClick={toggleTheme}>
         <Styled.Front>
           <Styled.Sun />
         </Styled.Front>

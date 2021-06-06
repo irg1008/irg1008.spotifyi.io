@@ -4,7 +4,7 @@ import { getLocalData, ISpotifyTokenResponse } from "lib/spotify";
 
 const useSpotify = () => {
   const {
-    state: { spotify },
+    state: { spotify, isLogged },
     dispatch,
   } = useSpotifyConsumer();
 
@@ -34,7 +34,7 @@ const useSpotify = () => {
     }
   };
 
-  return { withSpotify, spotify };
+  return { withSpotify, spotify, isLogged };
 };
 
 export default useSpotify;

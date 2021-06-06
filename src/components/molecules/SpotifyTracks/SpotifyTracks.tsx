@@ -5,118 +5,118 @@ import { useEffect, useState } from "react";
 import Loading from "components/atoms/Loading";
 
 interface CustomVariants extends Variants {
-  hide: Variant;
-  anim: Variant;
+	hide: Variant;
+	anim: Variant;
 }
 
 const card: CustomVariants = {
-  hide: {
-    opacity: 0,
-    scale: 0.9,
-    translateY: -40,
-  },
-  anim: {
-    opacity: 1,
-    scale: 1,
-    translateY: 0,
-    transition: {
-      duration: 0.8,
-      type: "spring",
-      bounce: 0.15,
-    },
-  },
+	hide: {
+		opacity: 0,
+		scale: 0.9,
+		translateY: -40,
+	},
+	anim: {
+		opacity: 1,
+		scale: 1,
+		translateY: 0,
+		transition: {
+			duration: 0.8,
+			type: "spring",
+			bounce: 0.15,
+		},
+	},
 };
 
 const cardImg: CustomVariants = {
-  hide: {
-    rotate: 0,
-  },
-  anim: {
-    rotate: -12,
-    scale: 0.8,
-    transition: {
-      duration: 1.2,
-      type: "spring",
-      bounce: 0.15,
-    },
-  },
+	hide: {
+		rotate: 0,
+	},
+	anim: {
+		rotate: -12,
+		scale: 0.8,
+		transition: {
+			duration: 1.2,
+			type: "spring",
+			bounce: 0.15,
+		},
+	},
 };
 
 type TTrack = SpotifyApi.TrackObjectFull;
 
 interface ISpotifyTrack {
-  track: TTrack;
+	track: TTrack;
 }
 
 interface ISpotifyTracks {
-  tracks: TTrack[];
+	tracks: TTrack[];
 }
 
 const SpotifyCard = ({ track }: ISpotifyTrack) => (
-  <Styled.Card variants={card}>
-    <Styled.SongTitle>{track.name}</Styled.SongTitle>
-    <Styled.SongArtist>
-      {track.artists.map((a) => a.name).join(" - ")}
-    </Styled.SongArtist>
-    <a href={track.external_urls.spotify} target="_blank">
-      <Styled.SongImg
-        src={track.album?.images[0].url}
-        alt={track.name}
-        variants={cardImg}
-      />
-    </a>
-    <Styled.Audio controls>
-      <source src={track.preview_url} />
-    </Styled.Audio>
-  </Styled.Card>
+	<Styled.Card variants={card}>
+		<Styled.SongTitle>{track.name}</Styled.SongTitle>
+		<Styled.SongArtist>
+			{track.artists.map((a) => a.name).join(" - ")}
+		</Styled.SongArtist>
+		<a href={track.external_urls.spotify} target="_blank">
+			<Styled.SongImg
+				src={track.album?.images[0].url}
+				alt={track.name}
+				variants={cardImg}
+			/>
+		</a>
+		<Styled.Audio controls>
+			<source src={track.preview_url} />
+		</Styled.Audio>
+	</Styled.Card>
 );
 
 const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
-  if (tracks?.length === 0)
-    return (
-      <Styled.NotFoundText>
-        No songs match search parameters
-      </Styled.NotFoundText>
-    );
+	if (tracks?.length === 0)
+		return (
+			<Styled.NotFoundText>
+				No songs match search parameters
+			</Styled.NotFoundText>
+		);
 
-  const [offset, setOffset] = useState(0);
-  const [partial, setPartial] = useState<typeof tracks>([]);
+	const [offset, setOffset] = useState(0);
+	const [partial, setPartial] = useState<typeof tracks>([]);
 
-  const limit = 30;
+	const limit = 30;
 
-  const appendNewTracks = (reset?: boolean) => {
-    const initOffset = reset ? 0 : offset;
-    const endOffset = initOffset + limit;
+	const appendNewTracks = (reset?: boolean) => {
+		const initOffset = reset ? 0 : offset;
+		const endOffset = initOffset + limit;
 
-    const slicedTracks = tracks?.slice(initOffset, endOffset);
+		const slicedTracks = tracks?.slice(initOffset, endOffset);
 
-    if (slicedTracks) {
-      const newPartial =
-        reset || !partial ? slicedTracks : partial.concat(slicedTracks);
+		if (slicedTracks) {
+			const newPartial =
+				reset || !partial ? slicedTracks : partial.concat(slicedTracks);
 
-      setOffset(endOffset);
-      setPartial(newPartial);
-    }
-  };
+			setOffset(endOffset);
+			setPartial(newPartial);
+		}
+	};
 
-  useEffect(() => {
-    appendNewTracks(true);
-  }, [tracks]);
+	useEffect(() => {
+		appendNewTracks(true);
+	}, [tracks]);
 
-  return (
-    <InfiniteScroll
-      dataLength={partial.length}
-      next={appendNewTracks}
-      hasMore={offset < tracks.length}
-      loader={<Loading text="Fetching more songs..." />}
-    >
-      <Styled.Songs initial="hide" animate="anim">
-        {partial?.map((track) => (
-          <SpotifyCard key={track.id} {...{ track }} />
-        ))}
-      </Styled.Songs>
-    </InfiniteScroll>
-  );
+	return (
+		<InfiniteScroll
+			dataLength={partial.length}
+			next={appendNewTracks}
+			hasMore={offset < tracks.length}
+			loader={<Loading text="Fetching more songs..." />}
+		>
+			<Styled.Songs initial="hide" animate="anim">
+				{partial?.map((track) => (
+					<SpotifyCard key={track.id} {...{ track }} />
+				))}
+			</Styled.Songs>
+		</InfiniteScroll>
+	);
 };
 
 export default SpotifyTracks;

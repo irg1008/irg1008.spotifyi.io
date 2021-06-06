@@ -15,10 +15,11 @@ const InnerFlip = styled.div(({ flipped }: { flipped: boolean }) => [
     w-full
     h-full
     transform-style[preserve-3d]
-    cursor-pointer
     transition-transform
     duration-200
     ease-in-out
+    cursor-pointer
+    rounded-full
   `,
 ]);
 

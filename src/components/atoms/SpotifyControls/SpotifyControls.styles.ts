@@ -32,7 +32,6 @@ const Button = tw(motion.button)`
   bg-white
   p-4 
   rounded-md
-  focus:outline-none
   shadow-md
   text-4xl
 `;

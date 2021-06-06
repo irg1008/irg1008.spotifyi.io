@@ -24,10 +24,8 @@ const Tracks = tw.div`
 `;
 
 const Title = tw.h1`
-  text-6xl
   text-white
   font-extralight
-  animate-pulse
   my-5
   w-full
   text-center
@@ -54,11 +52,10 @@ const Navbar = tw.div`
 
 const Button = tw.button`
   p-2
-  border-2
-  text-white
-  hover:bg-white
-  hover:bg-opacity-20
   transition-colors
+  dark:border-white
+  light:border-black
+  border-b-2
 `;
 
 const Img = tw.img`
@@ -86,13 +83,13 @@ const PoorIcon = tw(EmojiSadIcon)`
 `;
 
 export default {
-  Home,
-  Title,
-  Navbar,
-  Button,
-  Tracks,
-  Img,
-  Name,
-  PremiumIcon,
-  PoorIcon,
+	Home,
+	Title,
+	Navbar,
+	Button,
+	Tracks,
+	Img,
+	Name,
+	PremiumIcon,
+	PoorIcon,
 };

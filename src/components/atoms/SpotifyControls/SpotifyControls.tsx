@@ -89,11 +89,11 @@ const SpotifyControls = () => {
     <Styled.Controls initial="hide" animate="show" variants={buttonsCont}>
       {song && (
         <>
-          <h2>Device: {device?.name}</h2>
-          <h2>
+          <p>Device: {device?.name}</p>
+          <p>
             Progress: {parseMs(progress)}/{parseMs(song?.duration_ms)}
-          </h2>
-          <h2>Name: {song?.name}</h2>
+          </p>
+          <p>Name: {song?.name}</p>
           <a href={song?.uri}>
             <Styled.Image src={song?.album.images[0].url} alt={song?.name} />
           </a>
