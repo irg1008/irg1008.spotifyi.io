@@ -47,9 +47,12 @@ const Tracks = () => {
       [value, tracks]
     ) || tracks;
 
+  const [loaded, setLoaded] = useState(false);
+
   const getTracks = useCallback(async () => {
     for await (const i of fetchTracks()) {
       setTracks((oldTracks) => [...oldTracks, ...i]);
+      !loaded && setLoaded(true);
     }
   }, []);
 
@@ -61,7 +64,7 @@ const Tracks = () => {
   return (
     <Styled.Tracks>
       <Styled.Title>Songs</Styled.Title>
-      {tracks ? (
+      {loaded ? (
         <>
           <SearchBar ph="Searh name or artist" onChange={filterTracks} />
           <SpotifyTracks tracks={filteredTracks} />

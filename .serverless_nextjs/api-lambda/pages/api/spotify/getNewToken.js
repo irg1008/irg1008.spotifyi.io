@@ -92,7 +92,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "8Onw");
+/******/ 	return __webpack_require__(__webpack_require__.s = "FZ3E");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -4064,53 +4064,6 @@ module.exports = _objectWithoutPropertiesLoose;
 
 /***/ }),
 
-/***/ "8Onw":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("fkL1");
-/* harmony import */ var next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Skye");
-var private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t("Skye", 1);
-/* harmony import */ var next_dist_build_webpack_loaders_next_serverless_loader_api_handler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("CpcB");
-/* harmony import */ var next_dist_build_webpack_loaders_next_serverless_loader_api_handler__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_dist_build_webpack_loaders_next_serverless_loader_api_handler__WEBPACK_IMPORTED_MODULE_2__);
-
-        
-      const { processEnv } = __webpack_require__("fXeI")
-      processEnv([{"path":".env.local","contents":"# SPOTIFY\r\nNEXT_PUBLIC_SPOTIFY_CLIENT_ID=\"2b1161f585004899a70982b2d20132ca\"\r\nNEXT_PUBLIC_SPOTIFY_CLIENT_SECRET=\"e8afa9f3d4044d9989df468aad0237a3\""},{"path":".env","contents":"# AWS\r\nAWS_ACCESS_KEY_ID=\"AKIA43LHHJEH2AFWP6E7\"\r\nAWS_SECRET_ACCESS_KEY=\"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\""}])
-    
-        
-        const runtimeConfig = {}
-        
-        
-
-        
-
-        const combinedRewrites = Array.isArray(private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites)
-          ? private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites
-          : []
-
-        if (!Array.isArray(private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites)) {
-          combinedRewrites.push(...private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites.beforeFiles)
-          combinedRewrites.push(...private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites.afterFiles)
-          combinedRewrites.push(...private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites.fallback)
-        }
-
-        const apiHandler = Object(next_dist_build_webpack_loaders_next_serverless_loader_api_handler__WEBPACK_IMPORTED_MODULE_2__["getApiHandler"])({
-          pageModule: __webpack_require__("dO4x"),
-          rewrites: combinedRewrites,
-          i18n: undefined,
-          page: "/api/spotify/getNewToken",
-          basePath: "",
-          pageIsDynamic: false,
-          encodedPreviewProps: {previewModeId:"af7eeb8df8ec5a3d8354c24185dfa055",previewModeSigningKey:"b2cad739479b57f8f4ad218b422097ceb884a0280238f022161301d08ad33ea2",previewModeEncryptionKey:"711af85dd8c027b8a00fcde4825c438819abb2d1a60390584741c873df612fca"}
-        })
-        /* harmony default export */ __webpack_exports__["default"] = (apiHandler);
-      
-
-/***/ }),
-
 /***/ "8jRI":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6320,6 +6273,53 @@ const HeadManagerContext = /*#__PURE__*/_react.default.createContext({});
 exports.HeadManagerContext = HeadManagerContext;
 
 if (false) {}
+
+/***/ }),
+
+/***/ "FZ3E":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("fkL1");
+/* harmony import */ var next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_dist_next_server_server_node_polyfill_fetch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Skye");
+var private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t("Skye", 1);
+/* harmony import */ var next_dist_build_webpack_loaders_next_serverless_loader_api_handler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("CpcB");
+/* harmony import */ var next_dist_build_webpack_loaders_next_serverless_loader_api_handler__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_dist_build_webpack_loaders_next_serverless_loader_api_handler__WEBPACK_IMPORTED_MODULE_2__);
+
+        
+      const { processEnv } = __webpack_require__("fXeI")
+      processEnv([{"path":".env.local","contents":"# SPOTIFY\r\nNEXT_PUBLIC_SPOTIFY_CLIENT_ID=\"2b1161f585004899a70982b2d20132ca\"\r\nNEXT_PUBLIC_SPOTIFY_CLIENT_SECRET=\"e8afa9f3d4044d9989df468aad0237a3\""},{"path":".env","contents":"# AWS\r\nAWS_ACCESS_KEY_ID=\"AKIA43LHHJEH2AFWP6E7\"\r\nAWS_SECRET_ACCESS_KEY=\"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\""}])
+    
+        
+        const runtimeConfig = {}
+        
+        
+
+        
+
+        const combinedRewrites = Array.isArray(private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites)
+          ? private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites
+          : []
+
+        if (!Array.isArray(private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites)) {
+          combinedRewrites.push(...private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites.beforeFiles)
+          combinedRewrites.push(...private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites.afterFiles)
+          combinedRewrites.push(...private_dot_next_routes_manifest_json__WEBPACK_IMPORTED_MODULE_1__.rewrites.fallback)
+        }
+
+        const apiHandler = Object(next_dist_build_webpack_loaders_next_serverless_loader_api_handler__WEBPACK_IMPORTED_MODULE_2__["getApiHandler"])({
+          pageModule: __webpack_require__("dO4x"),
+          rewrites: combinedRewrites,
+          i18n: undefined,
+          page: "/api/spotify/getNewToken",
+          basePath: "",
+          pageIsDynamic: false,
+          encodedPreviewProps: {previewModeId:"c279fe8b0e4b1fe62fdb0624619d5814",previewModeSigningKey:"92d27c8b4c0d0913b156893f6e0ea67eb389f1a3b96de4342409fb28c72539fc",previewModeEncryptionKey:"70da0f4956e4dd46765fcfb7517c912cc902db4cea7ae0e30d41b670653ec43b"}
+        })
+        /* harmony default export */ __webpack_exports__["default"] = (apiHandler);
+      
 
 /***/ }),
 

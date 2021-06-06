@@ -2,8 +2,8 @@
   "name": "v8ij2j-13kj27s",
   "arn": "arn:aws:iam::883369134351:role/v8ij2j-13kj27s",
   "service": [
-    "lambda.amazonaws.com",
-    "edgelambda.amazonaws.com"
+    "edgelambda.amazonaws.com",
+    "lambda.amazonaws.com"
   ],
   "policy": {
     "Version": "2012-10-17",
