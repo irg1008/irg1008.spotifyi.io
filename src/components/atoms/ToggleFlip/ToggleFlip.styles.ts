@@ -34,12 +34,12 @@ const Side = tw.div`
 `;
 
 const Front = tw(Side)`
-  bg-indigo-100
-  transform[rotateY(180deg)]
+  bg-yellow-100
 `;
 
 const Back = tw(Side)`
-  bg-yellow-100
+  bg-indigo-100
+  transform[rotateY(180deg)]
 `;
 
 const Moon = tw(MoonIcon)`

@@ -9,10 +9,10 @@ const ToggleFlip = () => {
     <Styled.Flip onClick={toggleTheme}>
       <Styled.InnerFlip flipped={isDark}>
         <Styled.Front>
-          <Styled.Moon />
+          <Styled.Sun />
         </Styled.Front>
         <Styled.Back>
-          <Styled.Sun />
+          <Styled.Moon />
         </Styled.Back>
       </Styled.InnerFlip>
     </Styled.Flip>
