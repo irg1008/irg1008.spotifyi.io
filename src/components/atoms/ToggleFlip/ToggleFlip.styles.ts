@@ -8,16 +8,19 @@ const Flip = tw.div`
   perspective[900px]
 `;
 
-const InnerFlip = styled.div<{ flipped: boolean }>`
-  transition: transform 0.2s ease-in-out;
-  ${({ flipped }) => flipped && tw`transform[rotateY(180deg)]`};
-  ${tw`
+const InnerFlip = styled.div(({ flipped }: { flipped: boolean }) => [
+  flipped && tw`transform[rotateY(180deg)]`,
+  tw`
     relative
     w-full
     h-full
     transform-style[preserve-3d]
-  `};
-`;
+    cursor-pointer
+    transition-transform
+    duration-200
+    ease-in-out
+  `,
+]);
 
 const Side = tw.div`
   absolute
