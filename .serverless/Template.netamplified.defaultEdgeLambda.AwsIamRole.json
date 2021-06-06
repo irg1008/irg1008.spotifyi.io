@@ -1,0 +1,31 @@
+{
+  "name": "v8ij2j-csoqt9r",
+  "arn": "arn:aws:iam::883369134351:role/v8ij2j-csoqt9r",
+  "service": [
+    "lambda.amazonaws.com",
+    "edgelambda.amazonaws.com"
+  ],
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Resource": "*",
+        "Action": [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+      },
+      {
+        "Effect": "Allow",
+        "Resource": "arn:aws:s3:::v8ij2j-0cmc50h/*",
+        "Action": [
+          "s3:GetObject",
+          "s3:PutObject"
+        ]
+      }
+    ]
+  },
+  "region": "us-east-1"
+}

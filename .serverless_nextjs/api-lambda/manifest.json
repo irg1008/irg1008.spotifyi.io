@@ -1,0 +1,1 @@
+{"apis":{"dynamic":{},"nonDynamic":{"/api/spotify/authUrl":"pages/api/spotify/authUrl.js","/api/spotify/getNewToken":"pages/api/spotify/getNewToken.js","/api/spotify/logIn":"pages/api/spotify/logIn.js"}},"domainRedirects":{},"enableHTTPCompression":false}

@@ -1,0 +1,17 @@
+{
+  "name": "v8ij2j-awtgxe",
+  "hash": "e7bzde5BjT200+GlxxW/fbU5wIWkeX6qg2wTIRw7nwI=",
+  "description": "Default Lambda@Edge for Next CloudFront distribution",
+  "memory": 512,
+  "timeout": 10,
+  "code": "D:\\Proyectos\\Coding\\VSCode\\Node\\Next\\Twin.Macro\\.serverless_nextjs\\default-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs12.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::883369134351:role/v8ij2j-csoqt9r"
+  },
+  "arn": "arn:aws:lambda:us-east-1:883369134351:function:v8ij2j-awtgxe",
+  "region": "us-east-1"
+}

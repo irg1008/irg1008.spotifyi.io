@@ -1,5 +1,3 @@
-import { useMemo, useState } from "react";
-
 import NextHead from "next/head";
 
 interface IHeadProps {

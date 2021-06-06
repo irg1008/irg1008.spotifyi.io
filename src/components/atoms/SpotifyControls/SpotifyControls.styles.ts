@@ -25,15 +25,22 @@ const Controls = tw(motion.div)`
   shadow-md
   border-t-2
   space-x-4
+  h-28
 `;
 
 const Button = tw(motion.button)`
   bg-white
-  p-4 rounded-md
+  p-4 
+  rounded-md
   focus:outline-none
   shadow-md
   text-4xl
-  `;
+`;
+
+const Image = tw.img`
+  rounded-md
+  h-full
+`
 
 const iconHeight = tw`h-8`;
 
@@ -42,4 +49,4 @@ const Play = styled(PlayIcon)(() => [iconHeight]);
 const Pause = styled(PauseIcon)(() => [iconHeight]);
 const Next = styled(ArrowCircleRightIcon)(() => [iconHeight]);
 
-export default { Controls, Button, Play, Pause, Previous, Next };
+export default { Controls, Button, Play, Pause, Previous, Next, Image };

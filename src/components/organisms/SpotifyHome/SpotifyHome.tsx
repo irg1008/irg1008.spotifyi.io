@@ -6,12 +6,32 @@ import SearchBar from "components/atoms/SearchBar";
 import SpotifyTracks from "components/molecules/SpotifyTracks";
 import Loading from "components/atoms/Loading";
 import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
+import useSWR from "swr";
 
 const Tracks = () => {
+  // Get 50 next tracks tracks.
+  const fetchTracks = async function* () {
+    const limit = 50;
+    let offset = 0;
+
+    while (true) {
+      const res = await withSpotify(() =>
+        spotify.getMySavedTracks({ limit, offset })
+      );
+
+      const newTracks = res?.items.map((i) => i.track);
+      yield newTracks;
+
+      const total = res.total;
+      offset += limit;
+      if (offset > total) break;
+    }
+  };
+
   const { spotify, withSpotify } = useSpotify();
 
   // TRACKS
-  const [tracks, setTracks] = useState<SpotifyApi.TrackObjectFull[]>();
+  const [tracks, setTracks] = useState<SpotifyApi.TrackObjectFull[]>([]);
   const [value, setValue] = useState("");
 
   // Filter tracks.
@@ -27,35 +47,13 @@ const Tracks = () => {
       [value, tracks]
     ) || tracks;
 
-  // Get tracks.
-  const fetchTracks = async function* () {
-    const limit = 50;
-    let offset = 0;
-
-    while (true) {
-      const res = await withSpotify(() =>
-        spotify.getMySavedTracks({ limit, offset })
-      );
-
-      const newTracks = res?.items.map((i) => i.track);
-      yield* newTracks;
-
-      const total = res.total;
-      offset += limit;
-      if (offset > total) break;
-    }
-  };
-
   const getTracks = useCallback(async () => {
-    setTracksLoaded(false);
-    const fetchedTracks: typeof tracks = [];
-    for await (const i of fetchTracks()) fetchedTracks.push(i);
-    setTracks(fetchedTracks);
-    setTracksLoaded(true);
+    for await (const i of fetchTracks()) {
+      setTracks((oldTracks) => [...oldTracks, ...i]);
+    }
   }, []);
 
   // ON LOAD.
-  const [tracksLoaded, setTracksLoaded] = useState<boolean>();
   useEffect(() => {
     getTracks();
   }, []);
@@ -63,7 +61,7 @@ const Tracks = () => {
   return (
     <Styled.Tracks>
       <Styled.Title>Songs</Styled.Title>
-      {tracksLoaded ? (
+      {tracks ? (
         <>
           <SearchBar ph="Searh name or artist" onChange={filterTracks} />
           <SpotifyTracks tracks={filteredTracks} />

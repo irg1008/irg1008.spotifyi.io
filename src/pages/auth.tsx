@@ -43,4 +43,6 @@ const Auth = () => {
   );
 };
 
+// TODO: Change the log in check to server side props.
+
 export default Auth;
