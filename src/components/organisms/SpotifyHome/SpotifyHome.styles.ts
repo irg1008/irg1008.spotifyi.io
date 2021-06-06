@@ -52,7 +52,7 @@ const Navbar = tw.div`
   space-x-4
 `;
 
-const LogOut = tw.button`
+const Button = tw.button`
   p-2
   border-2
   text-white
@@ -89,7 +89,7 @@ export default {
   Home,
   Title,
   Navbar,
-  LogOut,
+  Button,
   Tracks,
   Img,
   Name,

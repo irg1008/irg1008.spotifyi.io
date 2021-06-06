@@ -5,9 +5,17 @@ module.exports = {
     "./src/templates/**/*.{js,ts,jsx,tsx}",
     "./src/providers/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "class", // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: "#58db7b",
+          dark: "#19d4e6",
+          light: "#c92a1e",
+        },
+      },
+    },
   },
   variants: {
     extend: {},

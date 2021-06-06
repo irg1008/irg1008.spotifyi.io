@@ -8,12 +8,14 @@ const Layout = tw.div`
 const Main = tw.main`
   min-w-full
   min-h-full
-  bg-green-500
   flex
   flex-col
   justify-center
   items-center
   space-y-4
+  light:bg-green-300
+  dark:bg-red-500
+  transition-colors
 `;
 
 export default { Layout, Main };

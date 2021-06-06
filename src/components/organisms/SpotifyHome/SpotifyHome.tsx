@@ -6,7 +6,8 @@ import SearchBar from "components/atoms/SearchBar";
 import SpotifyTracks from "components/molecules/SpotifyTracks";
 import Loading from "components/atoms/Loading";
 import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
-import useSWR from "swr";
+import ToggleFlip from "components/atoms/ToggleFlip";
+import ToggleTheme from "components/atoms/ToggleTheme";
 
 const Tracks = () => {
   // Get 50 next tracks tracks.
@@ -93,11 +94,11 @@ const Navbar = () => {
     getUser();
   }, []);
 
-  console.log(user);
-
   return (
     <Styled.Navbar>
-      <Styled.LogOut onClick={logOut}>Log Out</Styled.LogOut>
+      <ToggleTheme />
+      <ToggleFlip />
+      <Styled.Button onClick={logOut}>Log Out</Styled.Button>
       {user?.product === "premium" ? (
         <Styled.PremiumIcon />
       ) : (
