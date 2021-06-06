@@ -14,7 +14,8 @@
 
 # production
 /build
-/.serverless*
+/.serverless
+/.serverless_nextjs
 
 # misc
 .DS_Store
