@@ -8,9 +8,7 @@ const Layout = tw.div`
 const Main = tw.main`
   min-w-full
   min-h-full
-  bg-gradient-to-b
-  from-green-500
-  to-gray-500
+  bg-green-500
   flex
   flex-col
   justify-center
