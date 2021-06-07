@@ -51,7 +51,6 @@ const Navbar = tw.div`
 `;
 
 const Button = tw.button`
-  p-2
   transition-colors
   dark:border-white
   light:border-black

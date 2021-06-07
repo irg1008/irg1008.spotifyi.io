@@ -1,4 +1,5 @@
 import tw from "twin.macro";
+import { motion } from "framer-motion";
 
 const Layout = tw.div`
   w-full

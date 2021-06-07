@@ -17,13 +17,16 @@ const CustomGlobalStyle = createGlobalStyle`
       dark:bg-red-500
       bg-opacity-50
       hover:bg-opacity-80
-      transition-colors
       duration-200
       dark:text-white
       light:text-black
       font-semibold
       dark:border-white
       light:border-black
+      p-2
+      shadow-2xl
+      transform
+      transition-colors
     `};
   }
 
