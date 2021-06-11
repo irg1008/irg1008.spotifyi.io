@@ -21,7 +21,7 @@ const Auth = ({ code }: IAuthProps) => {
 
 		if (code) {
 			// Log in and recieve access token.
-			const res = await getToken(code.toString());
+			const [res, _] = await getToken(code.toString());
 			const data: ISpotifyTokenResponse = res?.data;
 
 			if (data) {
@@ -47,8 +47,16 @@ const Auth = ({ code }: IAuthProps) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-	const code = ctx.query["code"];
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+	const code = query["code"].toString();
+
+	// If spotify didn't redirect with valid code => Code not found.
+	if (!code) return { notFound: true };
+
+	// Now we get the token and redirect => Saving page creation and calling APIs on the back.
+	const [res, error] = await getToken(code);
+	//console.log(error);
+
 	return { props: { code } };
 };
 
