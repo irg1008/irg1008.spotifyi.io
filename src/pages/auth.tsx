@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps<IAuthProps> = async ({
 		const { res, error: spotifyError } = await getToken(code.toString());
 
 		// If error on token response. 400 bad request or any other.
-		if (error) return { props: { spotifyError } };
+		if (!!error) return { props: { spotifyError } };
 
 		// If otherwise, return token data.
 		return { props: { data: res.data } };
