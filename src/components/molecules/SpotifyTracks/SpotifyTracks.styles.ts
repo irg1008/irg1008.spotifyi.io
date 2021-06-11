@@ -51,11 +51,11 @@ const Audio = tw.audio`
 `;
 
 export default {
-  Songs,
-  Card,
-  SongTitle,
-  SongArtist,
-  SongImg,
-  NotFoundText,
-  Audio,
+	Songs,
+	Card,
+	SongTitle,
+	SongArtist,
+	SongImg,
+	NotFoundText,
+	Audio,
 };

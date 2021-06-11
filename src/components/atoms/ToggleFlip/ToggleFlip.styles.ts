@@ -9,8 +9,8 @@ const Flip = tw.div`
 `;
 
 const InnerFlip = styled.div(({ flipped }: { flipped: boolean }) => [
-  flipped && tw`transform[rotateY(180deg)]`,
-  tw`
+	flipped && tw`transform[rotateY(180deg)]`,
+	tw`
     relative
     w-full
     h-full

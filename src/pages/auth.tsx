@@ -1,47 +1,44 @@
 import Head from "components/atoms/Head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { getToken } from "middleware/spotify";
 import { useSpotify } from "providers/SpotifyProvider";
 import { ISpotifyTokenResponse } from "lib/spotify";
+import { GetServerSideProps } from "next";
 
-const Auth = () => {
+interface IAuthProps {
+	code: string;
+}
+
+const Auth = ({ code }: IAuthProps) => {
 	const router = useRouter();
-	const {
-		dispatch,
-		state: { isLogged },
-	} = useSpotify();
+	const { dispatch } = useSpotify();
 
 	const goHome = () => router.replace("/");
 
-	useEffect(() => {
-		const checkLogIn = async () => {
-			const { code, error } = router.query;
+	const checkLogIn = useCallback(async () => {
+		if (code === undefined) goHome();
 
-			if (error) {
-				goHome();
+		if (code) {
+			// Log in and recieve access token.
+			const res = await getToken(code.toString());
+			const data: ISpotifyTokenResponse = res?.data;
+
+			if (data) {
+				// Set access token to spotify object.
+				dispatch({
+					type: "LOG_IN",
+					payload: data,
+				});
 			}
+		}
 
-			if (code) {
-				// Log in and recieve access token.
-				const res = await getToken(code.toString());
-				const data: ISpotifyTokenResponse = res?.data;
-
-				if (data) {
-					// Set access token to spotify object.
-					dispatch({
-						type: "LOG_IN",
-						payload: data,
-					});
-				}
-			}
-		};
-		checkLogIn();
+		goHome();
 	}, [router.query]);
 
 	useEffect(() => {
-		isLogged && goHome();
-	}, [isLogged]);
+		checkLogIn();
+	}, []);
 
 	return (
 		<>
@@ -50,6 +47,9 @@ const Auth = () => {
 	);
 };
 
-// TODO: Change the log in check to server side props.
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+	const code = ctx.query["code"];
+	return { props: { code } };
+};
 
 export default Auth;

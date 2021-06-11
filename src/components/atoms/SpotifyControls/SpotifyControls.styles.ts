@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 import {
-  PlayIcon,
-  PauseIcon,
-  ArrowCircleRightIcon,
-  ArrowCircleLeftIcon,
+	PlayIcon,
+	PauseIcon,
+	ArrowCircleRightIcon,
+	ArrowCircleLeftIcon,
 } from "@heroicons/react/solid";
 
 const Controls = tw(motion.div)`
@@ -39,7 +39,7 @@ const Button = tw(motion.button)`
 const Image = tw.img`
   rounded-md
   h-full
-`
+`;
 
 const iconHeight = tw`h-8`;
 

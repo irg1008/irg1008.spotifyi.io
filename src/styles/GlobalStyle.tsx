@@ -8,6 +8,32 @@ const CustomGlobalStyle = createGlobalStyle`
       -webkit-appearance[none]
     `}
   }
+  
+  ol, ul {
+    ${tw`
+      list-disc
+      list-inside
+      text-left
+    `}
+  }
+
+  ul{
+    ${tw`
+      list-disc
+    `}
+  }
+
+  ol {
+    ${tw`
+      list-decimal
+    `}
+  }
+
+  li {
+    ${tw`
+      ml-3
+    `}
+  }
 
   button {
     ${tw`
@@ -27,7 +53,14 @@ const CustomGlobalStyle = createGlobalStyle`
       shadow-2xl
       transform
       transition-colors
-    `};
+    `}
+  }
+
+  h1, h2, h3, h4, h5, h6, p {
+    ${tw`
+      dark:text-white
+      text-black
+    `}
   }
 
   h1 {
