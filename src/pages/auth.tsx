@@ -54,7 +54,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 	if (!code) return { notFound: true };
 
 	// Now we get the token and redirect => Saving page creation and calling APIs on the back.
-	const [res, error] = await getToken(code);
+	// TODO: En vez de usar el request para saber la url, debemos ponerla en una variable global. Resta el hecho de que se pueda usar en todas las apps pero mejora mucho la velocidad en el front.
+	//const [res, error] = await getToken(code);
 	//console.log(error);
 
 	return { props: { code } };

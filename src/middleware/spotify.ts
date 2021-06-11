@@ -6,7 +6,9 @@ const baseApiUrl = "/api/spotify/";
 const getAuthUrl = () => withMiddle(() => axios.post(baseApiUrl + "authUrl"));
 
 const getToken = (code: string) =>
-  withMiddle(() => axios.post(baseApiUrl + "logIn", { code }));
+  withMiddle(() =>
+    axios.post(baseApiUrl + "logIn", { code })
+  );
 
 const getNewToken = (refreshToken: string) =>
   withMiddle(() => axios.post(baseApiUrl + "getNewToken", { refreshToken }));

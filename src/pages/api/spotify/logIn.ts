@@ -17,7 +17,7 @@ const logIn = async (req: NReq, res: NRes) => {
     client_id: clientId,
     client_secret: clientSecret,
   };
-
+  
   const config: AxiosRequestConfig = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
