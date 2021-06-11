@@ -1,5 +1,7 @@
-import { AxiosError, AxiosResponse as ARes } from "axios";
+import { AxiosResponse as ARes } from "axios";
 import { NextApiRequest as NReq, NextApiResponse as NRes } from "next";
+
+// TODO: Change any for types.
 
 const withApi = async (
   req: NReq,
@@ -15,12 +17,17 @@ const withApi = async (
   return res.status(405).end(`Method ${method} not allowed`);
 };
 
-const withMiddle = async (fn: () => Promise<ARes>) => {
+interface IMiddle {
+  res: any;
+  error: any;
+}
+
+const withMiddle = async (fn: () => Promise<ARes>): Promise<IMiddle> => {
   try {
     const res = await fn();
-    return [res.data, null];
+    return { res: res.data, error: null };
   } catch (error) {
-    return [null, error];
+    return { res: null, error: error.response.data };
   }
 };
 

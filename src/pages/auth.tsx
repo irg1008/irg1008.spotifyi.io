@@ -3,34 +3,27 @@ import { useRouter } from "next/router";
 import { useCallback, useEffect } from "react";
 import { getToken } from "middleware/spotify";
 import { useSpotify } from "providers/SpotifyProvider";
-import { ISpotifyTokenResponse } from "lib/spotify";
+import { ISpotifyTokenResponse, ISpotifyError } from "lib/spotify";
 import { GetServerSideProps } from "next";
 
 interface IAuthProps {
-	code: string;
+	data?: ISpotifyTokenResponse;
+	spotifyError?: ISpotifyError;
 }
 
-const Auth = ({ code }: IAuthProps) => {
+const Auth = ({ data }: IAuthProps) => {
 	const router = useRouter();
 	const { dispatch } = useSpotify();
 
 	const goHome = () => router.replace("/");
 
 	const checkLogIn = useCallback(async () => {
-		if (code === undefined) goHome();
-
-		if (code) {
-			// Log in and recieve access token.
-			const [res, _] = await getToken(code.toString());
-			const data: ISpotifyTokenResponse = res?.data;
-
-			if (data) {
-				// Set access token to spotify object.
-				dispatch({
-					type: "LOG_IN",
-					payload: data,
-				});
-			}
+		if (!!data) {
+			// Set access token to spotify object.
+			dispatch({
+				type: "LOG_IN",
+				payload: data,
+			});
 		}
 
 		goHome();
@@ -47,18 +40,35 @@ const Auth = ({ code }: IAuthProps) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-	const code = query["code"].toString();
+export const getServerSideProps: GetServerSideProps<IAuthProps> = async ({
+	query,
+}) => {
+	const { code, error } = query;
 
-	// If spotify didn't redirect with valid code => Code not found.
-	if (!code) return { notFound: true };
+	// If error recieving code.
+	if (!!error) {
+		const spotifyError: ISpotifyError = {
+			success: false,
+			error: error.toString(),
+			error_description: "User has canceled the operation.",
+		};
+		return { props: { spotifyError } };
+	}
 
-	// Now we get the token and redirect => Saving page creation and calling APIs on the back.
-	// TODO: En vez de usar el request para saber la url, debemos ponerla en una variable global. Resta el hecho de que se pueda usar en todas las apps pero mejora mucho la velocidad en el front.
-	//const [res, error] = await getToken(code);
-	//console.log(error);
+	// If code recieved.
+	if (!!code) {
+		// Get token.
+		const { res, error: spotifyError } = await getToken(code.toString());
 
-	return { props: { code } };
+		// If error on token response. 400 bad request or any other.
+		if (error) return { props: { spotifyError } };
+
+		// If otherwise, return token data.
+		return { props: { data: res.data } };
+	}
+
+	// If no query params recieved => 404.
+	return { notFound: true };
 };
 
 export default Auth;

@@ -5,7 +5,8 @@ const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
 
 const authUrl = async (req: NReq, res: NRes) => {
   const baseUrl = spotifyBaseUri + "authorize";
-  const redirectUri = getRedirectUri({ base: req.headers.origin });
+
+  const redirectUri = getRedirectUri();
 
   const scopes = [
     "ugc-image-upload",
@@ -43,4 +44,4 @@ const authUrl = async (req: NReq, res: NRes) => {
 };
 
 export default async (req: NReq, res: NRes) =>
-  withApi(req, res, "POST", authUrl);
+  withApi(req, res, "GET", authUrl);

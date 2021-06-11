@@ -19,7 +19,7 @@ const useSpotify = () => {
         const { refresh_token } = getLocalData();
 
         // Ask for new token.
-        const [res, error] = await getNewToken(refresh_token);
+        const {res, error} = await getNewToken(refresh_token);
         const { access_token }: Partial<ISpotifyTokenResponse> = res?.data;
 
         // Set new token.

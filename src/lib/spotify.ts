@@ -6,9 +6,22 @@ interface ISpotifyTokenResponse {
   token_type?: string;
 }
 
-const spotifyBaseUri = "https://accounts.spotify.com/";
+interface ISpotifyError {
+  success: false;
+  error: string;
+  error_description: string;
+}
 
-const getRedirectUri = ({ base = "" }) => `${base}/auth/`;
+const getUrl = ({ path }: { path?: string }) =>
+  `${
+    process.env.NODE_ENV === "production"
+      ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+      : process.env.NEXT_PUBLIC_DEVELOPMENT_URL
+  }${path}`;
+
+const getRedirectUri = () => getUrl({ path: "/auth/" });
+
+const spotifyBaseUri = "https://accounts.spotify.com/";
 
 const setLocalData = (data: ISpotifyTokenResponse) => {
   const { access_token, refresh_token } = data;
@@ -32,10 +45,11 @@ const removeLocalData = () => {
 };
 
 export {
+  getUrl,
   getRedirectUri,
   spotifyBaseUri,
   setLocalData,
   getLocalData,
   removeLocalData,
 };
-export type { ISpotifyTokenResponse };
+export type { ISpotifyTokenResponse, ISpotifyError };

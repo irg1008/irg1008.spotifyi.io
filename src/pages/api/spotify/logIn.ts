@@ -13,25 +13,28 @@ const logIn = async (req: NReq, res: NRes) => {
   const data = {
     code,
     grant_type: "authorization_code",
-    redirect_uri: getRedirectUri({ base: req.headers.origin }),
+    redirect_uri: getRedirectUri(),
     client_id: clientId,
     client_secret: clientSecret,
   };
-  
+
   const config: AxiosRequestConfig = {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
   };
 
-  // Token and so on.
-  const spotifyRes = await axios.post(baseUrl, qs.stringify(data), config);
-
-  return res.status(200).json({
-    success: true,
-    message: "Logged in successfully",
-    data: spotifyRes.data,
-  });
+  // Get token if valid code, otherwise return error.
+  try {
+    const spotifyRes = await axios.post(baseUrl, qs.stringify(data), config);
+    return res.status(200).json({
+      success: true,
+      message: "Logged in successfully",
+      data: spotifyRes.data,
+    });
+  } catch (error) {
+    return res.status(400).json({ success: false, ...error.response.data });
+  }
 };
 
 export default async (req: NReq, res: NRes) => withApi(req, res, "POST", logIn);

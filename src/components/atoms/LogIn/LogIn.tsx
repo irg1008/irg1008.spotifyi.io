@@ -4,7 +4,7 @@ import Styled from "./LogIn.styles";
 const LogIn = () => {
 	const logIn = async () => {
 		// Get Spotify Url.
-		const [res, _] = await getAuthUrl();
+		const { res } = await getAuthUrl();
 		// Redirect to url.
 		window.location.href = res.url;
 	};
