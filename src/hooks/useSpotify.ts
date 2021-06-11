@@ -19,17 +19,21 @@ const useSpotify = () => {
         const { refresh_token } = getLocalData();
 
         // Ask for new token.
-        const {res, error} = await getNewToken(refresh_token);
-        const { access_token }: Partial<ISpotifyTokenResponse> = res?.data;
+        const { res, error } = await getNewToken(refresh_token);
+        if (error) {
+          console.log(error);
+        } else if (res) {
+          const { access_token }: Partial<ISpotifyTokenResponse> = res.data;
 
-        // Set new token.
-        dispatch({
-          type: "LOG_IN",
-          payload: { access_token, refresh_token },
-        });
+          // Set new token.
+          dispatch({
+            type: "LOG_IN",
+            payload: { access_token, refresh_token },
+          });
 
-        // Call function again.
-        return await fn();
+          // Call function again.
+          return await fn();
+        }
       }
     }
   };
