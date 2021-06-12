@@ -117,8 +117,8 @@ const Navbar = () => {
 const SpotifyHome = () => {
 	return (
 		<Styled.Home>
-			<Tracks />
 			<Navbar />
+			<Tracks />
 			<SpotifyControls />
 		</Styled.Home>
 	);

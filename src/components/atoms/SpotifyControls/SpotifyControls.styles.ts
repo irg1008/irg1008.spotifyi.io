@@ -26,6 +26,7 @@ const Controls = tw(motion.div)`
   border-t-2
   space-x-4
   h-28
+  z-10
 `;
 
 const Button = tw(motion.button)`
@@ -39,6 +40,7 @@ const Button = tw(motion.button)`
 const Image = tw.img`
   rounded-md
   h-full
+  cursor-pointer
 `;
 
 const iconHeight = tw`h-8`;

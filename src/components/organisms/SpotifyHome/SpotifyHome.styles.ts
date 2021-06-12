@@ -48,6 +48,7 @@ const Navbar = tw.div`
   border-b-2
   left-0
   space-x-4
+  z-10
 `;
 
 const Button = tw.button`
@@ -82,13 +83,13 @@ const PoorIcon = tw(EmojiSadIcon)`
 `;
 
 export default {
-	Home,
-	Title,
-	Navbar,
-	Button,
-	Tracks,
-	Img,
-	Name,
-	PremiumIcon,
-	PoorIcon,
+  Home,
+  Title,
+  Navbar,
+  Button,
+  Tracks,
+  Img,
+  Name,
+  PremiumIcon,
+  PoorIcon,
 };

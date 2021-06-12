@@ -2,6 +2,12 @@ import { createGlobalStyle } from "styled-components";
 import tw, { GlobalStyles as TwinGlobalStyle } from "twin.macro";
 
 const CustomGlobalStyle = createGlobalStyle`
+
+  body {
+    ${tw`
+    `}
+  }
+
   input[type="search"]::-webkit-search-cancel-button {
     ${tw`
       display[none]
@@ -56,7 +62,7 @@ const CustomGlobalStyle = createGlobalStyle`
     `}
   }
 
-  h1, h2, h3, h4, h5, h6, p {
+  h1, h2, h3, h4, h5, h6, p, li {
     ${tw`
       dark:text-white
       text-black
@@ -78,6 +84,33 @@ const CustomGlobalStyle = createGlobalStyle`
   h3 {
     ${tw`
       text-2xl
+    `}
+  }
+
+  ::-webkit-scrollbar {
+    ${tw`
+      w-3.5
+      bg-red-700
+      rounded-full
+      `}
+  }
+  
+  ::-webkit-scrollbar-track {
+    ${tw`
+      background[#323739]
+      bg-opacity-70
+    `}
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    ${tw`
+      hover:bg-gray-400
+      bg-gray-500
+    `}
+  }
+
+  ::-webkit-scrollbar-corner {
+    ${tw`
     `}
   }
 `;

@@ -2,6 +2,7 @@ import useSpotify from "hooks/useSpotify";
 import { useCallback, useEffect, useState } from "react";
 import Styled from "./SpotifyControls.styles";
 import { Variants, Variant } from "framer-motion";
+import PopUp from "../PopUp";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -85,30 +86,42 @@ const SpotifyControls = () => {
 	const parseMs = (ms: number) =>
 		`${Math.floor((ms / 1000 / 60) << 0)}:${Math.floor((ms / 1000) & 60)}`;
 
+	const [isOpen, setIsOpen] = useState(false);
+	const togglePopUp = () => setIsOpen(!isOpen);
+
 	return (
-		<Styled.Controls initial="hide" animate="show" variants={buttonsCont}>
+		<>
 			{song && (
-				<>
+				<PopUp {...{ isOpen, setIsOpen }}>
 					<p>Device: {device?.name}</p>
 					<p>
 						Progress: {parseMs(progress)}/{parseMs(song?.duration_ms)}
 					</p>
 					<p>Name: {song?.name}</p>
-					<a href={song?.uri}>
-						<Styled.Image src={song?.album.images[0].url} alt={song?.name} />
-					</a>
-				</>
+					<p>
+						Artists: {song?.artists.map((artist) => artist.name).join(" - ")}
+					</p>
+				</PopUp>
 			)}
-			<Styled.Button onClick={previous} variants={button}>
-				<Styled.Previous />
-			</Styled.Button>
-			<Styled.Button onClick={togglePlay} variants={button}>
-				{playing ? <Styled.Pause /> : <Styled.Play />}
-			</Styled.Button>
-			<Styled.Button onClick={next} variants={button}>
-				<Styled.Next />
-			</Styled.Button>
-		</Styled.Controls>
+			<Styled.Controls initial="hide" animate="show" variants={buttonsCont}>
+				{song && (
+					<Styled.Image
+						src={song?.album.images[0].url}
+						alt={song?.name}
+						onClick={togglePopUp}
+					/>
+				)}
+				<Styled.Button onClick={previous} variants={button}>
+					<Styled.Previous />
+				</Styled.Button>
+				<Styled.Button onClick={togglePlay} variants={button}>
+					{playing ? <Styled.Pause /> : <Styled.Play />}
+				</Styled.Button>
+				<Styled.Button onClick={next} variants={button}>
+					<Styled.Next />
+				</Styled.Button>
+			</Styled.Controls>
+		</>
 	);
 };
 
