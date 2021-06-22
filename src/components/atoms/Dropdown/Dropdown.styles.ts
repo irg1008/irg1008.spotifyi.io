@@ -1,25 +1,27 @@
 import tw from "twin.macro";
 import styled from "styled-components";
 
-const Dropdown = styled.div(({ isOpen }: { isOpen: boolean }) => [
+const Dropdown = tw.div`
+  transition-colors
+  rounded-lg
+  overflow-hidden
+  my-4
+`;
+
+const DropdownTitleContainer = styled.div(({ isOpen }: { isOpen: boolean }) => [
   tw`
+    cursor-pointer
     flex
     justify-between
-    flex-wrap
     items-center
-    transition-colors
-    rounded-lg
-    overflow-hidden
     bg-gray-600
-    my-4
-    cursor-pointer
-    `,
-    isOpen &&
+  `,
+  isOpen &&
     tw`
     bg-green-500
     `,
-  ]);
-  
+]);
+
 const DropdownTitle = tw.p`
   text-xl
   p-2
@@ -36,10 +38,11 @@ const Content = styled.div(({ isOpen }: { isOpen: boolean }) => [
     w-full
     bg-gray-300
     h-0
-    overflow-hidden
     flex
     flex-col
     space-y-3
+    transition-transform
+    duration-500
   `,
   isOpen &&
     tw`
@@ -48,5 +51,11 @@ const Content = styled.div(({ isOpen }: { isOpen: boolean }) => [
     `,
 ]);
 
-const Styled = { Dropdown, DropdownTitle, ChevronButton, Content };
+const Styled = {
+  Dropdown,
+  DropdownTitle,
+  ChevronButton,
+  Content,
+  DropdownTitleContainer,
+};
 export default Styled;

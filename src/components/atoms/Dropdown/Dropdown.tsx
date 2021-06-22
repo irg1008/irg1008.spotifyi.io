@@ -15,16 +15,18 @@ const Dropdown: React.FC<IDropdownProps> = ({ children, title }) => {
 	}, []);
 
 	return (
-		<Styled.Dropdown {...{ isOpen }} onClick={toggleIsOpen}>
-			<Styled.DropdownTitle>{title}</Styled.DropdownTitle>
-			{children && (
-				<>
-					<Styled.ChevronButton>
-						{isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
-					</Styled.ChevronButton>
-					<Styled.Content {...{ isOpen }}>{children}</Styled.Content>
-				</>
-			)}
+		<Styled.Dropdown>
+			<Styled.DropdownTitleContainer {...{ isOpen }} onClick={toggleIsOpen}>
+				<Styled.DropdownTitle>{title}</Styled.DropdownTitle>
+				{children && (
+					<>
+						<Styled.ChevronButton>
+							{isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+						</Styled.ChevronButton>
+					</>
+				)}
+			</Styled.DropdownTitleContainer>
+			{children && <Styled.Content {...{ isOpen }}>{children}</Styled.Content>}
 		</Styled.Dropdown>
 	);
 };
