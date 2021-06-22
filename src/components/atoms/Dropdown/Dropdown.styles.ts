@@ -37,16 +37,13 @@ const Content = styled.div(({ isOpen }: { isOpen: boolean }) => [
   tw`
     w-full
     bg-gray-300
-    h-0
-    flex
-    flex-col
-    space-y-3
-    transition-transform
-    duration-500
-  `,
-  isOpen &&
+    hidden
+    `,
+    isOpen &&
     tw`
-      h-auto
+      flex
+      flex-col
+      space-y-3
       p-2
     `,
 ]);
