@@ -6,6 +6,10 @@ const Dropdown = tw.div`
   rounded-lg
   overflow-hidden
   my-4
+  shadow-lg
+  border-2
+  border-white
+  border-opacity-20
 `;
 
 const DropdownTitleContainer = styled.div(({ isOpen }: { isOpen: boolean }) => [
@@ -37,14 +41,15 @@ const Content = styled.div(({ isOpen }: { isOpen: boolean }) => [
   tw`
     w-full
     bg-gray-300
-    hidden
+    h-0
+    flex
+    flex-col
+    space-y-3
     `,
     isOpen &&
     tw`
-      flex
-      flex-col
-      space-y-3
       p-2
+      h-auto
     `,
 ]);
 

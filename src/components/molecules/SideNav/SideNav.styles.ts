@@ -32,6 +32,7 @@ const SideNav = styled.div(({ isOpen }: { isOpen: boolean }) => [
     transition-transform
     duration-500
     ease-in-out
+    max-w-full
   `,
 ]);
 
