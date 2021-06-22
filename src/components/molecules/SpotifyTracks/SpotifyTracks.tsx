@@ -1,8 +1,9 @@
 import Styled from "./SpotifyTracks.styles";
 import { Variants, Variant } from "framer-motion";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Loading from "components/atoms/Loading";
+import Image from "next/image";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -58,13 +59,15 @@ const SpotifyCard = ({ track }: ISpotifyTrack) => (
 		<Styled.SongArtist>
 			{track.artists.map((a) => a.name).join(" - ")}
 		</Styled.SongArtist>
-		<a href={track.external_urls.spotify} target="_blank">
-			<Styled.SongImg
-				src={track.album?.images[0].url}
-				alt={track.name}
-				variants={cardImg}
-			/>
-		</a>
+		<Styled.SongImg variants={cardImg}>
+			<a href={track.external_urls.spotify} target="_blank" rel="noreferrer">
+				<Image
+					src={track.album?.images[0].url}
+					alt={track.name}
+					layout="fill"
+				/>
+			</a>
+		</Styled.SongImg>
 		<Styled.Audio controls>
 			<source src={track.preview_url} />
 		</Styled.Audio>
@@ -72,19 +75,10 @@ const SpotifyCard = ({ track }: ISpotifyTrack) => (
 );
 
 const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
-	if (tracks?.length === 0)
-		return (
-			<Styled.NotFoundText>
-				No songs match search parameters
-			</Styled.NotFoundText>
-		);
-
 	const [offset, setOffset] = useState(0);
 	const [partial, setPartial] = useState<typeof tracks>([]);
 
-	const limit = 30;
-
-	const appendNewTracks = (reset?: boolean) => {
+	const appendNewTracks = useCallback((reset?: boolean) => {
 		const initOffset = reset ? 0 : offset;
 		const endOffset = initOffset + limit;
 
@@ -97,11 +91,20 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 			setOffset(endOffset);
 			setPartial(newPartial);
 		}
-	};
+	}, []);
 
 	useEffect(() => {
 		appendNewTracks(true);
 	}, [tracks]);
+
+	if (tracks?.length === 0)
+		return (
+			<Styled.NotFoundText>
+				No songs match search parameters
+			</Styled.NotFoundText>
+		);
+
+	const limit = 30;
 
 	return (
 		<InfiniteScroll

@@ -19,4 +19,5 @@ const Main = tw.main`
   transition-colors
 `;
 
-export default { Layout, Main };
+const Styled = { Layout, Main };
+export default Styled;

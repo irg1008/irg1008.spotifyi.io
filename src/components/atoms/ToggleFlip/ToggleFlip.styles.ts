@@ -9,8 +9,8 @@ const Flip = tw.div`
 `;
 
 const InnerFlip = styled.div(({ flipped }: { flipped: boolean }) => [
-	flipped && tw`transform[rotateY(180deg)]`,
-	tw`
+  flipped && tw`transform[rotateY(180deg)]`,
+  tw`
     relative
     w-full
     h-full
@@ -55,4 +55,5 @@ const Sun = tw(SunIcon)`
   text-yellow-500
 `;
 
-export default { Flip, InnerFlip, Front, Back, Moon, Sun };
+const Styled = { Flip, InnerFlip, Front, Back, Moon, Sun };
+export default Styled;

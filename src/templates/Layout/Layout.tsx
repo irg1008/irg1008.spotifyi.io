@@ -3,11 +3,26 @@ import { useEffect, useState } from "react";
 import GlobalStyle from "styles/GlobalStyle";
 import Styled from "./Layout.styles";
 import useTheme from "hooks/useTheme";
-import { AnimatePresence } from "framer-motion";
+import SideNav from "components/molecules/SideNav";
+import Dropdown from "components/atoms/Dropdown";
 
 const Layout: React.FC = ({ children }) => (
 	<Styled.Layout>
-		<header></header>
+		<header>
+			<SideNav>
+				<Dropdown title="One">
+					<a href="#">One</a>
+					<a href="#">Two</a>
+					<a href="#">Three</a>
+				</Dropdown>
+				<Dropdown title="Two">
+					<a href="#">One</a>
+					<a href="#">Two</a>
+					<a href="#">Three</a>
+				</Dropdown>
+				<Dropdown title="Three" />
+			</SideNav>
+		</header>
 		<Styled.Main>{children}</Styled.Main>
 		<footer></footer>
 	</Styled.Layout>

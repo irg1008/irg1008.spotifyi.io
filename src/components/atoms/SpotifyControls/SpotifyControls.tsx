@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import Styled from "./SpotifyControls.styles";
 import { Variants, Variant } from "framer-motion";
 import PopUp from "../PopUp";
+import Image from "next/image";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -81,7 +82,7 @@ const SpotifyControls = () => {
 	// ON LOAD.
 	useEffect(() => {
 		checkPlayState();
-	}, []);
+	}, [checkPlayState]);
 
 	const parseMs = (ms: number) =>
 		`${Math.floor((ms / 1000 / 60) << 0)}:${Math.floor((ms / 1000) & 60)}`;
@@ -105,11 +106,13 @@ const SpotifyControls = () => {
 			)}
 			<Styled.Controls initial="hide" animate="show" variants={buttonsCont}>
 				{song && (
-					<Styled.Image
-						src={song?.album.images[0].url}
-						alt={song?.name}
-						onClick={togglePopUp}
-					/>
+					<Styled.Button onClick={togglePopUp} variants={button}>
+						<Image
+							src={song?.album.images[0].url}
+							layout="fill"
+							alt={song?.name}
+						/>
+					</Styled.Button>
 				)}
 				<Styled.Button onClick={previous} variants={button}>
 					<Styled.Previous />

@@ -58,10 +58,11 @@ const Button = tw.button`
   border-b-2
 `;
 
-const Img = tw.img`
+const Img = tw.div`
   rounded-full
   h-10
   w-10
+  overflow-hidden
   border-2
   border-white
 `;
@@ -82,7 +83,7 @@ const PoorIcon = tw(EmojiSadIcon)`
   text-blue-500
 `;
 
-export default {
+const Styled = {
   Home,
   Title,
   Navbar,
@@ -93,3 +94,4 @@ export default {
   PremiumIcon,
   PoorIcon,
 };
+export default Styled;

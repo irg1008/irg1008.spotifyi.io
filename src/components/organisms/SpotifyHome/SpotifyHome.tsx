@@ -7,6 +7,7 @@ import SpotifyTracks from "components/molecules/SpotifyTracks";
 import Loading from "components/atoms/Loading";
 import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
 import ToggleTheme from "components/atoms/ToggleTheme";
+import Image from "next/image";
 
 const Tracks = () => {
 	// Get 50 next tracks tracks.
@@ -88,11 +89,12 @@ const Navbar = () => {
 
 	// Get user pipeline.
 	const [user, setUser] = useState<SpotifyApi.CurrentUsersProfileResponse>();
-	const fetchUser = async () => await withSpotify(() => spotify.getMe());
-	const getUser = async () => {
-		const user = await fetchUser();
+
+	const getUser = useCallback(async () => {
+		const user = await withSpotify(() => spotify.getMe());
 		setUser(user);
-	};
+	}, []);
+
 	useEffect(() => {
 		getUser();
 	}, []);
@@ -101,15 +103,28 @@ const Navbar = () => {
 		<Styled.Navbar>
 			<ToggleTheme />
 			<Styled.Button onClick={logOut}>Log Out</Styled.Button>
-			{user?.product === "premium" ? (
-				<Styled.PremiumIcon />
-			) : (
-				<Styled.PoorIcon />
+
+			{user && (
+				<>
+					{user?.product === "premium" ? (
+						<Styled.PremiumIcon />
+					) : (
+						<Styled.PoorIcon />
+					)}
+					<Styled.Name>{user?.display_name}</Styled.Name>
+					<a href={user?.uri} target="_blank" rel="noreferrer">
+						<Styled.Img>
+							<Image
+								src={user?.images[0].url}
+								width={10}
+								height={10}
+								layout="responsive"
+								alt={user?.display_name}
+							/>
+						</Styled.Img>
+					</a>
+				</>
 			)}
-			<Styled.Name>{user?.display_name}</Styled.Name>
-			<a href={user?.uri} target="_blank">
-				<Styled.Img src={user?.images[0].url} />
-			</a>
 		</Styled.Navbar>
 	);
 };

@@ -33,8 +33,8 @@ const Container = tw(motion.div)`
 	rounded-3xl
 	shadow-2xl
 `;
-	
-	const ChildrenWrapper = tw.div`
+
+const ChildrenWrapper = tw.div`
 	p-10
 	light:bg-green-200
 	dark:bg-red-500
@@ -46,4 +46,5 @@ const Container = tw(motion.div)`
 	space-y-4
 `;
 
-export default { Wrapper, BG, Container, ChildrenWrapper };
+const Styled = { Wrapper, BG, Container, ChildrenWrapper };
+export default Styled;

@@ -25,4 +25,5 @@ const LoadingIcon = tw(RefreshIcon)`
   text-green-900
 `;
 
-export default { Loading, LoadingIcon, Text };
+const Styled = { Loading, LoadingIcon, Text };
+export default Styled;

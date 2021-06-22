@@ -42,4 +42,5 @@ const Sun = tw(SunIcon)`
   text-yellow-500
 `;
 
-export default { Container, Handle, HandlerWrapper, Icon, Moon, Sun };
+const Styled = { Container, Handle, HandlerWrapper, Icon, Moon, Sun };
+export default Styled;

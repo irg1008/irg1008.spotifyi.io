@@ -13,9 +13,18 @@ const LogIn = tw.div`
 `;
 
 const Title = styled.h1`
-	text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
-	border-radius: 0ch;
-	${tw`max-w-4xl mb-20 text-2xl font-extrabold text-white  drop-shadow-2xl md:text-8xl sm:text-4xl`}
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  border-radius: 0ch;
+  ${tw`
+    max-w-4xl
+    mb-20
+    text-2xl
+    font-extrabold
+    text-white
+    drop-shadow-2xl
+    md:text-8xl
+    sm:text-4xl
+  `}
 `;
 
 const Button = tw(motion.button)`
@@ -52,4 +61,5 @@ const Arrow = tw(ArrowUpIcon)`
   mt-2
 `;
 
-export default { LogIn, Button, Container, InfoText, Arrow, Title };
+const Styled = { LogIn, Button, Container, InfoText, Arrow, Title };
+export default Styled;

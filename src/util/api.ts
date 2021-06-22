@@ -7,11 +7,11 @@ const withApi = async (
   req: NReq,
   res: NRes,
   met: "POST" | "GET",
-  fn: (req: NReq, res: NRes) => Promise<any>
+  fn: () => Promise<any>
 ) => {
   const { method } = req;
 
-  if (method === met) return fn(req, res);
+  if (method === met) return fn();
 
   res.setHeader("Allow", [met]);
   return res.status(405).end(`Method ${method} not allowed`);

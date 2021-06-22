@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 import {
-	PlayIcon,
-	PauseIcon,
-	ArrowCircleRightIcon,
-	ArrowCircleLeftIcon,
+  PlayIcon,
+  PauseIcon,
+  ArrowCircleRightIcon,
+  ArrowCircleLeftIcon,
 } from "@heroicons/react/solid";
 
 const Controls = tw(motion.div)`
@@ -31,16 +31,14 @@ const Controls = tw(motion.div)`
 
 const Button = tw(motion.button)`
   bg-white
-  p-4 
   rounded-md
   shadow-md
   text-4xl
-`;
-
-const Image = tw.img`
-  rounded-md
-  h-full
-  cursor-pointer
+  h-16
+  w-16
+  flex
+  justify-center
+  items-center
 `;
 
 const iconHeight = tw`h-8`;
@@ -50,4 +48,5 @@ const Play = styled(PlayIcon)(() => [iconHeight]);
 const Pause = styled(PauseIcon)(() => [iconHeight]);
 const Next = styled(ArrowCircleRightIcon)(() => [iconHeight]);
 
-export default { Controls, Button, Play, Pause, Previous, Next, Image };
+const Styled = { Controls, Button, Play, Pause, Previous, Next };
+export default Styled;

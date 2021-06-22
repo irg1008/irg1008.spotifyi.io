@@ -26,4 +26,5 @@ const Icon = tw(SearchIcon)`
   opacity-60
 `;
 
-export default { Input, Icon, Container };
+const Styled = { Input, Icon, Container };
+export default Styled;

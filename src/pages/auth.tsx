@@ -1,6 +1,6 @@
 import Head from "components/atoms/Head";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { getToken } from "middleware/spotify";
 import { useSpotify } from "providers/SpotifyProvider";
 import { ISpotifyTokenResponse, ISpotifyError } from "lib/spotify";
@@ -15,9 +15,7 @@ const Auth = ({ data }: IAuthProps) => {
 	const router = useRouter();
 	const { dispatch } = useSpotify();
 
-	const goHome = () => router.replace("/");
-
-	const checkLogIn = useCallback(async () => {
+	useEffect(() => {
 		if (!!data) {
 			// Set access token to spotify object.
 			dispatch({
@@ -26,12 +24,8 @@ const Auth = ({ data }: IAuthProps) => {
 			});
 		}
 
-		goHome();
-	}, [router.query]);
-
-	useEffect(() => {
-		checkLogIn();
-	}, []);
+		router.replace("/");
+	}, [data, dispatch, router]);
 
 	return (
 		<>

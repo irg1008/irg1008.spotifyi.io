@@ -11,7 +11,7 @@ const Songs = tw(motion.div)`
 
 const Card = tw(motion.div)`
   w-80
-  space-y-1
+  space-y-2
   flex
   flex-col
   p-4
@@ -31,14 +31,14 @@ const SongArtist = tw(SongTitle)`
   text-gray-500
 `;
 
-const SongImg = tw(motion.img)`
-  w-full
-  object-scale-down
-  rounded-xl
-  my-4
+const SongImg = tw(motion.div)`
+  w-60
+  h-60
+  rounded-full
   shadow-md
   transform
   origin-center
+  self-center
 `;
 
 const NotFoundText = tw(SongTitle)`
@@ -50,12 +50,13 @@ const Audio = tw.audio`
   w-full
 `;
 
-export default {
-	Songs,
-	Card,
-	SongTitle,
-	SongArtist,
-	SongImg,
-	NotFoundText,
-	Audio,
+const Styled = {
+  Songs,
+  Card,
+  SongTitle,
+  SongArtist,
+  SongImg,
+  NotFoundText,
+  Audio,
 };
+export default Styled;
