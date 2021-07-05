@@ -26,6 +26,7 @@ const Container = tw.div`
   shadow-md
   border-t-2
   z-10
+  text-center
 `;
 
 const Controls = tw(motion.div)`

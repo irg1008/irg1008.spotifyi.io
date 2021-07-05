@@ -145,7 +145,10 @@ const useSpotifySDK = () => {
   // On player change => Update state.
   useEffect(() => {
     updateState();
-  }, [updateState]);
+    return () => {
+      player?.disconnect();
+    };
+  }, [updateState, player]);
 
   // VOLUME HOOK.
   const useVolume = () => useSpotifyVolume(player);
