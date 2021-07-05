@@ -9,8 +9,8 @@ const thumb = tw`
   transition-transform
   duration-100
   ease-in-out
-  w-4
-  h-4
+  w-3
+  h-3
   cursor[ew-resize]
   rounded-full
   -webkit-appearance[none]
@@ -19,8 +19,8 @@ const thumb = tw`
 `;
 
 const track = tw`
-  mx-2
-  h-4
+  mx-3
+  h-3
   w-full
   rounded-2xl
   bg-white

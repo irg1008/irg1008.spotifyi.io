@@ -70,7 +70,7 @@ const useSpotifyProgress = (state: ISpotifyState) => {
   const [progress, setProgress] = useState<number>();
   const [paused, setPaused] = useState<boolean>();
 
-  const second = 200;
+  const second = 500;
 
   const cb = () => !state?.paused && !paused && setProgress(progress + second);
 
