@@ -4,6 +4,7 @@ import Styled from "./Range.styles";
 interface IRangeProps {
 	onChangeEvent: (value: number) => void;
 	onReleaseEvent?: () => void;
+	onDrag?: () => void;
 	min: number;
 	max: number;
 	step: number;
@@ -13,6 +14,7 @@ interface IRangeProps {
 const Range = ({
 	onChangeEvent,
 	onReleaseEvent,
+	onDrag,
 	min,
 	max,
 	step,
@@ -27,9 +29,11 @@ const Range = ({
 	return (
 		<Styled.Range
 			type="range"
-			{...{ min, max, value, step, onChange }}
+			{...{ min, max, step, onChange }}
+			value={!!value ? value : 0}
 			onMouseUp={onRelease}
 			onTouchEnd={onRelease}
+			onMouseDown={onDrag}
 		/>
 	);
 };

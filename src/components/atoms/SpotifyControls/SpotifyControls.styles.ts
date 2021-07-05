@@ -11,14 +11,11 @@ import {
   VolumeUpIcon,
 } from "@heroicons/react/solid";
 
-const Controls = tw(motion.div)`
-  flex
-  justify-center
-  items-center
-  flex-wrap
+const Container = tw.div`
   w-full
   fixed
   bottom-0
+  space-y-6
   left-0
   bg-black
   bg-opacity-60
@@ -28,8 +25,14 @@ const Controls = tw(motion.div)`
   backdrop-blur-md
   shadow-md
   border-t-2
-  space-x-4
   z-10
+`;
+
+const Controls = tw(motion.div)`
+  flex
+  justify-center
+  items-center
+  space-x-4
 `;
 
 const Button = tw(motion.button)`
@@ -47,6 +50,8 @@ const Button = tw(motion.button)`
 
 const Progress = tw(motion.div)`
   flex
+  items-center
+  justify-around
 `;
 
 const iconHeight = tw`h-8`;
@@ -60,6 +65,7 @@ const UnMuted = styled(VolumeUpIcon)(() => [iconHeight]);
 
 const Styled = {
   Controls,
+  Container,
   Button,
   Play,
   Pause,

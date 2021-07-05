@@ -30,7 +30,7 @@ const Container = tw(motion.div)`
 	overflow-auto
 	relative
 	self-end
-	mb-40
+	mb-48
 	rounded-3xl
 	shadow-2xl
 `;

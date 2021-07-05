@@ -1,6 +1,34 @@
 import { createGlobalStyle } from "styled-components";
 import tw, { GlobalStyles as TwinGlobalStyle } from "twin.macro";
 
+const thumb = tw`
+  dark:bg-red-300
+  light:bg-green-300
+  transform
+  hover:scale-110
+  transition-transform
+  duration-100
+  ease-in-out
+  w-4
+  h-4
+  cursor[ew-resize]
+  rounded-full
+  -webkit-appearance[none]
+  dark:box-shadow[-99999px 0 0 99993px lightcoral]
+  light:box-shadow[-99999px 0 0 99993px lightgray]
+`;
+
+const track = tw`
+  mx-2
+  h-4
+  w-full
+  rounded-2xl
+  bg-white
+  overflow-hidden
+  focus:outline-none
+  -webkit-appearance[none]
+`;
+
 const CustomGlobalStyle = createGlobalStyle`
 
   body {
@@ -14,7 +42,15 @@ const CustomGlobalStyle = createGlobalStyle`
       -webkit-appearance[none]
     `}
   }
-  
+
+  input[type="range"] {
+    ${track}
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    ${thumb}
+  }
+
   ol, ul {
     ${tw`
       list-disc

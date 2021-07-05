@@ -68,10 +68,11 @@ const useSpotifyController = (player: ISpotifyPlayer) => {
 // PROGRESS
 const useSpotifyProgress = (state: ISpotifyState) => {
   const [progress, setProgress] = useState<number>();
+  const [paused, setPaused] = useState<boolean>();
 
-  const second = 1000;
+  const second = 200;
 
-  const cb = () => !state?.paused && setProgress(progress + second);
+  const cb = () => !state?.paused && !paused && setProgress(progress + second);
 
   useInterval({ mills: second, cb });
 
@@ -79,7 +80,7 @@ const useSpotifyProgress = (state: ISpotifyState) => {
     setProgress(state?.position);
   }, [state?.position]);
 
-  return { progress, setProgress };
+  return { progress, setProgress, setPaused };
 };
 
 const useSpotifySDK = () => {
@@ -100,6 +101,13 @@ const useSpotifySDK = () => {
     }),
     [getToken]
   );
+
+  const updateState = useCallback(async () => {
+    if (!!player) {
+      const newState = await player.getCurrentState();
+      !!newState && setState(newState);
+    }
+  }, [player, setState]);
 
   const onSpotifySDKLoad = useCallback(() => {
     // @ts-ignore
@@ -136,14 +144,8 @@ const useSpotifySDK = () => {
 
   // On player change => Update state.
   useEffect(() => {
-    const updateState = async () => {
-      if (!!player) {
-        const newState = await player.getCurrentState();
-        !!newState && setState(newState);
-      }
-    };
     updateState();
-  }, [player, setState]);
+  }, [updateState]);
 
   // VOLUME HOOK.
   const useVolume = () => useSpotifyVolume(player);
