@@ -1,7 +1,7 @@
 import tw from "twin.macro";
 import { motion } from "framer-motion";
 
-const Songs = tw(motion.div)`
+const Songs = tw.div`
   flex
   flex-wrap
   justify-center
@@ -20,10 +20,10 @@ const Button = tw.button`
   text-lg
 `;
 
-const Card = tw(motion.div)`
+const Card = tw.div`
   w-80
   h-96
-  space-y-2
+  space-y-4
   flex
   flex-col
   justify-between
@@ -46,9 +46,7 @@ const SongArtist = tw(SongTitle)`
   dark:text-gray-800
 `;
 
-const SongImg = tw(motion.div)`
-  w-56
-  h-56
+const SongImg = tw.div`
   rounded-2xl
   shadow-md
   self-center

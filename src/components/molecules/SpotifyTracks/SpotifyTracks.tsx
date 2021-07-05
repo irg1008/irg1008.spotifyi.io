@@ -1,49 +1,9 @@
 import Styled from "./SpotifyTracks.styles";
-import { Variants, Variant } from "framer-motion";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Loading from "components/atoms/Loading";
 import Image from "next/image";
 import useSpotify from "hooks/useSpotify";
-
-interface CustomVariants extends Variants {
-	hide: Variant;
-	anim: Variant;
-}
-
-const card: CustomVariants = {
-	hide: {
-		opacity: 0,
-		scale: 0.9,
-		translateY: -40,
-	},
-	anim: {
-		opacity: 1,
-		scale: 1,
-		translateY: 0,
-		transition: {
-			duration: 0.8,
-			type: "spring",
-			bounce: 0.15,
-		},
-	},
-};
-
-const cardImg: CustomVariants = {
-	hide: {
-		rotate: -12,
-	},
-	anim: {
-		rotate: 0,
-		scale: 0.8,
-		transition: {
-			duration: 1.2,
-			type: "spring",
-			bounce: 0.15,
-		},
-	},
-};
-
 type TTrack = SpotifyApi.TrackObjectFull;
 
 interface ISpotifyTrack {
@@ -67,16 +27,24 @@ const SpotifyCard = ({ track }: ISpotifyTrack) => {
 	};
 
 	const image = track.album?.images[0];
+	const blurImage = track.album?.images[1];
 
 	return (
-		<Styled.Card variants={card}>
+		<Styled.Card>
 			<Styled.SongTitle>{track.name}</Styled.SongTitle>
 			<Styled.SongArtist>
 				{track.artists.map((a) => a.name).join(" - ")}
 			</Styled.SongArtist>
-			<Styled.SongImg variants={cardImg}>
+			<Styled.SongImg>
 				<a href={track.external_urls.spotify} target="_blank" rel="noreferrer">
-					<Image src={image.url} alt={track.name} layout="fill" />
+					<Image
+						src={image.url}
+						alt={track.name}
+						width={image.width}
+						height={image.height}
+						placeholder="blur"
+						blurDataURL={blurImage.url}
+					/>
 				</a>
 			</Styled.SongImg>
 			<Styled.Audio controls={false}>
@@ -99,11 +67,7 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 	const tracksLength = useMemo(() => tracks?.length, [tracks]);
 	const hasMore = useMemo(() => offset < tracksLength, [offset, tracksLength]);
 
-	const next = () => {
-		setTimeout(() => {
-			setOffset(offset + incrementValue);
-		}, 100);
-	};
+	const next = () => setOffset(offset + incrementValue);
 
 	return tracksLength === 0 ? (
 		<Styled.NotFoundText>No songs match search parameters</Styled.NotFoundText>
@@ -113,7 +77,7 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 			{...{ hasMore, next }}
 			loader={<Loading text="Fetching more songs..." />}
 		>
-			<Styled.Songs initial="hide" animate="anim">
+			<Styled.Songs>
 				{partials?.map((track) => (
 					<SpotifyCard key={track.id} {...{ track }} />
 				))}
