@@ -62,14 +62,14 @@ const Audio = tw.audio`
 `;
 
 const Styled = {
-  Songs,
-  Card,
-  SongTitle,
-  SongArtist,
-  SongImg,
-  NotFoundText,
-  Audio,
-  Buttons,
-  Button,
+	Songs,
+	Card,
+	SongTitle,
+	SongArtist,
+	SongImg,
+	NotFoundText,
+	Audio,
+	Buttons,
+	Button,
 };
 export default Styled;

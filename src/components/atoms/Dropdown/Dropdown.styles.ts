@@ -13,15 +13,15 @@ const Dropdown = tw.div`
 `;
 
 const DropdownTitleContainer = styled.div(({ isOpen }: { isOpen: boolean }) => [
-  tw`
+	tw`
     cursor-pointer
     flex
     justify-between
     items-center
     bg-gray-600
   `,
-  isOpen &&
-    tw`
+	isOpen &&
+		tw`
     bg-green-500
     `,
 ]);
@@ -38,7 +38,7 @@ const ChevronButton = tw.button`
 `;
 
 const Content = styled.div(({ isOpen }: { isOpen: boolean }) => [
-  tw`
+	tw`
     w-full
     bg-gray-300
     h-0
@@ -46,18 +46,18 @@ const Content = styled.div(({ isOpen }: { isOpen: boolean }) => [
     flex-col
     space-y-3
     `,
-    isOpen &&
-    tw`
+	isOpen &&
+		tw`
       p-2
       h-auto
     `,
 ]);
 
 const Styled = {
-  Dropdown,
-  DropdownTitle,
-  ChevronButton,
-  Content,
-  DropdownTitleContainer,
+	Dropdown,
+	DropdownTitle,
+	ChevronButton,
+	Content,
+	DropdownTitleContainer,
 };
 export default Styled;

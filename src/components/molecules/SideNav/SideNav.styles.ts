@@ -17,14 +17,14 @@ const TreeView = tw.div`
 `;
 
 const SideNav = styled.div(({ isOpen }: { isOpen: boolean }) => [
-  isOpen
-    ? tw`
+	isOpen
+		? tw`
       transform[translateX(0)]
     `
-    : tw`
+		: tw`
       transform[translateX(-20rem)]
     `,
-  tw`
+	tw`
     fixed
     z-20
     h-full

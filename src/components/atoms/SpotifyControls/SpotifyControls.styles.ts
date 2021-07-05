@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 import {
-  PlayIcon,
-  PauseIcon,
-  ArrowCircleRightIcon,
-  ArrowCircleLeftIcon,
-  VolumeOffIcon,
-  VolumeUpIcon,
+	PlayIcon,
+	PauseIcon,
+	ArrowCircleRightIcon,
+	ArrowCircleLeftIcon,
+	VolumeOffIcon,
+	VolumeUpIcon,
 } from "@heroicons/react/solid";
 
 const Container = tw.div`
@@ -65,15 +65,15 @@ const Muted = styled(VolumeOffIcon)(() => [iconHeight]);
 const UnMuted = styled(VolumeUpIcon)(() => [iconHeight]);
 
 const Styled = {
-  Controls,
-  Container,
-  Button,
-  Play,
-  Pause,
-  Previous,
-  Next,
-  Muted,
-  UnMuted,
-  Progress,
+	Controls,
+	Container,
+	Button,
+	Play,
+	Pause,
+	Previous,
+	Next,
+	Muted,
+	UnMuted,
+	Progress,
 };
 export default Styled;

@@ -84,14 +84,14 @@ const PoorIcon = tw(EmojiSadIcon)`
 `;
 
 const Styled = {
-  Home,
-  Title,
-  Navbar,
-  Button,
-  Tracks,
-  Img,
-  Name,
-  PremiumIcon,
-  PoorIcon,
+	Home,
+	Title,
+	Navbar,
+	Button,
+	Tracks,
+	Img,
+	Name,
+	PremiumIcon,
+	PoorIcon,
 };
 export default Styled;

@@ -7,31 +7,31 @@ const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
 
 const getNewToken = (req: NReq, res: NRes) =>
-  withApi(req, res, "POST", async () => {
-    const baseUrl = spotifyBaseUri + "api/token";
-    const { refreshToken } = req.body;
+	withApi(req, res, "POST", async () => {
+		const baseUrl = spotifyBaseUri + "api/token";
+		const { refreshToken } = req.body;
 
-    const data = {
-      grant_type: "refresh_token",
-      refresh_token: refreshToken,
-      client_id: clientId,
-      client_secret: clientSecret,
-    };
+		const data = {
+			grant_type: "refresh_token",
+			refresh_token: refreshToken,
+			client_id: clientId,
+			client_secret: clientSecret,
+		};
 
-    const config: AxiosRequestConfig = {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    };
+		const config: AxiosRequestConfig = {
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+			},
+		};
 
-    // Token and so on.
-    const spotifyRes = await axios.post(baseUrl, qs.stringify(data), config);
+		// Token and so on.
+		const spotifyRes = await axios.post(baseUrl, qs.stringify(data), config);
 
-    return res.status(200).json({
-      success: true,
-      message: "Token refreshed successfully",
-      data: spotifyRes.data,
-    });
-  });
+		return res.status(200).json({
+			success: true,
+			message: "Token refreshed successfully",
+			data: spotifyRes.data,
+		});
+	});
 
 export default getNewToken;
