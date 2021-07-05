@@ -1,5 +1,5 @@
 import renderer, { act, ReactTestRendererJSON } from "react-test-renderer";
-import Link from "../__test_components__/Link";
+import Link from "./Link";
 
 test("Link changes the class when hovered", () => {
 	const component = renderer.create(

@@ -1,9 +1,11 @@
-import useSpotify from "hooks/useSpotify";
-import { useCallback, useEffect, useState } from "react";
 import Styled from "./SpotifyControls.styles";
 import { Variants, Variant } from "framer-motion";
-import PopUp from "../PopUp";
+import PopUp from "components/atoms/PopUp";
 import Image from "next/image";
+import useSpotifySDK from "hooks/useSpotifySDK";
+import useToggle from "hooks/useToggle";
+import Range from "components/atoms/Range";
+import { parseMills } from "util/time";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -42,71 +44,81 @@ const button: CustomVariants = {
 };
 
 const SpotifyControls = () => {
-	const { spotify, withSpotify } = useSpotify();
+	const { state, useVolume, useController, useProgress } = useSpotifySDK();
 
-	const [song, setSong] = useState<SpotifyApi.TrackObjectFull>();
-	const [device, setDevice] = useState<SpotifyApi.UserDevice>();
-	const [playing, setPlaying] = useState<boolean>();
-	const [progress, setProgress] = useState<number>();
+	// VOLUME.
+	const { isMuted, toggleMuted, currentVolume, setVolume } = useVolume();
 
-	// CHECK IF USER IS PLAYING.
-	const checkPlayState = useCallback(async () => {
-		const res = await withSpotify(() => spotify.getMyCurrentPlaybackState());
-		if (res) {
-			const { item, device, is_playing, progress_ms } = res;
-			setSong(item);
-			setPlaying(is_playing);
-			setDevice(device);
-			setProgress(progress_ms);
-		}
-	}, []);
+	// CONTROLLERS.
+	const { nextTrack, prevTrack, togglePlay, goTo } = useController();
 
-	// TOGGLE PLAY.
-	const togglePlay = async () => {
-		playing
-			? await withSpotify(() => spotify.pause())
-			: await withSpotify(() => spotify.play());
-		checkPlayState();
-	};
+	// SONG.
+	const song = state?.track_window.current_track;
 
-	// NEXT-PREV.
-	const next = async () => {
-		await withSpotify(() => spotify.skipToNext());
-		checkPlayState();
-	};
-	const previous = async () => {
-		await withSpotify(() => spotify.skipToPrevious());
-		checkPlayState();
-	};
+	// PROGRESS
+	const { progress, setProgress } = useProgress();
 
-	// ON LOAD.
-	useEffect(() => {
-		checkPlayState();
-	}, [checkPlayState]);
+	// Pop Up.
+	const {
+		isOn: isOpen,
+		toggleIsOn: togglePopUp,
+		setIsOn: setIsOpen,
+	} = useToggle();
 
-	const parseMs = (ms: number) =>
-		`${Math.floor((ms / 1000 / 60) << 0)}:${Math.floor((ms / 1000) & 60)}`;
+	const {
+		isOn: isOpen2,
+		toggleIsOn: togglePopUp2,
+		setIsOn: setIsOpen2,
+	} = useToggle();
 
-	const [isOpen, setIsOpen] = useState(false);
-	const togglePopUp = () => setIsOpen(!isOpen);
+	const {
+		isOn: isOpen3,
+		toggleIsOn: togglePopUp3,
+		setIsOn: setIsOpen3,
+	} = useToggle();
+
+	const {
+		isOn: isOpen4,
+		toggleIsOn: togglePopUp4,
+		setIsOn: setIsOpen4,
+	} = useToggle();
 
 	return (
 		<>
-			{song && (
-				<PopUp {...{ isOpen, setIsOpen }}>
-					<p>Device: {device?.name}</p>
-					<p>
-						Progress: {parseMs(progress)}/{parseMs(song?.duration_ms)}
-					</p>
-					<p>Name: {song?.name}</p>
-					<p>
-						Artists: {song?.artists.map((artist) => artist.name).join(" - ")}
-					</p>
-				</PopUp>
-			)}
+			<PopUp {...{ isOpen, setIsOpen }}>
+				<p>Name: {song?.name}</p>
+				<p>Artists: {song?.artists.map((artist) => artist.name).join(" - ")}</p>
+			</PopUp>
+			<PopUp isOpen={isOpen2} setIsOpen={setIsOpen2}>
+				<p>NEXT SONGS</p>
+				{state?.track_window.next_tracks.map((t) => (
+					<p key={t.id}>{t.name}</p>
+				))}
+			</PopUp>
+			<PopUp isOpen={isOpen3} setIsOpen={setIsOpen3}>
+				<p>PREVIOUS SONGS</p>
+				{state?.track_window.previous_tracks.map((t) => (
+					<p key={t.id}>{t.name}</p>
+				))}
+			</PopUp>
+			<PopUp isOpen={isOpen4} setIsOpen={setIsOpen4}>
+				<Styled.Progress variants={button}>
+					<Range
+						min={0}
+						max={1}
+						step={0.01}
+						value={currentVolume}
+						onChangeEvent={(val) => setVolume(val)}
+					/>
+				</Styled.Progress>
+			</PopUp>
 			<Styled.Controls initial="hide" animate="show" variants={buttonsCont}>
 				{song && (
-					<Styled.Button onClick={togglePopUp} variants={button}>
+					<Styled.Button
+						onHoverStart={togglePopUp}
+						onHoverEnd={togglePopUp}
+						variants={button}
+					>
 						<Image
 							src={song?.album.images[0].url}
 							layout="fill"
@@ -114,14 +126,43 @@ const SpotifyControls = () => {
 						/>
 					</Styled.Button>
 				)}
-				<Styled.Button onClick={previous} variants={button}>
+				<Styled.Progress variants={button}>
+					<p>{parseMills(progress)}</p>
+					<Range
+						min={0}
+						max={state?.duration}
+						step={200}
+						value={progress}
+						onChangeEvent={(val) => setProgress(val)}
+						onReleaseEvent={() => goTo(progress)}
+					/>
+					<p>{parseMills(state?.duration)}</p>
+				</Styled.Progress>
+				<Styled.Button
+					onClick={prevTrack}
+					onHoverStart={togglePopUp3}
+					onHoverEnd={togglePopUp3}
+					variants={button}
+				>
 					<Styled.Previous />
 				</Styled.Button>
 				<Styled.Button onClick={togglePlay} variants={button}>
-					{playing ? <Styled.Pause /> : <Styled.Play />}
+					{state?.paused ? <Styled.Play /> : <Styled.Pause />}
 				</Styled.Button>
-				<Styled.Button onClick={next} variants={button}>
+				<Styled.Button
+					onClick={nextTrack}
+					onHoverStart={togglePopUp2}
+					onHoverEnd={togglePopUp2}
+					variants={button}
+				>
 					<Styled.Next />
+				</Styled.Button>
+				<Styled.Button
+					onClick={toggleMuted}
+					onHoverStart={togglePopUp4}
+					variants={button}
+				>
+					{isMuted ? <Styled.Muted /> : <Styled.UnMuted />}
 				</Styled.Button>
 			</Styled.Controls>
 		</>

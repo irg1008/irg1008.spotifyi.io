@@ -5,6 +5,7 @@ import Document, {
 	NextScript,
 	DocumentContext,
 } from "next/document";
+import Script from "next/script";
 import { ServerStyleSheet } from "styled-components";
 
 const production = process.env.NODE_ENV === "production";
@@ -42,17 +43,16 @@ export default class MyDocument extends Document {
 			<Html lang="en" dir="ltr">
 				<Head>
 					<meta charSet="utf-8" />
-					{production && (
-						<script
-							dangerouslySetInnerHTML={{
-								__html: `
-              var DEV_TOOLS = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;            
-              if (typeof DEV_TOOLS === "object") DEV_TOOLS.inject = function () {};
-              `,
-							}}
-						/>
-					)}
 				</Head>
+				{production && (
+					<Script strategy="lazyOnload">
+						{`
+              var DEV_TOOLS = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;            
+              if (typeof DEV_TOOLS === "object")
+								DEV_TOOLS.inject = function () {};
+						`}
+					</Script>
+				)}
 				<body>
 					<Main />
 					<NextScript />

@@ -12,7 +12,6 @@ const PopUpBottomBar: React.FC<IPopUpProps> = ({
 	setIsOpen,
 }) => {
 	const onBGClick = () => setIsOpen(false);
-	const onBack = () => console.log("back");
 
 	return (
 		<AnimatePresence>

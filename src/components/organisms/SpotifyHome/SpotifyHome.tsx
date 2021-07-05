@@ -8,6 +8,7 @@ import Loading from "components/atoms/Loading";
 import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
 import ToggleTheme from "components/atoms/ToggleTheme";
 import Image from "next/image";
+import SpotifySDK from "components/atoms/SpotifySDK";
 
 const Tracks = () => {
 	// Get 50 next tracks tracks.
@@ -135,6 +136,7 @@ const SpotifyHome = () => {
 			<Navbar />
 			<Tracks />
 			<SpotifyControls />
+			<SpotifySDK />
 		</Styled.Home>
 	);
 };

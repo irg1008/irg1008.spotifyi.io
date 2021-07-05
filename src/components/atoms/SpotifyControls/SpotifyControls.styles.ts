@@ -7,11 +7,15 @@ import {
   PauseIcon,
   ArrowCircleRightIcon,
   ArrowCircleLeftIcon,
+  VolumeOffIcon,
+  VolumeUpIcon,
 } from "@heroicons/react/solid";
 
 const Controls = tw(motion.div)`
   flex
   justify-center
+  items-center
+  flex-wrap
   w-full
   fixed
   bottom-0
@@ -25,7 +29,6 @@ const Controls = tw(motion.div)`
   shadow-md
   border-t-2
   space-x-4
-  h-28
   z-10
 `;
 
@@ -39,6 +42,11 @@ const Button = tw(motion.button)`
   flex
   justify-center
   items-center
+  overflow-hidden
+`;
+
+const Progress = tw(motion.div)`
+  flex
 `;
 
 const iconHeight = tw`h-8`;
@@ -47,6 +55,18 @@ const Previous = styled(ArrowCircleLeftIcon)(() => [iconHeight]);
 const Play = styled(PlayIcon)(() => [iconHeight]);
 const Pause = styled(PauseIcon)(() => [iconHeight]);
 const Next = styled(ArrowCircleRightIcon)(() => [iconHeight]);
+const Muted = styled(VolumeOffIcon)(() => [iconHeight]);
+const UnMuted = styled(VolumeUpIcon)(() => [iconHeight]);
 
-const Styled = { Controls, Button, Play, Pause, Previous, Next };
+const Styled = {
+  Controls,
+  Button,
+  Play,
+  Pause,
+  Previous,
+  Next,
+  Muted,
+  UnMuted,
+  Progress,
+};
 export default Styled;

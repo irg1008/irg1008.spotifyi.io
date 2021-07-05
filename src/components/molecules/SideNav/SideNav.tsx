@@ -9,7 +9,7 @@ const SideNav: React.FC<IHeaderProps> = ({ children }) => {
 	const toggleIsOpen = () => setIsOpen(!isOpen);
 
 	useEffect(() => {
-		setIsOpen(true);
+		setIsOpen(false);
 	}, []);
 
 	return (

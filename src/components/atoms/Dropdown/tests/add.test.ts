@@ -1,4 +1,4 @@
-import add from "../__test_components__/add";
+import add from "./add";
 
 test("Sumar 1 + 2 es igual a 3", () => {
 	expect(add(1, 2)).toBe(3);

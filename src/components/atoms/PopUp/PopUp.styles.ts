@@ -19,6 +19,7 @@ const BG = tw(motion.div)`
 	h-full
 	w-full
 	absolute
+	cursor-pointer
 `;
 
 const Container = tw(motion.div)`
