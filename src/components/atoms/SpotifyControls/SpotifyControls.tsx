@@ -6,8 +6,7 @@ import useSpotifySDK from "hooks/useSpotifySDK";
 import useToggle from "hooks/useToggle";
 import Range from "components/atoms/Range";
 import { parseMills } from "util/time";
-import useSpotify from "hooks/useSpotify";
-import { useEffect, useState } from "react";
+import { useSpotifyDevice } from "hooks/useSpotify";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -75,26 +74,7 @@ const SpotifyControls = () => {
 	} = useToggle();
 
 	// CURRENT DEVICES.
-	const { spotify, withSpotify } = useSpotify();
-	const [activeDevice, setActiveDevice] = useState<SpotifyApi.UserDevice>();
-	useEffect(() => {
-		const getActiveDevice = async () => {
-			const res = await withSpotify(
-				async () => await spotify.getMyCurrentPlaybackState(),
-			);
-			setActiveDevice(res?.device);
-			console.log(res?.device);
-		};
-
-		getActiveDevice();
-	}, [spotify, withSpotify]);
-
-	const transferPlayback = async () => {
-		await withSpotify(
-			async () =>
-				await spotify.transferMyPlayback([device?.deviceId], { play: true }),
-		);
-	};
+	const { activeDevice, transferPlayback } = useSpotifyDevice();
 
 	return (
 		<>
@@ -168,15 +148,14 @@ const SpotifyControls = () => {
 					</>
 				) : (
 					<>
-						{!!activeDevice ? (
-							<>
-								<p>Estás reproduciendo Spotify en otro dispositivo:</p>
-								<p>{activeDevice?.name}</p>
-							</>
-						) : (
-							<p>No hay dispositivos activos</p>
-						)}
-						<button onClick={transferPlayback}>Escuchar aquí</button>
+						<p>
+							{!!activeDevice
+								? `Dispositivo activo: ${activeDevice?.name}`
+								: "No hay dispositivos activos"}
+						</p>
+						<button onClick={() => transferPlayback(device?.deviceId)}>
+							Escuchar aquí
+						</button>
 					</>
 				)}
 			</Styled.Container>

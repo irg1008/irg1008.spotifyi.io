@@ -15,7 +15,7 @@ const thumb = tw`
   rounded-full
   -webkit-appearance[none]
   dark:box-shadow[-99999px 0 0 99993px lightcoral]
-  light:box-shadow[-99999px 0 0 99993px lightgray]
+  light:box-shadow[-99999px 0 0 99993px rgba(110, 231, 183, 0.6)]
 `;
 
 const track = tw`

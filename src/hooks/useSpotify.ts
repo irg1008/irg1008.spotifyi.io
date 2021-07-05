@@ -1,7 +1,7 @@
 import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
 import { getNewToken } from "middleware/spotify";
 import { getLocalData, ISpotifyTokenResponse } from "lib/spotify";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const useSpotify = () => {
   const {
@@ -45,4 +45,29 @@ const useSpotify = () => {
   return { withSpotify, spotify, isLogged };
 };
 
+const useSpotifyDevice = () => {
+  const { spotify, withSpotify } = useSpotify();
+
+  const [activeDevice, setActiveDevice] = useState<SpotifyApi.UserDevice>();
+
+  useEffect(() => {
+    const getActiveDevice = async () => {
+      const res = await withSpotify(
+        async () => await spotify.getMyCurrentPlaybackState()
+      );
+      setActiveDevice(res?.device);
+    };
+    getActiveDevice();
+  }, [spotify, withSpotify]);
+
+  const transferPlayback = async (deviceId: string) => {
+    await withSpotify(
+      async () => await spotify.transferMyPlayback([deviceId], { play: true })
+    );
+  };
+
+  return { activeDevice, transferPlayback };
+};
+
+export { useSpotifyDevice };
 export default useSpotify;

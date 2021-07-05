@@ -84,7 +84,7 @@ const SpotifyProvider: React.FC = ({ children }) => {
 			persistanceAuth();
 		}
 		setLoading(false);
-	}, []);
+	}, [state.isLogged]);
 
 	return (
 		!loading && (
