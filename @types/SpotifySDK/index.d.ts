@@ -95,10 +95,17 @@ declare module "SpotifySDK" {
     message: string;
   }
 
+  export interface IDevice {
+    deviceId: string;
+    deviceName: string;
+  }
+
   export interface ISpotifySDK {
     player: ISpotifyPlayer;
     state: ISpotifyState;
+    device: IDevice;
     setPlayer: (newPlayer: ISpotifyPlayer) => void;
     setState: (newState: ISpotifyState) => void;
+    setDevice: (newDevice: Partial<IDevice>) => void;
   }
 }

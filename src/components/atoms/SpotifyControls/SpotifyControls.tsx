@@ -46,7 +46,7 @@ const button: CustomVariants = {
 };
 
 const SpotifyControls = () => {
-	const { player, state, useVolume, useController, useProgress } =
+	const { player, state, useVolume, useController, useProgress, device } =
 		useSpotifySDK();
 
 	// VOLUME.
@@ -74,7 +74,27 @@ const SpotifyControls = () => {
 		setIsOn: setIsOpenVolume,
 	} = useToggle();
 
+	// CURRENT DEVICES.
 	const { spotify, withSpotify } = useSpotify();
+	const [activeDevice, setActiveDevice] = useState<SpotifyApi.UserDevice>();
+	useEffect(() => {
+		const getActiveDevice = async () => {
+			const res = await withSpotify(
+				async () => await spotify.getMyCurrentPlaybackState(),
+			);
+			setActiveDevice(res?.device);
+			console.log(res?.device);
+		};
+
+		getActiveDevice();
+	}, [spotify, withSpotify]);
+
+	const transferPlayback = async () => {
+		await withSpotify(
+			async () =>
+				await spotify.transferMyPlayback([device?.deviceId], { play: true }),
+		);
+	};
 
 	return (
 		<>
@@ -147,7 +167,17 @@ const SpotifyControls = () => {
 						</Styled.Controls>
 					</>
 				) : (
-					<p>Elige este dispositivo en la aplicación de Spotify</p>
+					<>
+						{!!activeDevice ? (
+							<>
+								<p>Estás reproduciendo Spotify en otro dispositivo:</p>
+								<p>{activeDevice?.name}</p>
+							</>
+						) : (
+							<p>No hay dispositivos activos</p>
+						)}
+						<button onClick={transferPlayback}>Escuchar aquí</button>
+					</>
 				)}
 			</Styled.Container>
 		</>

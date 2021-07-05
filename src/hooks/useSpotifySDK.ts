@@ -14,11 +14,11 @@ import useInterval from "hooks/useInterval";
 const useSpotifySDKStore = create<ISpotifySDK>((set) => ({
   player: null,
   state: null,
-  setPlayer: (newPlayer) => {
-    set(() => ({ player: newPlayer }));
-  },
-  setState: (newState) => {
-    set(() => ({ state: newState }));
+  device: null,
+  setPlayer: (newPlayer) => set(() => ({ player: newPlayer })),
+  setState: (newState) => set(() => ({ state: newState })),
+  setDevice: (newDevice) => {
+    set(({ device: old }) => ({ device: { ...old, ...newDevice } }));
   },
 }));
 
@@ -84,7 +84,14 @@ const useSpotifyProgress = (state: ISpotifyState) => {
 };
 
 const useSpotifySDK = () => {
-  const { player, state, setPlayer, setState } = useSpotifySDKStore();
+  const {
+    player,
+    state,
+    device,
+    setPlayer,
+    setState,
+    setDevice,
+  } = useSpotifySDKStore();
   const { withSpotify, spotify } = useSpotify();
 
   const getToken = useCallback(
@@ -112,10 +119,12 @@ const useSpotifySDK = () => {
   const onSpotifySDKLoad = useCallback(() => {
     // @ts-ignore
     const player: ISpotifyPlayer = new Spotify.Player(initPlayer);
+    setDevice({ deviceName: initPlayer.name });
 
     // Ready.
     player.addListener("ready", ({ device_id }: IPlaybackPlayer) => {
       console.log("Ready with Device ID", device_id);
+      setDevice({ deviceId: device_id });
       setPlayer(player);
     });
 
@@ -140,7 +149,7 @@ const useSpotifySDK = () => {
 
     // Connect to the player!
     player.connect();
-  }, [initPlayer, setPlayer, setState]);
+  }, [initPlayer, setPlayer, setState, setDevice]);
 
   // On player change => Update state.
   useEffect(() => {
@@ -163,6 +172,7 @@ const useSpotifySDK = () => {
     onSpotifySDKLoad,
     player,
     state,
+    device,
     useVolume,
     useController,
     useProgress,
