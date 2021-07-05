@@ -1,7 +1,7 @@
 import Styled from "./SpotifyTracks.styles";
 import { Variants, Variant } from "framer-motion";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Loading from "components/atoms/Loading";
 import Image from "next/image";
 import useSpotify from "hooks/useSpotify";
@@ -91,46 +91,30 @@ const SpotifyCard = ({ track }: ISpotifyTrack) => {
 };
 
 const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
-	const [offset, setOffset] = useState(0);
-	const [partial, setPartial] = useState<typeof tracks>([]);
+	const initialValue = 40;
+	const incrementValue = 20;
 
-	const appendNewTracks = useCallback((reset?: boolean) => {
-		const initOffset = reset ? 0 : offset;
-		const endOffset = initOffset + limit;
+	const [offset, setOffset] = useState(initialValue);
+	const partials = useMemo(() => tracks.slice(0, offset), [offset, tracks]);
+	const tracksLength = useMemo(() => tracks?.length, [tracks]);
+	const hasMore = useMemo(() => offset < tracksLength, [offset, tracksLength]);
 
-		const slicedTracks = tracks?.slice(initOffset, endOffset);
+	const next = () => {
+		setTimeout(() => {
+			setOffset(offset + incrementValue);
+		}, 100);
+	};
 
-		if (slicedTracks) {
-			const newPartial =
-				reset || !partial ? slicedTracks : partial.concat(slicedTracks);
-
-			setOffset(endOffset);
-			setPartial(newPartial);
-		}
-	}, []);
-
-	useEffect(() => {
-		appendNewTracks(true);
-	}, [tracks]);
-
-	if (tracks?.length === 0)
-		return (
-			<Styled.NotFoundText>
-				No songs match search parameters
-			</Styled.NotFoundText>
-		);
-
-	const limit = 30;
-
-	return (
+	return tracksLength === 0 ? (
+		<Styled.NotFoundText>No songs match search parameters</Styled.NotFoundText>
+	) : (
 		<InfiniteScroll
-			dataLength={partial.length}
-			next={appendNewTracks}
-			hasMore={offset < tracks.length}
+			dataLength={partials?.length}
+			{...{ hasMore, next }}
 			loader={<Loading text="Fetching more songs..." />}
 		>
 			<Styled.Songs initial="hide" animate="anim">
-				{partial?.map((track) => (
+				{partials?.map((track) => (
 					<SpotifyCard key={track.id} {...{ track }} />
 				))}
 			</Styled.Songs>

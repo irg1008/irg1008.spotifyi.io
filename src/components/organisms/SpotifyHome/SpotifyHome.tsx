@@ -1,5 +1,5 @@
-import useSpotify from "hooks/useSpotify";
-import { useEffect, useState, useCallback, useMemo } from "react";
+import useSpotify, { useTracks } from "hooks/useSpotify";
+import { useEffect, useState, useCallback } from "react";
 import SpotifyControls from "components/atoms/SpotifyControls";
 import Styled from "./SpotifyHome.styles";
 import SearchBar from "components/atoms/SearchBar";
@@ -11,68 +11,15 @@ import Image from "next/image";
 import SpotifySDK from "components/atoms/SpotifySDK";
 
 const Tracks = () => {
-	// Get 50 next tracks tracks.
-	const fetchTracks = async function* () {
-		const limit = 50;
-		let offset = 0;
-
-		while (true) {
-			const res = await withSpotify(() =>
-				spotify.getMySavedTracks({ limit, offset }),
-			);
-
-			const newTracks = res?.items.map((i) => i.track);
-			yield newTracks;
-
-			const total = res.total;
-			offset += limit;
-			if (offset > total) break;
-		}
-	};
-
-	const { spotify, withSpotify, isLogged } = useSpotify();
-
-	// TRACKS
-	const [tracks, setTracks] = useState<SpotifyApi.TrackObjectFull[]>([]);
 	const [value, setValue] = useState("");
-
-	// Filter tracks.
-	const filterTracks = (value: string) => setValue(value);
-	const filteredTracks =
-		useMemo(
-			() =>
-				tracks?.filter(
-					(t) =>
-						t.name.toLowerCase().includes(value?.toLowerCase()) ||
-						t.artists.some((a) => a.name.toLowerCase().includes(value)),
-				),
-			[value, tracks],
-		) || tracks;
-
-	const [loaded, setLoaded] = useState(false);
-	const [mounted, setMounted] = useState(true);
-
-	const getTracks = useCallback(async () => {
-		for await (const i of fetchTracks()) {
-			mounted && setTracks((oldTracks) => [...oldTracks, ...i]);
-			!loaded && setLoaded(true);
-		}
-	}, []);
-
-	// ON LOAD.
-	useEffect(() => {
-		!loaded && getTracks();
-		return () => {
-			setMounted(false);
-		};
-	}, []);
+	const { tracks, filteredTracks } = useTracks(value);
 
 	return (
 		<Styled.Tracks>
 			<Styled.Title>Songs</Styled.Title>
-			{loaded && mounted ? (
+			{!!tracks ? (
 				<>
-					<SearchBar ph="Searh name or artist" onChange={filterTracks} />
+					<SearchBar ph="Searh name or artist" onChange={setValue} />
 					<SpotifyTracks tracks={filteredTracks} />
 				</>
 			) : (
@@ -94,11 +41,11 @@ const Navbar = () => {
 	const getUser = useCallback(async () => {
 		const user = await withSpotify(() => spotify.getMe());
 		setUser(user);
-	}, []);
+	}, [spotify, withSpotify]);
 
 	useEffect(() => {
 		getUser();
-	}, []);
+	}, [getUser]);
 
 	return (
 		<Styled.Navbar>

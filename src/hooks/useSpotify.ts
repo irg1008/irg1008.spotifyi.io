@@ -1,7 +1,7 @@
 import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
 import { getNewToken } from "middleware/spotify";
 import { getLocalData, ISpotifyTokenResponse } from "lib/spotify";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const useSpotify = () => {
   const {
@@ -69,5 +69,60 @@ const useSpotifyDevice = () => {
   return { activeDevice, transferPlayback };
 };
 
-export { useSpotifyDevice };
+const useTracks = (value: string) => {
+  const { spotify, withSpotify } = useSpotify();
+
+  const [tracks, setTracks] = useState<SpotifyApi.TrackObjectFull[]>();
+
+  // Filter tracks.
+  const filteredTracks =
+    useMemo(
+      () =>
+        tracks?.filter(
+          (t) =>
+            t.name.toLowerCase().includes(value?.toLowerCase()) ||
+            t.artists.some((a) => a.name.toLowerCase().includes(value))
+        ),
+      [value, tracks]
+    ) || tracks;
+
+  // Get 50 next tracks.
+  const fetchTracks = useMemo(
+    () =>
+      async function* () {
+        const limit = 50;
+        let offset = 0;
+
+        while (true) {
+          const res = await withSpotify(() =>
+            spotify.getMySavedTracks({ limit, offset })
+          );
+
+          const newTracks = res?.items.map((i) => i.track);
+          yield newTracks;
+
+          const total = res.total;
+          offset += limit;
+          if (offset > total) break;
+        }
+      },
+    [spotify, withSpotify]
+  );
+
+  const addTracks = (newTracks: SpotifyApi.TrackObjectFull[]) =>
+    setTracks((old) => (!!old ? [...old, ...newTracks] : newTracks));
+
+  const getTracks = useCallback(async () => {
+    for await (const i of fetchTracks()) addTracks(i);
+  }, [fetchTracks]);
+
+  // ON LOAD.
+  useEffect(() => {
+    getTracks();
+  }, [getTracks]);
+
+  return { tracks, filteredTracks };
+};
+
+export { useSpotifyDevice, useTracks };
 export default useSpotify;

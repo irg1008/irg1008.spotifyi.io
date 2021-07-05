@@ -5,4 +5,6 @@
 // TODO: Animacion con variants no va el hover nu se porque.
 // TODO: Make cool loader.
 
+// TOFIX: Mejor display de canciones en lazy loading
+
 // TOFIX: usar SWR para cachear las canciones.
