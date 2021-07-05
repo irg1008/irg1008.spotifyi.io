@@ -9,11 +9,7 @@ const SpotifySDK = () => {
 		window["onSpotifyWebPlaybackSDKReady"] = onSpotifySDKLoad;
 	}, [onSpotifySDKLoad]);
 
-	return (
-		<>
-			<Script src="https://sdk.scdn.co/spotify-player.js" />
-		</>
-	);
+	return <Script src="https://sdk.scdn.co/spotify-player.js" />;
 };
 
 export default SpotifySDK;
