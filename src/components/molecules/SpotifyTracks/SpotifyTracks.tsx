@@ -57,8 +57,12 @@ interface ISpotifyTracks {
 const SpotifyCard = ({ track }: ISpotifyTrack) => {
 	const { spotify, withSpotify } = useSpotify();
 
-	const playSong = async () => {
+	const addToQueue = async () => {
 		await withSpotify(() => spotify.queue(track.uri));
+	};
+
+	const playSong = async () => {
+		await addToQueue();
 		await withSpotify(() => spotify.skipToNext());
 	};
 
@@ -81,6 +85,7 @@ const SpotifyCard = ({ track }: ISpotifyTrack) => {
 				<source src={track.preview_url} />
 			</Styled.Audio>
 			<button onClick={playSong}>Play</button>
+			<button onClick={addToQueue}>Add to Queue</button>
 		</Styled.Card>
 	);
 };
