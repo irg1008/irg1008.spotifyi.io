@@ -31,10 +31,10 @@ const card: CustomVariants = {
 
 const cardImg: CustomVariants = {
 	hide: {
-		rotate: 0,
+		rotate: -12,
 	},
 	anim: {
-		rotate: -12,
+		rotate: 0,
 		scale: 0.8,
 		transition: {
 			duration: 1.2,
@@ -66,6 +66,8 @@ const SpotifyCard = ({ track }: ISpotifyTrack) => {
 		await withSpotify(() => spotify.skipToNext());
 	};
 
+	const image = track.album?.images[0];
+
 	return (
 		<Styled.Card variants={card}>
 			<Styled.SongTitle>{track.name}</Styled.SongTitle>
@@ -74,18 +76,16 @@ const SpotifyCard = ({ track }: ISpotifyTrack) => {
 			</Styled.SongArtist>
 			<Styled.SongImg variants={cardImg}>
 				<a href={track.external_urls.spotify} target="_blank" rel="noreferrer">
-					<Image
-						src={track.album?.images[0].url}
-						alt={track.name}
-						layout="fill"
-					/>
+					<Image src={image.url} alt={track.name} layout="fill" />
 				</a>
 			</Styled.SongImg>
 			<Styled.Audio controls={false}>
 				<source src={track.preview_url} />
 			</Styled.Audio>
-			<button onClick={playSong}>Play</button>
-			<button onClick={addToQueue}>Add to Queue</button>
+			<Styled.Buttons>
+				<Styled.Button onClick={playSong}>Play</Styled.Button>
+				<Styled.Button onClick={addToQueue}>Add to Queue</Styled.Button>
+			</Styled.Buttons>
 		</Styled.Card>
 	);
 };

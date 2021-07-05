@@ -9,36 +9,50 @@ const Songs = tw(motion.div)`
   p-5
 `;
 
+const Buttons = tw.div`
+  flex
+  space-x-4
+`;
+
+const Button = tw.button`
+  flex-1
+  rounded-full
+  text-lg
+`;
+
 const Card = tw(motion.div)`
   w-80
+  h-96
   space-y-2
   flex
   flex-col
+  justify-between
   p-4
   m-2
   bg-white
   bg-opacity-70
   rounded-3xl
   shadow-lg
-  overflow-hidden
+  overflow-auto
 `;
 
 const SongTitle = tw.p`
   font-normal
+  dark:text-black
 `;
 
 const SongArtist = tw(SongTitle)`
-  text-gray-500
+  text-sm
+  dark:text-gray-800
 `;
 
 const SongImg = tw(motion.div)`
-  w-60
-  h-60
-  rounded-full
+  w-56
+  h-56
+  rounded-2xl
   shadow-md
-  transform
-  origin-center
   self-center
+  overflow-hidden
 `;
 
 const NotFoundText = tw(SongTitle)`
@@ -58,5 +72,7 @@ const Styled = {
   SongImg,
   NotFoundText,
   Audio,
+  Buttons,
+  Button,
 };
 export default Styled;
