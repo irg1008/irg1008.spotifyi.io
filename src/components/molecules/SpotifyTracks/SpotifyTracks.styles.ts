@@ -1,5 +1,4 @@
 import tw from "twin.macro";
-import { motion } from "framer-motion";
 
 const Songs = tw.div`
   flex
@@ -28,7 +27,7 @@ const Card = tw.div`
   flex-col
   justify-between
   p-4
-  m-2
+  m-6
   bg-white
   bg-opacity-70
   rounded-3xl
