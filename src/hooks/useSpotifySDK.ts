@@ -72,7 +72,8 @@ const useSpotifyProgress = (state: ISpotifyState) => {
 
   const second = 500;
 
-  const cb = () => !state?.paused && !paused && setProgress(progress + second);
+  const cb = () =>
+    !state?.paused && !paused && setProgress((oldValue) => oldValue + second);
 
   useInterval({ mills: second, cb });
 
