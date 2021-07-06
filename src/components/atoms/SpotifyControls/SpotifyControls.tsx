@@ -76,8 +76,10 @@ const SpotifyControls = () => {
 	return (
 		<>
 			<PopUp isOpen={isOpenSong} onBGClick={toggleIsOpenSong}>
-				<p>Name: {song?.name}</p>
-				<p>Artists: {song?.artists.map((artist) => artist.name).join(" - ")}</p>
+				<Styled.Text>Name: {song?.name}</Styled.Text>
+				<Styled.Text>
+					Artists: {song?.artists.map((artist) => artist.name).join(" - ")}
+				</Styled.Text>
 			</PopUp>
 			<PopUp isOpen={isOpenVolume} onBGClick={togglePopUpVolume}>
 				<Styled.Progress variants={button}>
