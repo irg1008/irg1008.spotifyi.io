@@ -1,33 +1,75 @@
 import tw from "twin.macro";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { motion } from "framer-motion";
 
 import {
-	PlayIcon,
-	PauseIcon,
-	ArrowCircleRightIcon,
-	ArrowCircleLeftIcon,
-	VolumeOffIcon,
-	VolumeUpIcon,
+  PlayIcon,
+  PauseIcon,
+  ArrowCircleRightIcon,
+  ArrowCircleLeftIcon,
+  VolumeOffIcon,
+  VolumeUpIcon,
 } from "@heroicons/react/solid";
 
-const Container = tw.div`
+const Container = styled.div(
+  ({ height, isOpen }: { height: number; isOpen: boolean }) => [
+    tw`
+    w-full
+    fixed
+    bottom-0
+    left-0
+    shadow-md
+    z-10
+    flex
+    items-center
+    flex-col
+    transition-transform
+    duration-300
+    ease-in-out
+  `,
+    isOpen === false &&
+      css`
+        transform: translateY(${height}px);
+      `,
+  ]
+);
+
+const Wrapper = tw.div`
   w-full
-  fixed
-  bottom-0
   space-y-6
-  left-0
-  bg-black
-  bg-opacity-60
+  light:bg-green-500
+  dark:bg-red-300
   p-6
-  backdrop-filter
-  backdrop-grayscale
-  backdrop-blur-md
-  shadow-md
   border-t-2
-  z-10
   text-center
 `;
+
+const Down = tw.div`
+  h-8
+  w-8
+  text-white
+  bg-black
+  bg-opacity-60
+  flex
+  rounded-t-full
+`;
+
+const Chevron = styled.div(({ isOpen }: { isOpen: boolean }) => [
+  tw`
+    w-full
+    h-full
+    transform
+    transition-transform
+    duration-200
+    ease-in-out
+    cursor-pointer
+    delay-200
+  `,
+  isOpen === false &&
+    tw`
+      rotate-180
+    `,
+]);
 
 const Controls = tw(motion.div)`
   flex
@@ -55,6 +97,11 @@ const Progress = tw(motion.div)`
   justify-around
 `;
 
+const Text = tw.p`
+  dark:text-red-900
+  light:text-green-100
+`;
+
 const iconHeight = tw`h-8`;
 
 const Previous = styled(ArrowCircleLeftIcon)(() => [iconHeight]);
@@ -65,15 +112,19 @@ const Muted = styled(VolumeOffIcon)(() => [iconHeight]);
 const UnMuted = styled(VolumeUpIcon)(() => [iconHeight]);
 
 const Styled = {
-	Controls,
-	Container,
-	Button,
-	Play,
-	Pause,
-	Previous,
-	Next,
-	Muted,
-	UnMuted,
-	Progress,
+  Controls,
+  Wrapper,
+  Container,
+  Button,
+  Play,
+  Pause,
+  Previous,
+  Next,
+  Muted,
+  Down,
+  Chevron,
+  UnMuted,
+  Progress,
+  Text,
 };
 export default Styled;

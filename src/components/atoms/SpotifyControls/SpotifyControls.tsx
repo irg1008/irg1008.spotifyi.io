@@ -7,6 +7,8 @@ import useToggle from "hooks/useToggle";
 import Range from "components/atoms/Range";
 import { parseMills } from "util/time";
 import { useSpotifyDevice } from "hooks/useSpotify";
+import { ChevronDownIcon } from "@heroicons/react/solid";
+import useRefHeight from "hooks/useRefHeight";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -45,7 +47,7 @@ const button: CustomVariants = {
 };
 
 const SpotifyControls = () => {
-	const { player, state, useVolume, useController, useProgress, device } =
+	const { state, useVolume, useController, useProgress, device } =
 		useSpotifySDK();
 
 	// VOLUME.
@@ -63,9 +65,13 @@ const SpotifyControls = () => {
 	// Pop Ups.
 	const [isOpenSong, toggleIsOpenSong] = useToggle();
 	const [isOpenVolume, togglePopUpVolume] = useToggle();
+	const [showControls, toggleShowControls] = useToggle(true);
 
 	// CURRENT DEVICES.
 	const { activeDevice, transferPlayback } = useSpotifyDevice();
+
+	// CONTAINER HEIGHT.
+	const [containerRef, containerHeight] = useRefHeight<HTMLDivElement>();
 
 	return (
 		<>
@@ -84,71 +90,78 @@ const SpotifyControls = () => {
 					/>
 				</Styled.Progress>
 			</PopUp>
-			<Styled.Container>
-				{!!state ? (
-					<>
-						<Styled.Progress variants={button}>
-							<p>{parseMills(progress | 0)}</p>
-							<Range
-								min={0}
-								max={state?.duration}
-								step={200}
-								value={progress}
-								onChangeEvent={(val) => setProgress(val)}
-								onReleaseEvent={() => {
-									goTo(progress);
-									setPaused(false);
-								}}
-								onDrag={() => setPaused(true)}
-							/>
-							<p>{parseMills(state?.duration | 0)}</p>
-						</Styled.Progress>
-						<Styled.Controls
-							initial="hide"
-							animate="show"
-							variants={buttonsCont}
-						>
-							<Styled.Button
-								onHoverStart={toggleIsOpenSong}
-								onHoverEnd={toggleIsOpenSong}
-								variants={button}
-							>
-								<Image
-									src={song?.album.images[0].url}
-									layout="fill"
-									alt={song?.name}
+			<Styled.Container height={containerHeight} isOpen={showControls}>
+				<Styled.Down onClick={toggleShowControls}>
+					<Styled.Chevron isOpen={showControls}>
+						<ChevronDownIcon />
+					</Styled.Chevron>
+				</Styled.Down>
+				<Styled.Wrapper ref={containerRef}>
+					{!!state ? (
+						<>
+							<Styled.Progress variants={button}>
+								<Styled.Text>{parseMills(progress | 0)}</Styled.Text>
+								<Range
+									min={0}
+									max={state?.duration}
+									step={200}
+									value={progress}
+									onChangeEvent={(val) => setProgress(val)}
+									onReleaseEvent={() => {
+										goTo(progress);
+										setPaused(false);
+									}}
+									onDrag={() => setPaused(true)}
 								/>
-							</Styled.Button>
-							<Styled.Button onClick={prevTrack} variants={button}>
-								<Styled.Previous />
-							</Styled.Button>
-							<Styled.Button onClick={togglePlay} variants={button}>
-								{state?.paused ? <Styled.Play /> : <Styled.Pause />}
-							</Styled.Button>
-							<Styled.Button onClick={nextTrack} variants={button}>
-								<Styled.Next />
-							</Styled.Button>
-							<Styled.Button
-								onClick={toggleMuted}
-								onHoverStart={togglePopUpVolume}
-								variants={button}
+								<Styled.Text>{parseMills(state?.duration | 0)}</Styled.Text>
+							</Styled.Progress>
+							<Styled.Controls
+								initial="hide"
+								animate="show"
+								variants={buttonsCont}
 							>
-								{isMuted ? <Styled.Muted /> : <Styled.UnMuted />}
-							</Styled.Button>
-						</Styled.Controls>
-					</>
-				) : (
-					<>
-						<p>
-							{!!activeDevice
-								? `Dispositivo activo: ${activeDevice?.name}`
-								: "No hay dispositivos activos"}
-						</p>
-						<button onClick={() => transferPlayback(device?.deviceId)}>
-							Escuchar aquí
-						</button>
-					</>
-				)}
+								<Styled.Button
+									onHoverStart={toggleIsOpenSong}
+									onHoverEnd={toggleIsOpenSong}
+									variants={button}
+								>
+									<Image
+										src={song?.album.images[0].url}
+										layout="fill"
+										alt={song?.name}
+									/>
+								</Styled.Button>
+								<Styled.Button onClick={prevTrack} variants={button}>
+									<Styled.Previous />
+								</Styled.Button>
+								<Styled.Button onClick={togglePlay} variants={button}>
+									{state?.paused ? <Styled.Play /> : <Styled.Pause />}
+								</Styled.Button>
+								<Styled.Button onClick={nextTrack} variants={button}>
+									<Styled.Next />
+								</Styled.Button>
+								<Styled.Button
+									onClick={toggleMuted}
+									onHoverStart={togglePopUpVolume}
+									variants={button}
+								>
+									{isMuted ? <Styled.Muted /> : <Styled.UnMuted />}
+								</Styled.Button>
+							</Styled.Controls>
+						</>
+					) : (
+						<>
+							<Styled.Text>
+								{!!activeDevice
+									? `Dispositivo activo: ${activeDevice?.name}`
+									: "No hay dispositivos activos"}
+							</Styled.Text>
+							<button onClick={() => transferPlayback(device?.deviceId)}>
+								Escuchar aquí
+							</button>
+						</>
+					)}
+				</Styled.Wrapper>
 			</Styled.Container>
 		</>
 	);

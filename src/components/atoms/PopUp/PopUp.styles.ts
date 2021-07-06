@@ -30,15 +30,15 @@ const Container = tw(motion.div)`
 	overflow-auto
 	relative
 	self-end
-	mb-48
+	mb-56
 	rounded-3xl
 	shadow-2xl
 `;
 
 const ChildrenWrapper = tw.div`
 	p-10
-	light:bg-green-200
-	dark:bg-red-500
+	light:bg-green-500
+	dark:bg-red-300
 	light:bg-opacity-90
 	dark:bg-opacity-90
 	flex

@@ -1,7 +1,8 @@
 import Styled from "./Dropdown.styles";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import useToggle from "hooks/useToggle";
-import React, { useRef } from "react";
+import React from "react";
+import useRefHeight from "hooks/useRefHeight";
 
 interface IBaseDropdownProps {
 	title: string;
@@ -38,8 +39,7 @@ const Dropdown = ({
 		</>
 	));
 
-	const contentRef = useRef<HTMLDivElement>();
-	const contentHeight = contentRef.current?.clientHeight;
+	const [contentRef, contentHeight] = useRefHeight<HTMLDivElement>();
 
 	return (
 		<Styled.Dropdown>

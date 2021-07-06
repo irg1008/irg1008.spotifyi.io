@@ -13,7 +13,7 @@ import {
 	getLocalData,
 	removeLocalData,
 } from "lib/spotify";
-import Loading from "components/atoms/Loading";
+import SpotifySDK from "components/atoms/SpotifySDK";
 
 interface ISpotifyState {
 	spotify: SpotifyWebApi.SpotifyWebApiJs;
@@ -89,6 +89,8 @@ const SpotifyProvider: React.FC = ({ children }) => {
 	return (
 		!loading && (
 			<SpotifyContext.Provider value={{ state, dispatch }}>
+				<SpotifySDK />
+
 				{children}
 			</SpotifyContext.Provider>
 		)
