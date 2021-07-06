@@ -100,7 +100,6 @@ const SpotifyControls = () => {
 					{!!state ? (
 						<>
 							<Styled.Progress variants={button}>
-								<Styled.Text>{parseMills(progress | 0)}</Styled.Text>
 								<Range
 									min={0}
 									max={state?.duration}
@@ -113,6 +112,7 @@ const SpotifyControls = () => {
 									}}
 									onDrag={() => setPaused(true)}
 								/>
+								<Styled.Text>{parseMills(progress | 0)}</Styled.Text>
 								<Styled.Text>{parseMills(state?.duration | 0)}</Styled.Text>
 							</Styled.Progress>
 							<Styled.Controls

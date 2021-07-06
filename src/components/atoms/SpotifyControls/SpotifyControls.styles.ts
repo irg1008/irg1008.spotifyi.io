@@ -94,7 +94,9 @@ const Button = tw(motion.button)`
 const Progress = tw(motion.div)`
   flex
   items-center
-  justify-around
+  justify-between
+  flex-wrap
+  space-y-1
 `;
 
 const Text = tw.p`

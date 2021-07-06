@@ -19,7 +19,6 @@ const thumb = tw`
 `;
 
 const track = tw`
-  mx-3
   h-3
   w-full
   rounded-2xl
