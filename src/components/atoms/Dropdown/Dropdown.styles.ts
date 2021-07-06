@@ -34,6 +34,7 @@ const DropdownTitle = tw.p`
   text-xl
   p-2
   text-white
+  flex[8]
 `;
 
 const ChevronButton = tw.div`
@@ -41,6 +42,10 @@ const ChevronButton = tw.div`
   h-10
   w-10
   p-2
+  flex-1
+  flex
+  justify-center
+  items-center
 `;
 
 const Content = styled.div(({ isOpen }: { isOpen: boolean }) => [

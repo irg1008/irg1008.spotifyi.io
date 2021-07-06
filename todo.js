@@ -1,10 +1,2 @@
-// TODO: Loading spotify component.
-// TODO: Better reducer actions to prevent circular functions like localstorage.
-// TODO: Use seuspense for laoding.
-// TODO: Store access_token y refresh_token como uno solo mediante jwt
-// TODO: Animacion con variants no va el hover nu se porque.
-// TODO: Make cool loader.
-
-// TOFIX: Mejor display de canciones en lazy loading
-
-// TOFIX: usar SWR para cachear las canciones.
+// TODO: Caché de canciones: Zustand con persist?
+// TODO: ESLINT es las otras carpetas.
