@@ -34,6 +34,7 @@ const Range = ({
 			onMouseUp={onRelease}
 			onTouchEnd={onRelease}
 			onMouseDown={onDrag}
+			onTouchStart={onDrag}
 		/>
 	);
 };
