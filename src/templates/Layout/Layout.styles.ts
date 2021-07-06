@@ -1,5 +1,4 @@
 import tw from "twin.macro";
-import { motion } from "framer-motion";
 
 const Layout = tw.div`
   w-full
@@ -19,5 +18,9 @@ const Main = tw.main`
   transition-colors
 `;
 
-const Styled = { Layout, Main };
+const Link = tw.a`
+  hover:underline
+`;
+
+const Styled = { Layout, Main, Link };
 export default Styled;

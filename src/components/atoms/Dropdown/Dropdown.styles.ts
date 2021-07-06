@@ -8,56 +8,71 @@ const Dropdown = tw.div`
   my-4
   shadow-lg
   border-2
-  border-white
-  border-opacity-20
+  border-black
+  border-opacity-50
 `;
 
 const DropdownTitleContainer = styled.div(({ isOpen }: { isOpen: boolean }) => [
-	tw`
+  tw`
     cursor-pointer
     flex
     justify-between
     items-center
-    bg-gray-600
+    bg-black
+    bg-opacity-50
+    hover:bg-opacity-80
+    transition-colors
+    duration-200
   `,
-	isOpen &&
-		tw`
-    bg-green-500
-    `,
+  isOpen &&
+    tw`
+    bg-opacity-80
+  `,
 ]);
 
 const DropdownTitle = tw.p`
   text-xl
   p-2
+  text-white
 `;
 
-const ChevronButton = tw.button`
-  bg-transparent!
+const ChevronButton = tw.div`
+  text-white
   h-10
   w-10
+  p-2
 `;
 
 const Content = styled.div(({ isOpen }: { isOpen: boolean }) => [
-	tw`
+  tw`
     w-full
-    bg-gray-300
+    bg-gray-200
+    text-black
+    bg-opacity-80
     h-0
     flex
     flex-col
     space-y-3
     `,
-	isOpen &&
-		tw`
+  isOpen &&
+    tw`
       p-2
       h-auto
     `,
 ]);
 
+const Separator = tw.hr`
+  border-black
+  border-opacity-20
+  rounded-2xl
+`;
+
 const Styled = {
-	Dropdown,
-	DropdownTitle,
-	ChevronButton,
-	Content,
-	DropdownTitleContainer,
+  Dropdown,
+  DropdownTitle,
+  ChevronButton,
+  Separator,
+  Content,
+  DropdownTitleContainer,
 };
 export default Styled;

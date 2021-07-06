@@ -37,12 +37,12 @@ const Card = tw.div`
 
 const SongTitle = tw.p`
   font-normal
-  dark:text-black
+  text-black
 `;
 
 const SongArtist = tw(SongTitle)`
   text-sm
-  dark:text-gray-800
+  text-gray-800
 `;
 
 const SongImg = tw.div`

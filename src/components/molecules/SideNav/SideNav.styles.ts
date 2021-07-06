@@ -6,14 +6,17 @@ const Button = tw.button`
   w-10
   h-10
   mt-4
-  bg-indigo-500!
 `;
 
 const TreeView = tw.div`
   h-full
   width[20rem]
-  bg-indigo-500
+  dark:bg-red-500
+  light:bg-green-500
   p-4
+  border-r-2
+  dark:border-red-200
+  light:border-green-200
 `;
 
 const SideNav = styled.div(({ isOpen }: { isOpen: boolean }) => [

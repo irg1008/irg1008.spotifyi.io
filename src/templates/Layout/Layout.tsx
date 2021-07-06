@@ -8,21 +8,25 @@ import Dropdown from "components/atoms/Dropdown";
 
 const Layout: React.FC = ({ children }) => (
 	<Styled.Layout>
-		<header>
-			<SideNav>
-				<Dropdown title="One">
-					<a href="#">One</a>
-					<a href="#">Two</a>
-					<a href="#">Three</a>
-				</Dropdown>
-				<Dropdown title="Two">
-					<a href="#">One</a>
-					<a href="#">Two</a>
-					<a href="#">Three</a>
-				</Dropdown>
-				<Dropdown title="Three" />
-			</SideNav>
-		</header>
+		<header></header>
+		<SideNav>
+			<Dropdown title="Click en mis Links">
+				<Styled.Link href="#">One</Styled.Link>
+				<Styled.Link href="#">Two</Styled.Link>
+				<Styled.Link href="#">Three</Styled.Link>
+			</Dropdown>
+			<Dropdown title="Puedo tener botones">
+				<button>One</button>
+				<button>Two</button>
+				<button>Three</button>
+			</Dropdown>
+			<Dropdown title="Click me" onTitleClick={() => alert("También funciono como botón")} />
+			<Dropdown title="Y tengo texto! O lo que quieras">
+				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+				hic beatae aut sapiente ducimus voluptates soluta deserunt autem unde
+				non rem delectus tempora, quam odio earum qui nulla magni enim?
+			</Dropdown>
+		</SideNav>
 		<Styled.Main>{children}</Styled.Main>
 		<footer></footer>
 	</Styled.Layout>

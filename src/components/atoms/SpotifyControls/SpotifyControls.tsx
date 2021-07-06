@@ -61,28 +61,19 @@ const SpotifyControls = () => {
 	const { progress, setProgress, setPaused } = useProgress();
 
 	// Pop Ups.
-	const {
-		isOn: isOpen,
-		toggleIsOn: togglePopUp,
-		setIsOn: setIsOpen,
-	} = useToggle();
-
-	const {
-		isOn: isOpenVolume,
-		toggleIsOn: togglePopUpVolume,
-		setIsOn: setIsOpenVolume,
-	} = useToggle();
+	const [isOpenSong, toggleIsOpenSong] = useToggle();
+	const [isOpenVolume, togglePopUpVolume] = useToggle();
 
 	// CURRENT DEVICES.
 	const { activeDevice, transferPlayback } = useSpotifyDevice();
 
 	return (
 		<>
-			<PopUp {...{ isOpen, setIsOpen }}>
+			<PopUp isOpen={isOpenSong} onBGClick={toggleIsOpenSong}>
 				<p>Name: {song?.name}</p>
 				<p>Artists: {song?.artists.map((artist) => artist.name).join(" - ")}</p>
 			</PopUp>
-			<PopUp isOpen={isOpenVolume} setIsOpen={setIsOpenVolume}>
+			<PopUp isOpen={isOpenVolume} onBGClick={toggleIsOpenSong}>
 				<Styled.Progress variants={button}>
 					<Range
 						min={0}
@@ -118,8 +109,8 @@ const SpotifyControls = () => {
 							variants={buttonsCont}
 						>
 							<Styled.Button
-								onHoverStart={togglePopUp}
-								onHoverEnd={togglePopUp}
+								onHoverStart={toggleIsOpenSong}
+								onHoverEnd={toggleIsOpenSong}
 								variants={button}
 							>
 								<Image

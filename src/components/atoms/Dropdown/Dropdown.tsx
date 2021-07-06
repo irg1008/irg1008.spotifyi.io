@@ -1,22 +1,43 @@
 import Styled from "./Dropdown.styles";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
-import { useEffect, useState } from "react";
+import useToggle from "hooks/useToggle";
+import React from "react";
 
-interface IDropdownProps {
+interface IBaseDropdownProps {
 	title: string;
 }
 
-const Dropdown: React.FC<IDropdownProps> = ({ children, title }) => {
-	const [isOpen, setIsOpen] = useState<boolean>();
-	const toggleIsOpen = () => children && setIsOpen(!isOpen);
+type IDropdownProps = IBaseDropdownProps &
+	(
+		| {
+				children: React.ReactNode;
+				onTitleClick?: never;
+		  }
+		| {
+				children?: never;
+				onTitleClick?: () => void;
+		  }
+	);
 
-	useEffect(() => {
-		setIsOpen(false);
-	}, []);
+const Dropdown = ({ children, title, onTitleClick }: IDropdownProps) => {
+	const [isOpen, toggleIsOpen] = useToggle();
+
+	const isLast = (index: number) =>
+		index === React.Children.count(children) - 1;
+
+	const childrenMap = React.Children.map(children, (child, index) => (
+		<>
+			{child}
+			{!isLast(index) && <Styled.Separator />}
+		</>
+	));
 
 	return (
 		<Styled.Dropdown>
-			<Styled.DropdownTitleContainer {...{ isOpen }} onClick={toggleIsOpen}>
+			<Styled.DropdownTitleContainer
+				{...{ isOpen }}
+				onClick={children ? toggleIsOpen : onTitleClick}
+			>
 				<Styled.DropdownTitle>{title}</Styled.DropdownTitle>
 				{children && (
 					<>
@@ -26,7 +47,9 @@ const Dropdown: React.FC<IDropdownProps> = ({ children, title }) => {
 					</>
 				)}
 			</Styled.DropdownTitleContainer>
-			{children && <Styled.Content {...{ isOpen }}>{children}</Styled.Content>}
+			{children && (
+				<Styled.Content {...{ isOpen }}>{childrenMap}</Styled.Content>
+			)}
 		</Styled.Dropdown>
 	);
 };
