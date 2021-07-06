@@ -10,12 +10,12 @@ const Layout: React.FC = ({ children }) => (
 	<Styled.Layout>
 		<header></header>
 		<SideNav>
-			<Dropdown title="Click en mis Links">
+			<Dropdown title="Click My Links">
 				<Styled.Link href="#">One</Styled.Link>
 				<Styled.Link href="#">Two</Styled.Link>
 				<Styled.Link href="#">Three</Styled.Link>
 			</Dropdown>
-			<Dropdown title="Puedo tener botones">
+			<Dropdown title="I Store Buttons!">
 				<button>One</button>
 				<button>Two</button>
 				<button>Three</button>
@@ -25,9 +25,9 @@ const Layout: React.FC = ({ children }) => (
 			</Dropdown>
 			<Dropdown
 				title="Click me"
-				onTitleClick={() => alert("También funciono como botón")}
+				onTitleClick={() => alert("I just alerted you!")}
 			/>
-			<Dropdown title="¡Y tengo texto! O lo que quieras" openOnLoad>
+			<Dropdown title="¡And text! Or Anything You Want" openOnLoad>
 				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
 				hic beatae aut sapiente ducimus voluptates soluta deserunt autem unde
 				non rem delectus tempora, quam odio earum qui nulla magni enim?
