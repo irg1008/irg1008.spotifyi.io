@@ -2,6 +2,8 @@ import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
 import { getNewToken } from "middleware/spotify";
 import { getLocalData, ISpotifyTokenResponse } from "lib/spotify";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import create from "zustand";
+import { persist } from "zustand/middleware";
 
 const useSpotify = () => {
   const {
@@ -69,10 +71,19 @@ const useSpotifyDevice = () => {
   return { activeDevice, transferPlayback };
 };
 
+type TTracks = SpotifyApi.TrackObjectFull[];
+interface ITracksStore {
+  tracks: TTracks;
+  setTracks: (tracks: TTracks) => void;
+}
+
 const useTracks = (value: string = "") => {
   const { spotify, withSpotify } = useSpotify();
 
   const [tracks, setTracks] = useState<SpotifyApi.TrackObjectFull[]>();
+
+  const addTracks = (newTracks: SpotifyApi.TrackObjectFull[]) =>
+    setTracks((old) => (!!old ? [...old, ...newTracks] : newTracks));
 
   // Filter tracks.
   const filteredTracks =
@@ -108,9 +119,6 @@ const useTracks = (value: string = "") => {
       },
     [spotify, withSpotify]
   );
-
-  const addTracks = (newTracks: SpotifyApi.TrackObjectFull[]) =>
-    setTracks((old) => (!!old ? [...old, ...newTracks] : newTracks));
 
   const getTracks = useCallback(async () => {
     for await (const i of fetchTracks()) addTracks(i);
