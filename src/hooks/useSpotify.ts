@@ -2,8 +2,6 @@ import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
 import { getNewToken } from "middleware/spotify";
 import { getLocalData, ISpotifyTokenResponse } from "lib/spotify";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import create from "zustand";
-import { persist } from "zustand/middleware";
 
 const useSpotify = () => {
 	const {

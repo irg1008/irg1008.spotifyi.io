@@ -22,34 +22,21 @@ const Layout: React.FC = ({ children }) => (
 				<button>Four</button>
 				<button>Five</button>
 				<button>One</button>
-				<button>Two</button>
-				<button>Three</button>
-				<button>Four</button>
-				<button>Five</button>
-				<button>One</button>
-				<button>Two</button>
-				<button>Three</button>
-				<button>Four</button>
-				<button>Five</button>
-				<button>One</button>
-				<button>Two</button>
-				<button>Three</button>
-				<button>Four</button>
-				<button>Five</button>
-				<button>One</button>
-				<button>Two</button>
-				<button>Three</button>
-				<button>Four</button>
-				<button>Five</button>
 			</Dropdown>
 			<Dropdown
 				title="Click me"
 				onTitleClick={() => alert("También funciono como botón")}
 			/>
-			<Dropdown title="Y tengo texto! O lo que quieras">
+			<Dropdown title="¡Y tengo texto! O lo que quieras" openOnLoad>
 				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
 				hic beatae aut sapiente ducimus voluptates soluta deserunt autem unde
 				non rem delectus tempora, quam odio earum qui nulla magni enim?
+				<button>Two</button>
+				<button>Three</button>
+				<button>Four</button>
+				<button>Five</button>
+				<Styled.Link href="#">Two</Styled.Link>
+				<Styled.Link href="#">Three</Styled.Link>
 			</Dropdown>
 		</SideNav>
 		<Styled.Main>{children}</Styled.Main>
