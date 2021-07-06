@@ -17,6 +17,7 @@ const TreeView = tw.div`
   border-r-2
   dark:border-red-200
   light:border-green-200
+  overflow-y-auto
 `;
 
 const SideNav = styled.div(({ isOpen }: { isOpen: boolean }) => [
