@@ -20,7 +20,10 @@ const Layout: React.FC = ({ children }) => (
 				<button>Two</button>
 				<button>Three</button>
 			</Dropdown>
-			<Dropdown title="Click me" onTitleClick={() => alert("También funciono como botón")} />
+			<Dropdown
+				title="Click me"
+				onTitleClick={() => alert("También funciono como botón")}
+			/>
 			<Dropdown title="Y tengo texto! O lo que quieras">
 				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
 				hic beatae aut sapiente ducimus voluptates soluta deserunt autem unde
@@ -47,7 +50,7 @@ const DynamicLayout: React.FC = ({ children }) => {
 		router.events.on("routeChangeStart", pageLoading);
 		router.events.on("routeChangeComplete", () => pageLoaded);
 		router.events.on("routeChangeError", pageLoaded);
-	}, []);
+	}, [router.events]);
 
 	return (
 		<>

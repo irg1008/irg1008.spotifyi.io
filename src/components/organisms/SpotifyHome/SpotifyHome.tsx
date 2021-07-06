@@ -11,7 +11,7 @@ import Image from "next/image";
 import SpotifySDK from "components/atoms/SpotifySDK";
 
 const Tracks = () => {
-	const [value, setValue] = useState("");
+	const [value, setValue] = useState<string>();
 	const { tracks, filteredTracks } = useTracks(value);
 
 	return (

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Loading from "components/atoms/Loading";
 import Image from "next/image";
 import useSpotify from "hooks/useSpotify";
+
 type TTrack = SpotifyApi.TrackObjectFull;
 
 interface ISpotifyTrack {
