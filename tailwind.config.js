@@ -37,8 +37,8 @@ module.exports = {
 				},
 			},
 			boxShadow: {
-				"track-light": "-99999px 0 0 99993px rgba(254, 240, 138, 1)",
-				"track-dark": "-99999px 0 0 99993px lightcoral",
+				"track-light": "-99999px 0 0 99993px lightblue",
+				"track-dark": "-99999px 0 0 99993px darkgray",
 			},
 		},
 	},
