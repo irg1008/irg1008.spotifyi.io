@@ -1,4 +1,4 @@
-const { red: darkColor, yellow: lightColor } = require("tailwindcss/colors");
+const { warmGray: darkColor, lightBlue: lightColor } = require("tailwindcss/colors");
 
 module.exports = {
 	purge: [
