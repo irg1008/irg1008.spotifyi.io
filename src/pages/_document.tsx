@@ -45,13 +45,15 @@ export default class MyDocument extends Document {
 					<meta charSet="utf-8" />
 				</Head>
 				{production && (
-					<Script strategy="lazyOnload">
-						{`
-              var DEV_TOOLS = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;            
-              if (typeof DEV_TOOLS === "object")
-								DEV_TOOLS.inject = function () {};
-						`}
-					</Script>
+					<Script
+						dangerouslySetInnerHTML={{
+							__html: `
+									var DEV_TOOLS = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;            
+									if (typeof DEV_TOOLS === "object")
+										DEV_TOOLS.inject = function () {};
+								`,
+						}}
+					/>
 				)}
 				<body>
 					<Main />
