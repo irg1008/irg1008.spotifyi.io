@@ -11,12 +11,12 @@ const Button = tw.button`
 const TreeView = tw.div`
   h-full
   width[20rem]
-  dark:bg-red-500
-  light:bg-green-500
+  dark:bg-dark-500
+  light:bg-light-500
   p-4
   border-r-2
-  dark:border-red-200
-  light:border-green-200
+  dark:border-dark-200
+  light:border-light-200
   overflow-y-auto
 `;
 

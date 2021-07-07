@@ -13,8 +13,8 @@ const Main = tw.main`
   justify-center
   items-center
   space-y-4
-  light:bg-green-300
-  dark:bg-red-500
+  light:bg-light-300
+  dark:bg-dark-500
   transition-colors
 `;
 

@@ -2,17 +2,13 @@ import { createGlobalStyle } from "styled-components";
 import tw, { GlobalStyles as TwinGlobalStyle } from "twin.macro";
 
 const thumb = tw`
-  dark:bg-red-800
-  light:bg-green-800
-  transform
-  hover:scale-110
-  transition-transform
-  duration-100
-  ease-in-out
+  dark:bg-dark-800
+  light:bg-light-800
   w-3
   h-3
   cursor[ew-resize]
   rounded-full
+  transform
   -webkit-appearance[none]
   dark:box-shadow[-99999px 0 0 99993px lightcoral]
   light:box-shadow[-99999px 0 0 99993px rgba(54, 224, 156, 0.6)]
@@ -22,8 +18,8 @@ const track = tw`
   h-3
   w-full
   rounded-2xl
-  dark:bg-red-100
-  light:bg-green-100
+  dark:bg-dark-100
+  light:bg-light-100
   overflow-hidden
   focus:outline-none
   -webkit-appearance[none]
@@ -82,8 +78,8 @@ const CustomGlobalStyle = createGlobalStyle`
     ${tw`
       outline-none
       focus:outline-none
-      light:bg-green-200
-      dark:bg-red-500
+      light:bg-light-200
+      dark:bg-dark-500
       bg-opacity-50
       hover:bg-opacity-80
       duration-200

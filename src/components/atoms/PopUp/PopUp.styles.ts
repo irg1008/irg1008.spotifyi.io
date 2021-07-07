@@ -37,8 +37,8 @@ const Container = tw(motion.div)`
 
 const ChildrenWrapper = tw.div`
 	p-10
-	light:bg-green-500
-	dark:bg-red-300
+	light:bg-light-500
+	dark:bg-dark-300
 	light:bg-opacity-90
 	dark:bg-opacity-90
 	flex

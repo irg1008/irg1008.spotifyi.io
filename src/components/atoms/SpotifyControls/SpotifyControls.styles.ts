@@ -37,8 +37,8 @@ const Container = styled.div(
 const Wrapper = tw.div`
   w-full
   space-y-2
-  light:bg-green-500
-  dark:bg-red-300
+  light:bg-light-500
+  dark:bg-dark-300
   p-6
   border-t-2
   text-center
@@ -100,8 +100,8 @@ const Progress = tw(motion.div)`
 `;
 
 const Text = tw.p`
-  dark:text-red-900
-  light:text-green-100
+  dark:text-dark-900
+  light:text-light-100
 `;
 
 const iconHeight = tw`h-8`;
