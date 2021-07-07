@@ -1,4 +1,7 @@
-const { warmGray: darkColor, lightBlue: lightColor } = require("tailwindcss/colors");
+const {
+	warmGray: darkColor,
+	coolGray: lightColor,
+} = require("tailwindcss/colors");
 
 module.exports = {
 	purge: [
@@ -37,8 +40,8 @@ module.exports = {
 				},
 			},
 			boxShadow: {
-				"track-light": "-99999px 0 0 99993px lightblue",
-				"track-dark": "-99999px 0 0 99993px darkgray",
+				"track-light": `-99999px 0 0 99993px ${lightColor[400]}`,
+				"track-dark": `-99999px 0 0 99993px ${darkColor[400]}`,
 			},
 		},
 	},

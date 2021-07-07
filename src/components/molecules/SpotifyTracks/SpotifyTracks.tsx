@@ -2,62 +2,11 @@ import Styled from "./SpotifyTracks.styles";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useMemo, useState } from "react";
 import Loading from "components/atoms/Loading";
-import Image from "next/image";
-import useSpotify from "hooks/useSpotify";
-
-type TTrack = SpotifyApi.TrackObjectFull;
-
-interface ISpotifyTrack {
-	track: TTrack;
-}
+import TrackCard from "components/atoms/TrackCard";
 
 interface ISpotifyTracks {
-	tracks: TTrack[];
+	tracks: SpotifyApi.TrackObjectFull[];
 }
-
-const SpotifyCard = ({ track }: ISpotifyTrack) => {
-	const { spotify, withSpotify } = useSpotify();
-
-	const addToQueue = async () => {
-		await withSpotify(() => spotify.queue(track.uri));
-	};
-
-	const playSong = async () => {
-		await addToQueue();
-		await withSpotify(() => spotify.skipToNext());
-	};
-
-	const image = track.album?.images[0];
-	const blurImage = track.album?.images[1];
-
-	return (
-		<Styled.Card>
-			<Styled.SongTitle>{track.name}</Styled.SongTitle>
-			<Styled.SongArtist>
-				{track.artists.map((a) => a.name).join(" - ")}
-			</Styled.SongArtist>
-			<Styled.SongImg>
-				<a href={track.external_urls.spotify} target="_blank" rel="noreferrer">
-					<Image
-						src={image.url}
-						alt={track.name}
-						width={image.width}
-						height={image.height}
-						placeholder="blur"
-						blurDataURL={blurImage.url}
-					/>
-				</a>
-			</Styled.SongImg>
-			<Styled.Audio controls={false}>
-				<source src={track.preview_url} />
-			</Styled.Audio>
-			<Styled.Buttons>
-				<Styled.Button onClick={playSong}>Play</Styled.Button>
-				<Styled.Button onClick={addToQueue}>Add to Queue</Styled.Button>
-			</Styled.Buttons>
-		</Styled.Card>
-	);
-};
 
 const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 	const initialValue = 40;
@@ -68,7 +17,7 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 	const tracksLength = useMemo(() => tracks?.length, [tracks]);
 	const hasMore = useMemo(() => offset < tracksLength, [offset, tracksLength]);
 
-	const next = () => setOffset(offset + incrementValue);
+	const next = () => setOffset((oldOffset) => oldOffset + incrementValue);
 
 	return tracksLength === 0 ? (
 		<Styled.NotFoundText>No songs match search parameters</Styled.NotFoundText>
@@ -80,7 +29,7 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 		>
 			<Styled.Songs>
 				{partials?.map((track) => (
-					<SpotifyCard key={track.id} {...{ track }} />
+					<TrackCard key={track.id} {...{ track }} />
 				))}
 			</Styled.Songs>
 		</InfiniteScroll>

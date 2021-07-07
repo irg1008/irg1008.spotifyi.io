@@ -8,68 +8,10 @@ const Songs = tw.div`
   p-5
 `;
 
-const Buttons = tw.div`
-  flex
-  space-x-4
-`;
-
-const Button = tw.button`
-  flex-1
-  rounded-full
-  text-lg
-`;
-
-const Card = tw.div`
-  w-80
-  h-96
-  space-y-4
-  flex
-  flex-col
-  justify-between
-  p-4
-  m-6
-  bg-white
-  bg-opacity-70
-  rounded-3xl
-  shadow-lg
-  overflow-auto
-`;
-
-const SongTitle = tw.p`
-  font-normal
-  text-black
-`;
-
-const SongArtist = tw(SongTitle)`
-  text-sm
-  text-gray-800
-`;
-
-const SongImg = tw.div`
-  rounded-2xl
-  shadow-md
-  self-center
-  overflow-hidden
-`;
-
-const NotFoundText = tw(SongTitle)`
+const NotFoundText = tw.p`
   text-white
   font-light
 `;
 
-const Audio = tw.audio`
-  w-full
-`;
-
-const Styled = {
-	Songs,
-	Card,
-	SongTitle,
-	SongArtist,
-	SongImg,
-	NotFoundText,
-	Audio,
-	Buttons,
-	Button,
-};
+const Styled = { Songs, NotFoundText };
 export default Styled;
