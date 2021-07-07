@@ -10,8 +10,8 @@ const thumb = tw`
   rounded-full
   transform
   -webkit-appearance[none]
-  dark:box-shadow[-99999px 0 0 99993px lightcoral]
-  light:box-shadow[-99999px 0 0 99993px rgba(54, 224, 156, 0.6)]
+  light:shadow-track-light
+  dark:shadow-track-dark
 `;
 
 const track = tw`

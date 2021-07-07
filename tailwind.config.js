@@ -1,7 +1,4 @@
-const colors = require("tailwindcss/colors");
-
-const darkColor = colors.red;
-const lightColor = colors.yellow;
+const { red: darkColor, yellow: lightColor } = require("tailwindcss/colors");
 
 module.exports = {
 	purge: [
@@ -12,13 +9,9 @@ module.exports = {
 	],
 	darkMode: "class", // or 'media' or 'class'
 	theme: {
-		color: {
-			gray: colors.trueGray,
-		},
 		extend: {
 			colors: {
 				dark: {
-					DEFAULT: darkColor[400],
 					50: darkColor[50],
 					100: darkColor[100],
 					200: darkColor[200],
@@ -31,7 +24,6 @@ module.exports = {
 					900: darkColor[900],
 				},
 				light: {
-					DEFAULT: lightColor[400],
 					50: lightColor[50],
 					100: lightColor[100],
 					200: lightColor[200],
@@ -43,6 +35,10 @@ module.exports = {
 					800: lightColor[800],
 					900: lightColor[900],
 				},
+			},
+			boxShadow: {
+				"track-light": "-99999px 0 0 99993px rgba(254, 240, 138, 1)",
+				"track-dark": "-99999px 0 0 99993px lightcoral",
 			},
 		},
 	},
