@@ -1,6 +1,6 @@
 const {
-	warmGray: darkColor,
-	coolGray: lightColor,
+	trueGray: darkColor,
+	emerald: lightColor,
 } = require("tailwindcss/colors");
 
 module.exports = {
