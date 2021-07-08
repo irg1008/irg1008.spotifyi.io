@@ -8,6 +8,7 @@ interface INotification {
   id: TNotificationId;
   type?: TNotificationType;
   component: React.ReactNode;
+  timeout?: number;
 }
 
 type INotifications = INotification[];
@@ -75,7 +76,7 @@ const useNotificationsStore = create<INotificationStore>((set, get) => {
     const newLength = newNots.length;
 
     // If removed object.
-    if (prevLength !== newLength) {
+    if (newLength < prevLength) {
       updateNotifications(newNots);
     }
   };

@@ -10,8 +10,9 @@ const NotificationsHolder = tw.div`
   right-0
   z-40
   space-y-4
-  px-10
-  py-12
+  space-x-4
+  px-8
+  py-8
 `;
 
 const getTypeStyle = (type: TNotificationType) => {
@@ -43,9 +44,10 @@ const Notification = styled(motion.div)(
       rounded-2xl
       shadow-lg
       border
-      text-gray-100
       border-gray-100
+      text-gray-100
       relative
+      cursor-move
     `,
   ]
 );
@@ -55,7 +57,7 @@ const Wrapper = tw.div`
   px-4
   break-words
   overflow-auto
-  min-height[4rem]
+  min-height[6rem]
   min-width[20rem]
   max-w-sm
 `;
@@ -64,8 +66,8 @@ const CloseIcon = tw(XIcon)`
   cursor-pointer
   right-2
   top-2
-  h-4
-  w-4
+  h-5
+  w-5
   transition-opacity
   duration-200
   ease-in-out

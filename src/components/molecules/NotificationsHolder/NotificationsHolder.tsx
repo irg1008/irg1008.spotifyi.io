@@ -1,7 +1,7 @@
 import useNotifications, { INotification } from "hooks/useNotifications";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Styled from "./NotificationsHolder.styles";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, PanInfo, Variant } from "framer-motion";
 
 interface INotificationsHolderProps {}
 
@@ -10,76 +10,80 @@ interface INotificationProps {
 	onClose: () => void;
 }
 
+type Variants = {
+	[key: string]: Variant;
+};
+
 const Notification = ({
-	notification: { type, component },
+	notification: { type, component, timeout },
 	onClose,
 }: INotificationProps) => {
-	const [closed, setClosed] = useState<boolean>();
+	const variants: Variants = {
+		initial: { opacity: 0, scale: 0.8, x: 300 },
+		animate: { opacity: 1, scale: 1, x: 0 },
+		exit: { opacity: 0, scale: 0.8, x: 300 },
+	};
 
+	// Remove after given time if setted.
 	useEffect(() => {
-		setClosed(false);
-	}, []);
+		if (!!timeout) {
+			setTimeout(() => {
+				onClose();
+			}, timeout);
+		}
+	}, [timeout, onClose]);
+
+	const dragGoesOutPoint = 100;
+
+	const onDragClose = (info: PanInfo) => {
+		const {
+			offset: { x },
+		} = info;
+
+		if (x > dragGoesOutPoint) {
+			onClose();
+		}
+	};
 
 	return (
-		<AnimatePresence onExitComplete={onClose}>
-			{!closed && (
-				<Styled.Notification
-					{...{ type }}
-					initial={{ x: "100%", opacity: 0 }}
-					animate={{ x: 0, opacity: 1 }}
-					exit={{ x: "100%", opacity: 0 }}
-					transition={{
-						type: "spring",
-					}}
-				>
-					<Styled.Wrapper>{component}</Styled.Wrapper>
-					<Styled.CloseIcon onClick={() => setClosed(true)} />
-				</Styled.Notification>
-			)}
-		</AnimatePresence>
+		<Styled.Notification
+			{...{ type }}
+			variants={variants}
+			initial="initial"
+			animate="animate"
+			exit="exit"
+			transition={{
+				type: "spring",
+				stiffness: 500,
+				damping: 40,
+			}}
+			layout="position"
+			drag="x"
+			dragConstraints={{ left: 0, right: 0 }}
+			dragElastic={{ left: 0.1, right: 0.5 }}
+			dragMomentum={false}
+			onDragEnd={(_, info) => onDragClose(info)}
+		>
+			<Styled.Wrapper>{component}</Styled.Wrapper>
+			<Styled.CloseIcon onClick={onClose} />
+		</Styled.Notification>
 	);
 };
 
 const NotificationsHolder = (props: INotificationsHolderProps) => {
-	const {
-		notifications,
-		addNotification,
-		removeAllNotifications,
-		removeNotification,
-		updateNotification,
-	} = useNotifications();
-
-	useEffect(() => {
-		addNotification({
-			id: "1",
-			component: (
-				<p>
-					1dfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-					1dfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-					1dfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-					1dfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-				</p>
-			),
-			type: "success",
-		});
-		addNotification({ id: "2", component: <p>2</p>, type: "error" });
-		addNotification({ id: "3", component: <h1>3</h1>, type: "warning" });
-		addNotification({ id: "4", component: "4" });
-	}, [addNotification]);
-
-	useEffect(() => {
-		console.log(notifications);
-	}, [notifications]);
+	const { notifications, removeNotification } = useNotifications();
 
 	return (
 		<Styled.NotificationsHolder>
-			{notifications.map((not) => (
-				<Notification
-					key={not.id}
-					notification={not}
-					onClose={() => removeNotification(not.id)}
-				/>
-			))}
+			<AnimatePresence>
+				{notifications.map((not) => (
+					<Notification
+						key={not.id}
+						notification={not}
+						onClose={() => removeNotification(not.id)}
+					/>
+				))}
+			</AnimatePresence>
 		</Styled.NotificationsHolder>
 	);
 };
