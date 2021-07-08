@@ -1,12 +1,43 @@
-import useNotifications from "hooks/useNotifications";
-import { entries } from "lodash";
+import useNotifications, { INotification } from "hooks/useNotifications";
 import { useEffect, useState } from "react";
 import Styled from "./NotificationsHolder.styles";
+import { AnimatePresence } from "framer-motion";
 
 interface INotificationsHolderProps {}
 
-const Comp = ({ text }: { text: string }) => {
-	return <p>{text}</p>;
+interface INotificationProps {
+	notification: INotification;
+	onClose: () => void;
+}
+
+const Notification = ({
+	notification: { type, component },
+	onClose,
+}: INotificationProps) => {
+	const [closed, setClosed] = useState<boolean>();
+
+	useEffect(() => {
+		setClosed(false);
+	}, []);
+
+	return (
+		<AnimatePresence onExitComplete={onClose}>
+			{!closed && (
+				<Styled.Notification
+					{...{ type }}
+					initial={{ x: "100%", opacity: 0 }}
+					animate={{ x: 0, opacity: 1 }}
+					exit={{ x: "100%", opacity: 0 }}
+					transition={{
+						type: "spring",
+					}}
+				>
+					<Styled.Wrapper>{component}</Styled.Wrapper>
+					<Styled.CloseIcon onClick={() => setClosed(true)} />
+				</Styled.Notification>
+			)}
+		</AnimatePresence>
+	);
 };
 
 const NotificationsHolder = (props: INotificationsHolderProps) => {
@@ -15,61 +46,39 @@ const NotificationsHolder = (props: INotificationsHolderProps) => {
 		addNotification,
 		removeAllNotifications,
 		removeNotification,
-		mapNotifications,
+		updateNotification,
 	} = useNotifications();
+
+	useEffect(() => {
+		addNotification({
+			id: "1",
+			component: (
+				<p>
+					1dfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+					1dfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+					1dfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+					1dfsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+				</p>
+			),
+			type: "success",
+		});
+		addNotification({ id: "2", component: <p>2</p>, type: "error" });
+		addNotification({ id: "3", component: <h1>3</h1>, type: "warning" });
+		addNotification({ id: "4", component: "4" });
+	}, [addNotification]);
 
 	useEffect(() => {
 		console.log(notifications);
 	}, [notifications]);
 
-	const [value, setValue] = useState("");
-
 	return (
 		<Styled.NotificationsHolder>
-			<button
-				onClick={() => {
-					addNotification("1", {
-						component: <Comp text={"holi"} />,
-						type: "error",
-					});
-				}}
-			>
-				Añade 1
-			</button>
-			<button
-				onClick={() => {
-					addNotification("2", {
-						component: <Comp text={value} />,
-						type: "success",
-					});
-				}}
-			>
-				Añade 2
-			</button>
-			<button
-				onClick={() => {
-					removeNotification("1");
-				}}
-			>
-				Quita 1
-			</button>
-			<button
-				onClick={() => {
-					removeNotification("2");
-				}}
-			>
-				Quita 2
-			</button>
-			<button
-				onClick={() => {
-					removeAllNotifications();
-				}}
-			>
-				Quita todos
-			</button>
-			<input type="text" onChange={(e) => setValue(e.target.value)}></input>
-			{mapNotifications().map(({ id, notification }) => (
-				<div key={id}>{notification.component}</div>
+			{notifications.map((not) => (
+				<Notification
+					key={not.id}
+					notification={not}
+					onClose={() => removeNotification(not.id)}
+				/>
 			))}
 		</Styled.NotificationsHolder>
 	);

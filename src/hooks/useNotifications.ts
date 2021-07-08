@@ -1,48 +1,90 @@
 import create from "zustand";
+import _ from "lodash";
 
 type TNotificationId = string;
+type TNotificationType = "error" | "warning" | "success";
 
 interface INotification {
-  type: "error" | "warning" | "success";
+  id: TNotificationId;
+  type?: TNotificationType;
   component: React.ReactNode;
 }
 
-interface INotifications {
-  [id: TNotificationId]: INotification;
-}
+type INotifications = INotification[];
 
 interface INotificationStore {
   notifications: INotifications;
-  addNotification: (id: TNotificationId, notification: INotification) => void;
+  addNotification: (notification: INotification) => void;
+  updateNotification: (
+    id: TNotificationId,
+    notification: INotification
+  ) => void;
   removeNotification: (id: TNotificationId) => void;
   removeAllNotifications: () => void;
 }
 
 const useNotificationsStore = create<INotificationStore>((set, get) => {
-  const notifications: INotifications = {};
+  const notifications: INotifications = [];
 
   const updateNotifications = (newNots: INotifications) =>
-    set(({ notifications: old }) => ({
-      notifications: { ...old, ...newNots },
+    set(() => ({
+      notifications: [...newNots],
     }));
 
-  const addNotification = (
+  const searchNotificationById = (
+    id: TNotificationId,
+    notifications: INotifications
+  ) => _.find(notifications, (not) => not.id === id);
+
+  const addNotification = (notification: INotification) => {
+    const { notifications } = get();
+
+    const isIncluded = !!searchNotificationById(notification.id, notifications);
+
+    // If not already included.
+    if (!isIncluded) {
+      notifications.push(notification);
+      updateNotifications(notifications);
+    }
+  };
+
+  const updateNotification = (
     id: TNotificationId,
     notification: INotification
   ) => {
     const { notifications } = get();
-    notifications[id] = notification;
-    updateNotifications(notifications);
+
+    const notificationToUpdate = searchNotificationById(id, notifications);
+
+    if (!!notificationToUpdate) {
+      const areEqual = _.isEqual(notification, notificationToUpdate);
+
+      if (!areEqual) {
+        const indexToUpdate = _.indexOf(notifications, notificationToUpdate);
+        notifications[indexToUpdate] = notification;
+        updateNotifications(notifications);
+      }
+    }
   };
 
   const removeNotification = (id: TNotificationId) => {
     const { notifications } = get();
-    delete notifications[id];
-    updateNotifications(notifications);
+
+    const prevLength = notifications.length;
+    const newNots = _.filter(notifications, (not) => not.id !== id);
+    const newLength = newNots.length;
+
+    // If removed object.
+    if (prevLength !== newLength) {
+      updateNotifications(newNots);
+    }
   };
 
   const removeAllNotifications = () => {
-    set(() => ({ notifications: {} }));
+    const { notifications } = get();
+    if (notifications.length !== 0) {
+      updateNotifications([]);
+    }
   };
 
   return {
@@ -50,19 +92,14 @@ const useNotificationsStore = create<INotificationStore>((set, get) => {
     addNotification,
     removeAllNotifications,
     removeNotification,
+    updateNotification,
   };
 });
 
 const useNotifications = () => {
-  const { notifications, ...store } = useNotificationsStore();
-
-  const mapNotifications = () =>
-    Object.entries(notifications).map(([id, notification]) => ({
-      id,
-      notification,
-    }));
-
-  return { notifications, ...store, mapNotifications };
+  const store = useNotificationsStore();
+  return store;
 };
 
+export type { TNotificationType, INotification };
 export default useNotifications;
