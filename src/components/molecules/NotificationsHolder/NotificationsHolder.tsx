@@ -85,6 +85,7 @@ const Notification = ({
 			dragElastic={{ left: 0.1, right: 0.5 }}
 			dragMomentum={false}
 			onDragEnd={(_, info) => onDragClose(info)}
+			title="Click the x icon or drag to close"
 		>
 			<Styled.Wrapper>
 				<NotificationIcon {...{ type }} />

@@ -11,6 +11,7 @@ const NotificationsHolder = tw.div`
   z-40
   px-8
   py-8
+  max-w-full
 `;
 
 const typeStyles: Record<TNotificationType, TwStyle> = {
@@ -50,14 +51,15 @@ const Notification = styled(motion.div)(
       cursor-move
       mt-6
       ml-6
+      overflow-hidden
     `,
   ]
 );
 
 const Wrapper = tw.div`
   py-7
-  px-4
-  break-all
+  px-7
+  break-words
   overflow-auto
   min-height[6rem]
   min-width[20rem]

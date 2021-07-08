@@ -13,9 +13,10 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 	const incrementValue = 20;
 
 	const [offset, setOffset] = useState<number>(initialValue);
-	const partials = useMemo(() => tracks.slice(0, offset), [offset, tracks]);
 	const tracksLength = useMemo(() => tracks?.length, [tracks]);
 	const hasMore = useMemo(() => offset < tracksLength, [offset, tracksLength]);
+
+	const partials = useMemo(() => tracks.slice(0, offset), [offset, tracks]);
 
 	const next = () =>
 		setOffset((oldOffset) =>
@@ -31,7 +32,7 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 			loader={
 				<Loading text={`Fetching more songs (${offset}/${tracksLength})`} />
 			}
-			endMessage={<Loading text={`${offset} songs loaded`} />}
+			endMessage={<Loading text={`${partials.length} songs`} />}
 		>
 			<Styled.Songs>
 				{partials?.map((track) => (

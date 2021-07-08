@@ -5,27 +5,53 @@ import { getToken } from "middleware/spotify";
 import { useSpotify } from "providers/SpotifyProvider";
 import { ISpotifyTokenResponse, ISpotifyError } from "lib/spotify";
 import { GetServerSideProps } from "next";
+import { useNotifications } from "hooks/useNotifications";
+
+type TSpotifyError = "access_denied";
+
+const spotifyErrors: Record<string, TSpotifyError> = {
+	accessDenied: "access_denied",
+};
 
 interface IAuthProps {
 	data?: ISpotifyTokenResponse;
 	spotifyError?: ISpotifyError;
 }
 
-const Auth = ({ data }: IAuthProps) => {
+const Auth = ({ data, spotifyError }: IAuthProps) => {
 	const router = useRouter();
 	const { dispatch } = useSpotify();
+	const { addNotification } = useNotifications();
 
 	useEffect(() => {
-		if (!!data) {
-			// Set access token to spotify object.
-			dispatch({
-				type: "LOG_IN",
-				payload: data,
-			});
-		}
+		const logIn = () => {
+			// If error
+			if (!!spotifyError) {
+				const accessDenied = spotifyError.error === spotifyErrors.accessDenied;
+				if (accessDenied) {
+					addNotification({
+						id: "access_denied_error",
+						type: "error",
+						component: <p>The user has canceled the operation</p>,
+						timeout: 4000,
+					});
+				}
+				return;
+			}
 
+			// If data => Log in with data.
+			if (!!data) {
+				// Set access token to spotify object.
+				dispatch({
+					type: "LOG_IN",
+					payload: data,
+				});
+			}
+		};
+
+		logIn();
 		router.replace("/");
-	}, [data, dispatch, router]);
+	}, [data, dispatch, router, spotifyError, addNotification]);
 
 	return (
 		<>

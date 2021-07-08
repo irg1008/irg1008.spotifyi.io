@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import GlobalStyle from "styles/GlobalStyle";
 import Styled from "./Layout.styles";
@@ -23,7 +24,7 @@ const NotificationTest = () => {
 			id: idGen(),
 			component: component || (
 				<Comp
-					value={`Added new notifications with type ${type} and ${
+					value={`Added new notification with type ${type} and ${
 						!!timeout ? `timeout ${timeout}` : "no timeout"
 					}`}
 				/>
@@ -83,6 +84,15 @@ const NotificationTest = () => {
 			</button>
 			<button onClick={() => addNewNotification({ component: <h1>1</h1> })}>
 				Add small notifications
+			</button>
+			<button
+				onClick={() =>
+					addNewNotification({
+						component: <button>Click Me</button>,
+					})
+				}
+			>
+				Add notification with button
 			</button>
 		</Dropdown>
 	);
