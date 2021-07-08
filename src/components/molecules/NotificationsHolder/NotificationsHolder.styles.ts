@@ -18,14 +18,17 @@ const typeStyles: Record<TNotificationType, TwStyle> = {
   error: tw`
       bg-red-400!
       text-red-50
+      border-red-200
     `,
   warning: tw`
       bg-yellow-400!
       text-yellow-50
+      border-yellow-200
     `,
   success: tw`
       bg-green-400!
       text-green-50
+      border-green-200
     `,
 };
 
@@ -37,6 +40,7 @@ const getTypeStyle = (type: TNotificationType) =>
         light:bg-light-500
         dark:bg-dark-400
         text-gray-100
+        border-gray-200
       `;
 
 const Notification = styled(motion.div)(
@@ -45,13 +49,13 @@ const Notification = styled(motion.div)(
     tw`
       rounded-2xl
       shadow-lg
-      border
-      border-gray-100
+      border-2
       relative
       cursor-move
       mt-6
       ml-6
       overflow-hidden
+      leading-6
     `,
   ]
 );
@@ -59,7 +63,6 @@ const Notification = styled(motion.div)(
 const Wrapper = tw.div`
   py-7
   px-7
-  break-words
   overflow-auto
   min-height[6rem]
   min-width[20rem]
@@ -87,6 +90,9 @@ const Icon = tw.div`
   mr-4
   w-8
   h-8
+  flex
+  justify-center
+  items-center
 `;
 
 const Styled = {

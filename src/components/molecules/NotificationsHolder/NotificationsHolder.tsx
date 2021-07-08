@@ -55,14 +55,21 @@ const Notification = ({
 		}
 	}, [timeout, onClose]);
 
-	const dragGoesOutPoint = 100;
+	const velocityToClose = 30;
+	const offsetToCloseOnVelocity = 300;
+	const offsetToClose = 500;
 
 	const onDragClose = (info: PanInfo) => {
 		const {
-			offset: { x },
+			velocity: { x: xVelocity },
+			offset: { x: xOffset },
 		} = info;
 
-		if (x > dragGoesOutPoint) {
+		const surpasesVelocity =
+			xOffset > offsetToCloseOnVelocity && xVelocity > velocityToClose;
+		const surpasesCloseLimit = xOffset > offsetToClose;
+
+		if (surpasesVelocity || surpasesCloseLimit) {
 			onClose();
 		}
 	};
@@ -82,10 +89,10 @@ const Notification = ({
 			layout="position"
 			drag="x"
 			dragConstraints={{ left: 0, right: 0 }}
-			dragElastic={{ left: 0.1, right: 0.5 }}
+			dragElastic={{ left: 0.02, right: 0.2 }}
 			dragMomentum={false}
 			onDragEnd={(_, info) => onDragClose(info)}
-			title="Click the x icon or drag to close"
+			title="Click the x icon or drag right to close"
 		>
 			<Styled.Wrapper>
 				<NotificationIcon {...{ type }} />
