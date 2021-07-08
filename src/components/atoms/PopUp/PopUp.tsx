@@ -24,9 +24,9 @@ const PopUpBottomBar: React.FC<IPopUpProps> = ({
 				/>
 				<Styled.Container
 					key="container"
-					initial={{ opacity: 0, y: 100, x: -100, scale: 0.3 }}
-					animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
-					exit={{ opacity: 0, y: 100, x: -100, scale: 0.3 }}
+					initial={{ opacity: 0, y: 100, scale: 0.3 }}
+					animate={{ opacity: 1, y: 0, scale: 1 }}
+					exit={{ opacity: 0, y: 100, scale: 0.3 }}
 					transition={{ type: "tween", duration: 0.2 }}
 				>
 					<Styled.ChildrenWrapper>{children}</Styled.ChildrenWrapper>
