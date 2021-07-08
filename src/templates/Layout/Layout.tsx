@@ -5,40 +5,43 @@ import Styled from "./Layout.styles";
 import useTheme from "hooks/useTheme";
 import SideNav from "components/molecules/SideNav";
 import Dropdown from "components/atoms/Dropdown";
+import NotificationsHolder from "components/molecules/NotificationsHolder/NotificationsHolder";
 
 const Layout: React.FC = ({ children }) => (
 	<Styled.Layout>
-		<header></header>
-		<SideNav>
-			<Dropdown title="Click My Links">
-				<Styled.Link href="#">One</Styled.Link>
-				<Styled.Link href="#">Two</Styled.Link>
-				<Styled.Link href="#">Three</Styled.Link>
-			</Dropdown>
-			<Dropdown title="I Store Buttons!">
-				<button>One</button>
-				<button>Two</button>
-				<button>Three</button>
-				<button>Four</button>
-				<button>Five</button>
-				<button>One</button>
-			</Dropdown>
-			<Dropdown
-				title="Click me"
-				onTitleClick={() => alert("I just alerted you!")}
-			/>
-			<Dropdown title="¡And text! Or Anything You Want" openOnLoad>
-				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
-				hic beatae aut sapiente ducimus voluptates soluta deserunt autem unde
-				non rem delectus tempora, quam odio earum qui nulla magni enim?
-				<button>Two</button>
-				<button>Three</button>
-				<button>Four</button>
-				<button>Five</button>
-				<Styled.Link href="#">Two</Styled.Link>
-				<Styled.Link href="#">Three</Styled.Link>
-			</Dropdown>
-		</SideNav>
+		<header>
+			<SideNav>
+				<Dropdown title="Click My Links">
+					<Styled.Link href="#">One</Styled.Link>
+					<Styled.Link href="#">Two</Styled.Link>
+					<Styled.Link href="#">Three</Styled.Link>
+				</Dropdown>
+				<Dropdown title="I Store Buttons!">
+					<button>One</button>
+					<button>Two</button>
+					<button>Three</button>
+					<button>Four</button>
+					<button>Five</button>
+					<button>One</button>
+				</Dropdown>
+				<Dropdown
+					title="Click me"
+					onTitleClick={() => alert("I just alerted you!")}
+				/>
+				<Dropdown title="¡And text! Or Anything You Want" openOnLoad>
+					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+					hic beatae aut sapiente ducimus voluptates soluta deserunt autem unde
+					non rem delectus tempora, quam odio earum qui nulla magni enim?
+					<button>Two</button>
+					<button>Three</button>
+					<button>Four</button>
+					<button>Five</button>
+					<Styled.Link href="#">Two</Styled.Link>
+					<Styled.Link href="#">Three</Styled.Link>
+				</Dropdown>
+			</SideNav>
+		</header>
+		<NotificationsHolder />
 		<Styled.Main>{children}</Styled.Main>
 		<footer></footer>
 	</Styled.Layout>
@@ -47,6 +50,7 @@ const Layout: React.FC = ({ children }) => (
 const DynamicLayout: React.FC = ({ children }) => {
 	const [loading, setLoading] = useState(false);
 
+	// Theme store.
 	useTheme();
 
 	const pageLoading = () => setLoading(true);
