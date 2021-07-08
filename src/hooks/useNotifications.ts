@@ -19,17 +19,18 @@ const useNotificationsStore = create<INotificationStore>((set, get) => ({
   notificationMap: [],
   addNotification: (notification) => {
     const { notificationMap: oldMap } = get();
-    set(({ notificationMap: oldMap }) => ({
-      notificationMap: [...oldMap, notification],
-    }));
+    const isIncluded = oldMap.some((not) => not.id === notification.id);
+    !isIncluded && oldMap.push(notification);
+    console.log(oldMap);
+    set(() => ({ notificationMap: oldMap }));
   },
   removeNotificationWithId: (id: TNotificationId) => {
-    set(({ notificationMap: oldMap }) => ({
-      notificationMap: oldMap.filter((not) => not.id !== id),
-    }));
+    const { notificationMap: oldMap } = get();
+    oldMap.filter((not) => not.id !== id);
+    set(() => ({ notificationMap: oldMap }));
   },
   removeAllNotifications: () => {
-    set({ notificationMap: [] });
+    set(() => ({ notificationMap: [] }));
   },
 }));
 

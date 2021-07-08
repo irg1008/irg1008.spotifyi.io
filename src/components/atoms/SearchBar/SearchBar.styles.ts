@@ -41,6 +41,10 @@ const ResetIcon = styled(XIcon)(() => [
     cursor-pointer
     right-0
     mr-4
+    transition-opacity
+    duration-200
+    ease-in-out
+    hover:opacity-100
   `,
 ]);
 
