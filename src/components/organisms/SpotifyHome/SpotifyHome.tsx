@@ -54,17 +54,22 @@ const Navbar = () => {
 			{user && (
 				<>
 					<Styled.Name>{user?.display_name}</Styled.Name>
-					<Styled.Avatar href={user?.uri} target="_blank" rel="noreferrer">
+					<Styled.Avatar
+						href={user?.uri}
+						target="_blank"
+						rel="noreferrer"
+						title={`Visit profile (${user.product} user)`}
+					>
 						<Styled.Img>
 							<Image
-								src={user?.images[0].url}
+								src={user.images[0].url}
 								width={10}
 								height={10}
 								layout="responsive"
 								alt={user?.display_name}
 							/>
 						</Styled.Img>
-						{user?.product === "premium" ? (
+						{user.product === "premium" ? (
 							<Styled.PremiumIcon />
 						) : (
 							<Styled.PoorIcon />
