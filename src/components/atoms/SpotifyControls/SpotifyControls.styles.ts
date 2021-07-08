@@ -19,7 +19,7 @@ const Container = styled.div(
     bottom-0
     left-0
     shadow-md
-    z-10
+    z-20
     flex
     items-center
     flex-col
