@@ -1,9 +1,17 @@
-import useNotifications, { INotification } from "hooks/useNotifications";
+import {
+	useNotificationsValue,
+	useNotifications,
+	INotification,
+	TNotificationType,
+} from "hooks/useNotifications";
 import { useEffect } from "react";
 import Styled from "./NotificationsHolder.styles";
 import { AnimatePresence, PanInfo, Variant } from "framer-motion";
-
-interface INotificationsHolderProps {}
+import {
+	ExclamationIcon as WarningIcon,
+	ExclamationCircleIcon as ErrorIcon,
+	CheckCircleIcon as SuccessIcon,
+} from "@heroicons/react/outline";
 
 interface INotificationProps {
 	notification: INotification;
@@ -12,6 +20,20 @@ interface INotificationProps {
 
 type Variants = {
 	[key: string]: Variant;
+};
+
+interface INotificationIconProps {
+	type: TNotificationType;
+}
+
+const NotificationIcon = ({ type }: INotificationIconProps) => {
+	const typeIcon: Record<TNotificationType, JSX.Element> = {
+		success: <SuccessIcon />,
+		warning: <WarningIcon />,
+		error: <ErrorIcon />,
+	};
+
+	return <Styled.Icon>{typeIcon[type]}</Styled.Icon>;
 };
 
 const Notification = ({
@@ -64,14 +86,18 @@ const Notification = ({
 			dragMomentum={false}
 			onDragEnd={(_, info) => onDragClose(info)}
 		>
-			<Styled.Wrapper>{component}</Styled.Wrapper>
+			<Styled.Wrapper>
+				<NotificationIcon {...{ type }} />
+				{component}
+			</Styled.Wrapper>
 			<Styled.CloseIcon onClick={onClose} />
 		</Styled.Notification>
 	);
 };
 
-const NotificationsHolder = (props: INotificationsHolderProps) => {
-	const { notifications, removeNotification } = useNotifications();
+const NotificationsHolder = () => {
+	const notifications = useNotificationsValue();
+	const { removeNotification } = useNotifications();
 
 	return (
 		<Styled.NotificationsHolder>

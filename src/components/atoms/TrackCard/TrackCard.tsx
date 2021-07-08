@@ -1,7 +1,8 @@
 import useSpotify from "hooks/useSpotify";
-import { Suspense } from "react";
 import Styled from "./TrackCard.styles";
 import Image from "next/image";
+import { useNotifications } from "hooks/useNotifications";
+import idGen from "util/idGen";
 
 interface ITrackCardProps {
 	track: SpotifyApi.TrackObjectFull;
@@ -9,14 +10,30 @@ interface ITrackCardProps {
 
 const FilledCard = ({ track }: ITrackCardProps) => {
 	const { spotify, withSpotify } = useSpotify();
+	const { addNotification } = useNotifications();
+
+	const addTrackNotification = (text: string) =>
+		addNotification({
+			id: idGen(),
+			component: <p>{text}</p>,
+			timeout: 3000,
+			type: "success",
+		});
+
+	const addToSpotifyQueue = async () =>
+		await withSpotify(() => spotify.queue(track.uri));
+	const playOnSpotify = async () =>
+		await withSpotify(() => spotify.skipToNext());
 
 	const addToQueue = async () => {
-		await withSpotify(() => spotify.queue(track.uri));
+		addToSpotifyQueue();
+		addTrackNotification(`${track.name} added to queue`);
 	};
 
 	const playSong = async () => {
-		await addToQueue();
-		await withSpotify(() => spotify.skipToNext());
+		await addToSpotifyQueue();
+		await playOnSpotify();
+		addTrackNotification(`${track.name} playing now`);
 	};
 
 	const image = track.album?.images[0];

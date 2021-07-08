@@ -6,24 +6,22 @@ import useTheme from "hooks/useTheme";
 import SideNav from "components/molecules/SideNav";
 import Dropdown from "components/atoms/Dropdown";
 import NotificationsHolder from "components/molecules/NotificationsHolder/NotificationsHolder";
-import useNotifications, { TNotificationType } from "hooks/useNotifications";
+import { useNotifications, INotification } from "hooks/useNotifications";
 import idGen from "util/idGen";
 
 const Comp = ({ value }: { value: string }) => <p>{value}</p>;
 
-const Layout: React.FC = ({ children }) => {
+const NotificationTest = () => {
 	const { addNotification } = useNotifications();
 
 	const addNewNotification = ({
 		type,
 		timeout,
-	}: {
-		type?: TNotificationType;
-		timeout?: number;
-	}) => {
+		component,
+	}: Partial<INotification>) => {
 		addNotification({
 			id: idGen(),
-			component: (
+			component: component || (
 				<Comp
 					value={`Added new notifications with type ${type} and ${
 						!!timeout ? `timeout ${timeout}` : "no timeout"
@@ -36,47 +34,66 @@ const Layout: React.FC = ({ children }) => {
 	};
 
 	return (
+		<Dropdown title="Add notifications">
+			<button
+				onClick={() => addNewNotification({ type: "success" })}
+				title="Add notification"
+			>
+				Add success notification
+			</button>
+			<button onClick={() => addNewNotification({ type: "error" })}>
+				Add error notification
+			</button>
+			<button onClick={() => addNewNotification({ type: "warning" })}>
+				Add warning notification
+			</button>
+			<button onClick={() => addNewNotification({})}>
+				Add normal notification
+			</button>
+			<button
+				onClick={() => addNewNotification({ type: "success", timeout: 2000 })}
+			>
+				Add success notification with 2000 timeout
+			</button>
+			<button
+				onClick={() => addNewNotification({ type: "error", timeout: 2000 })}
+			>
+				Add error notification with 2000 timeout
+			</button>
+			<button
+				onClick={() => addNewNotification({ type: "warning", timeout: 2000 })}
+			>
+				Add warning notification with 2000 timeout
+			</button>
+			<button onClick={() => addNewNotification({ timeout: 2000 })}>
+				Add normal notification with 2000 timeout
+			</button>
+			<button
+				onClick={() =>
+					addNewNotification({
+						component: (
+							<h1>
+								HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+							</h1>
+						),
+					})
+				}
+			>
+				Add large notifications
+			</button>
+			<button onClick={() => addNewNotification({ component: <h1>1</h1> })}>
+				Add small notifications
+			</button>
+		</Dropdown>
+	);
+};
+
+const Layout: React.FC = ({ children }) => {
+	return (
 		<Styled.Layout>
 			<header>
 				<SideNav>
-					<Dropdown title="Add notifications">
-						<button onClick={() => addNewNotification({ type: "success" })}>
-							Add success notification
-						</button>
-						<button onClick={() => addNewNotification({ type: "error" })}>
-							Add error notification
-						</button>
-						<button onClick={() => addNewNotification({ type: "warning" })}>
-							Add warning notification
-						</button>
-						<button onClick={() => addNewNotification({})}>
-							Add normal notification
-						</button>
-						<button
-							onClick={() =>
-								addNewNotification({ type: "success", timeout: 2000 })
-							}
-						>
-							Add success notification with 2000 timeout
-						</button>
-						<button
-							onClick={() =>
-								addNewNotification({ type: "error", timeout: 2000 })
-							}
-						>
-							Add error notification with 2000 timeout
-						</button>
-						<button
-							onClick={() =>
-								addNewNotification({ type: "warning", timeout: 2000 })
-							}
-						>
-							Add warning notification with 2000 timeout
-						</button>
-						<button onClick={() => addNewNotification({ timeout: 2000 })}>
-							Add normal notification with 2000 timeout
-						</button>
-					</Dropdown>
+					<NotificationTest />
 					<Dropdown title="Click My Links">
 						<Styled.Link href="#">One</Styled.Link>
 						<Styled.Link href="#">Two</Styled.Link>

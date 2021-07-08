@@ -4,6 +4,8 @@ import useToggle from "hooks/useToggle";
 import React from "react";
 import useRefHeight from "hooks/useRefHeight";
 
+// NOTE FOR FUTURE IVÁN: Dropdown needs the children directly passed. A react fragment will be just ONE child.
+
 interface IBaseDropdownProps {
 	title: string;
 	openOnLoad?: boolean;
@@ -28,18 +30,18 @@ const Dropdown = ({
 	openOnLoad,
 }: IDropdownProps) => {
 	const [isOpen, toggleIsOpen] = useToggle(openOnLoad);
+	const [contentRef, contentHeight] = useRefHeight<HTMLDivElement>();
 
 	const isLast = (index: number) =>
 		index === React.Children.count(children) - 1;
 
+	// 1st: Map the children and add separator.
 	const childrenMap = React.Children.map(children, (child, index) => (
 		<>
 			{child}
 			{!isLast(index) && <Styled.Separator />}
 		</>
 	));
-
-	const [contentRef, contentHeight] = useRefHeight<HTMLDivElement>();
 
 	return (
 		<Styled.Dropdown>

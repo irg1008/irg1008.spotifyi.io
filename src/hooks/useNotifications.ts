@@ -98,9 +98,14 @@ const useNotificationsStore = create<INotificationStore>((set, get) => {
 });
 
 const useNotifications = () => {
-  const store = useNotificationsStore();
+  const { notifications, ...store } = useNotificationsStore();
   return store;
 };
 
+const useNotificationsValue = () => {
+  const { notifications } = useNotificationsStore();
+  return notifications;
+};
+
 export type { TNotificationType, INotification };
-export default useNotifications;
+export { useNotificationsValue, useNotifications };
