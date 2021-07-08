@@ -1,30 +1,48 @@
 import tw from "twin.macro";
-import { SearchIcon } from "@heroicons/react/solid";
+import styled from "styled-components";
+import { SearchIcon as HeroSearchIcon, XIcon } from "@heroicons/react/solid";
 
 const Container = tw.div`
-  relative
   text-gray-500
+  h-10
+  w-80
+  relative
 `;
 
 const Input = tw.input`
-  w-80
-  pl-6
-  pr-12
-  h-10
+  px-12
+  w-full
+  h-full
   shadow-md
   text-base
   rounded-full
   focus:outline-none
 `;
 
-const Icon = tw(SearchIcon)`
-  absolute
-  right-0
-  top-0
-  mt-2.5 mr-4  
-  h-5
+const icon = tw`
+  w-5
   opacity-60
+  absolute
+  top-0
+  h-full
 `;
 
-const Styled = { Input, Icon, Container };
+const SearchIcon = styled(HeroSearchIcon)(() => [
+  icon,
+  tw`
+    left-0
+    ml-4
+  `,
+]);
+
+const ResetIcon = styled(XIcon)(() => [
+  icon,
+  tw`
+    cursor-pointer
+    right-0
+    mr-4
+  `,
+]);
+
+const Styled = { Input, SearchIcon, Container, ResetIcon };
 export default Styled;

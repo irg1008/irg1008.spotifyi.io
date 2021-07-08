@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { useRef } from "react";
 import Styled from "./SearchBar.styles";
 
 interface ISearch {
@@ -7,6 +7,14 @@ interface ISearch {
 }
 
 const SearchBar = ({ onChange, ph }: ISearch) => {
+	const inputRef = useRef<HTMLInputElement>();
+
+	const resetValue = () => {
+		const empty = "";
+		inputRef.current.value = empty;
+		onChange(empty);
+	};
+
 	return (
 		<Styled.Container>
 			<Styled.Input
@@ -15,8 +23,10 @@ const SearchBar = ({ onChange, ph }: ISearch) => {
 				placeholder={ph || "Search"}
 				onChange={(e) => onChange(e.target.value)}
 				autoFocus
+				ref={inputRef}
 			/>
-			<Styled.Icon />
+			<Styled.SearchIcon />
+			<Styled.ResetIcon onClick={resetValue} />
 		</Styled.Container>
 	);
 };
