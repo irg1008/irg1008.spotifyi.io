@@ -30,7 +30,7 @@ const SideNav = styled.div(({ isOpen }: { isOpen: boolean }) => [
     `,
 	tw`
     fixed
-    z-20
+    z-30
     h-full
     flex
     transition-transform
