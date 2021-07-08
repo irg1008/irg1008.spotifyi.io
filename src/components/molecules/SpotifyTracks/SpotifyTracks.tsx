@@ -12,12 +12,15 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 	const initialValue = 40;
 	const incrementValue = 20;
 
-	const [offset, setOffset] = useState(initialValue);
+	const [offset, setOffset] = useState<number>(initialValue);
 	const partials = useMemo(() => tracks.slice(0, offset), [offset, tracks]);
 	const tracksLength = useMemo(() => tracks?.length, [tracks]);
 	const hasMore = useMemo(() => offset < tracksLength, [offset, tracksLength]);
 
-	const next = () => setOffset((oldOffset) => oldOffset + incrementValue);
+	const next = () =>
+		setOffset((oldOffset) =>
+			Math.min(oldOffset + incrementValue, tracksLength),
+		);
 
 	return tracksLength === 0 ? (
 		<Styled.NotFoundText>No songs match search parameters</Styled.NotFoundText>
@@ -25,7 +28,10 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 		<InfiniteScroll
 			dataLength={partials?.length}
 			{...{ hasMore, next }}
-			loader={<Loading text="Fetching more songs..." />}
+			loader={
+				<Loading text={`Fetching more songs (${offset}/${tracksLength})`} />
+			}
+			endMessage={<Loading text={`${offset} songs loaded`} />}
 		>
 			<Styled.Songs>
 				{partials?.map((track) => (
