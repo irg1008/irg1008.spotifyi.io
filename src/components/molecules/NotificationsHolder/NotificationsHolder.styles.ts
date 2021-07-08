@@ -14,7 +14,7 @@ const NotificationsHolder = tw.div`
 `;
 
 const typeStyles: Record<TNotificationType, TwStyle> = {
-  success: tw`
+  error: tw`
       bg-red-400!
       text-red-50
     `,
@@ -22,7 +22,7 @@ const typeStyles: Record<TNotificationType, TwStyle> = {
       bg-yellow-400!
       text-yellow-50
     `,
-  error: tw`
+  success: tw`
       bg-green-400!
       text-green-50
     `,
@@ -83,7 +83,8 @@ const CloseIcon = tw(XIcon)`
 
 const Icon = tw.div`
   mr-4
-  text-2xl
+  w-8
+  h-8
 `;
 
 const Styled = {

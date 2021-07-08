@@ -33,7 +33,7 @@ const NotificationIcon = ({ type }: INotificationIconProps) => {
 		error: <ErrorIcon />,
 	};
 
-	return <Styled.Icon>{typeIcon[type]}</Styled.Icon>;
+	return !!type && <Styled.Icon>{typeIcon[type]}</Styled.Icon>;
 };
 
 const Notification = ({
