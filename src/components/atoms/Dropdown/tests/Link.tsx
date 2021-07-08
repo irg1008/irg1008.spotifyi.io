@@ -4,10 +4,9 @@ type TStatus = "hovered" | "normal";
 
 interface IProps {
 	href: string;
-	children: React.ReactNode;
 }
 
-const Link = ({ href, children }: IProps) => {
+const Link: React.FC<IProps> = ({ href, children }) => {
 	const [status, setStatus] = useState<TStatus>("normal");
 
 	const onMouseEnter = () => setStatus("hovered");

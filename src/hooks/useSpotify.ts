@@ -111,7 +111,7 @@ const useTracks = (value: string = "") => {
 					const newTracks = res?.items.map((i) => i.track);
 					yield newTracks;
 
-					const total = res.total;
+					const total = res?.total;
 					offset += limit;
 					if (offset > total) break;
 				}

@@ -6,7 +6,12 @@ import {
 } from "hooks/useNotifications";
 import { useEffect } from "react";
 import Styled from "./NotificationsHolder.styles";
-import { AnimatePresence, PanInfo, Variant } from "framer-motion";
+import {
+	AnimatePresence,
+	PanInfo,
+	Variant,
+	AnimateSharedLayout,
+} from "framer-motion";
 import {
 	ExclamationIcon as WarningIcon,
 	ExclamationCircleIcon as ErrorIcon,
@@ -85,7 +90,7 @@ const Notification = ({
 				stiffness: 400,
 				damping: 30,
 			}}
-			layout="position"
+			layout
 			drag="x"
 			dragConstraints={{ left: 0, right: 0 }}
 			dragElastic={{ left: 0.02, right: 0.2 }}
@@ -107,17 +112,19 @@ const NotificationsHolder = () => {
 	const { removeNotification } = useNotifications();
 
 	return (
-		<Styled.NotificationsHolder>
-			<AnimatePresence>
-				{notifications.map((not) => (
-					<Notification
-						key={not.id}
-						notification={not}
-						onClose={() => removeNotification(not.id)}
-					/>
-				))}
-			</AnimatePresence>
-		</Styled.NotificationsHolder>
+		<AnimateSharedLayout>
+			<Styled.NotificationsHolder>
+				<AnimatePresence>
+					{notifications.map((not) => (
+						<Notification
+							key={not.id}
+							notification={not}
+							onClose={() => removeNotification(not.id)}
+						/>
+					))}
+				</AnimatePresence>
+			</Styled.NotificationsHolder>
+		</AnimateSharedLayout>
 	);
 };
 
