@@ -6,9 +6,10 @@ import SearchBar from "components/atoms/SearchBar";
 import SpotifyTracks from "components/molecules/SpotifyTracks";
 import Loading from "components/atoms/Loading";
 import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
-import ToggleTheme from "components/atoms/ToggleTheme";
 import Image from "next/image";
 import SpotifySDK from "components/atoms/SpotifySDK";
+import SideNavTest from "temp/SideNavTest";
+import ToggleFlip from "components/atoms/ToggleFlip";
 
 const Tracks = () => {
 	const [value, setValue] = useState<string>();
@@ -49,18 +50,11 @@ const Navbar = () => {
 
 	return (
 		<Styled.Navbar>
-			<ToggleTheme />
-			<Styled.Button onClick={logOut}>Log Out</Styled.Button>
-
+			<ToggleFlip />
 			{user && (
 				<>
-					{user?.product === "premium" ? (
-						<Styled.PremiumIcon />
-					) : (
-						<Styled.PoorIcon />
-					)}
 					<Styled.Name>{user?.display_name}</Styled.Name>
-					<a href={user?.uri} target="_blank" rel="noreferrer">
+					<Styled.Avatar href={user?.uri} target="_blank" rel="noreferrer">
 						<Styled.Img>
 							<Image
 								src={user?.images[0].url}
@@ -70,7 +64,13 @@ const Navbar = () => {
 								alt={user?.display_name}
 							/>
 						</Styled.Img>
-					</a>
+						{user?.product === "premium" ? (
+							<Styled.PremiumIcon />
+						) : (
+							<Styled.PoorIcon />
+						)}
+					</Styled.Avatar>
+					<Styled.Button onClick={logOut}>Log Out</Styled.Button>
 				</>
 			)}
 		</Styled.Navbar>
@@ -84,6 +84,7 @@ const SpotifyHome = () => {
 			<Tracks />
 			<SpotifyControls />
 			<SpotifySDK />
+			<SideNavTest />
 		</Styled.Home>
 	);
 };

@@ -4,14 +4,9 @@ import {
 	INotification,
 	TNotificationType,
 } from "hooks/useNotifications";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import Styled from "./NotificationsHolder.styles";
-import {
-	AnimatePresence,
-	PanInfo,
-	Variant,
-	AnimateSharedLayout,
-} from "framer-motion";
+import { AnimatePresence, PanInfo, Variant } from "framer-motion";
 import {
 	ExclamationIcon as WarningIcon,
 	ExclamationCircleIcon as ErrorIcon,
@@ -20,7 +15,6 @@ import {
 
 interface INotificationProps {
 	notification: INotification;
-	onClose: () => void;
 }
 
 type Variants = {
@@ -42,9 +36,15 @@ const NotificationIcon = ({ type }: INotificationIconProps) => {
 };
 
 const Notification = ({
-	notification: { type, component, timeout },
-	onClose,
+	notification: { id, type, component, timeout },
 }: INotificationProps) => {
+	const { removeNotification } = useNotifications();
+
+	const onClose = useCallback(
+		() => removeNotification(id),
+		[id, removeNotification],
+	);
+
 	// Remove after given time if setted.
 	useEffect(() => {
 		if (!!timeout) {
@@ -60,20 +60,20 @@ const Notification = ({
 		exit: { opacity: 0, scale: 0.8, x: 300 },
 	};
 
+	const swipeVelocityThreshold = 15;
+	const swipeOffsetThreshold = 200;
+	const offsetThreshold = 350;
+
+	const canCloseWithOffset = (offset: number) => offset > offsetThreshold;
+	const canCloseWithVelocity = (offset: number, velocity: number) =>
+		velocity > swipeVelocityThreshold && offset > swipeOffsetThreshold;
+
 	const onDragClose = (info: PanInfo) => {
-		const {
-			velocity: { x: xVelocity },
-			offset: { x: xOffset },
-		} = info;
+		const { velocity, offset } = info;
+		const closeWithVelocity = canCloseWithVelocity(offset.x, velocity.x);
+		const closeWithOffset = canCloseWithOffset(offset.x);
 
-		const minVel = 30;
-		const minOffsetOnVel = 200;
-		const minOffset = 500;
-
-		const surpasesVelocity = xOffset > minOffsetOnVel && xVelocity > minVel;
-		const surpasesCloseLimit = xOffset > minOffset;
-
-		if (surpasesVelocity || surpasesCloseLimit) {
+		if (closeWithVelocity || closeWithOffset) {
 			onClose();
 		}
 	};
@@ -87,10 +87,10 @@ const Notification = ({
 			exit="exit"
 			transition={{
 				type: "spring",
-				stiffness: 400,
+				stiffness: offsetThreshold,
 				damping: 30,
 			}}
-			layout
+			layout="position"
 			drag="x"
 			dragConstraints={{ left: 0, right: 0 }}
 			dragElastic={{ left: 0.02, right: 0.2 }}
@@ -109,22 +109,15 @@ const Notification = ({
 
 const NotificationsHolder = () => {
 	const notifications = useNotificationsValue();
-	const { removeNotification } = useNotifications();
 
 	return (
-		<AnimateSharedLayout>
-			<Styled.NotificationsHolder>
-				<AnimatePresence>
-					{notifications.map((not) => (
-						<Notification
-							key={not.id}
-							notification={not}
-							onClose={() => removeNotification(not.id)}
-						/>
-					))}
-				</AnimatePresence>
-			</Styled.NotificationsHolder>
-		</AnimateSharedLayout>
+		<Styled.NotificationsHolder>
+			<AnimatePresence>
+				{notifications.map((not) => (
+					<Notification key={not.id} notification={not} />
+				))}
+			</AnimatePresence>
+		</Styled.NotificationsHolder>
 	);
 };
 

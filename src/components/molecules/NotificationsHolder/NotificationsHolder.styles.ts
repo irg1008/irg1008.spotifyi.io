@@ -4,7 +4,7 @@ import { TNotificationType } from "hooks/useNotifications";
 import { XIcon } from "@heroicons/react/solid";
 import { motion } from "framer-motion";
 
-const NotificationsHolder = tw.div`
+const NotificationsHolder = tw(motion.div)`
 	fixed
   bottom-0
   right-0

@@ -18,9 +18,5 @@ const Main = tw.main`
   transition-colors
 `;
 
-const Link = tw.a`
-  hover:underline
-`;
-
-const Styled = { Layout, Main, Link };
+const Styled = { Layout, Main };
 export default Styled;

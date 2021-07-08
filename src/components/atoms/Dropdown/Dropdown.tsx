@@ -1,5 +1,5 @@
 import Styled from "./Dropdown.styles";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon } from "@heroicons/react/outline";
 import useToggle from "hooks/useToggle";
 import React from "react";
 import useRefHeight from "hooks/useRefHeight";
@@ -51,11 +51,9 @@ const Dropdown = ({
 			>
 				<Styled.DropdownTitle>{title}</Styled.DropdownTitle>
 				{children && (
-					<>
-						<Styled.ChevronButton {...{ isOpen }}>
-							<ChevronDownIcon />
-						</Styled.ChevronButton>
-					</>
+					<Styled.ChevronIconWrapper {...{ isOpen }}>
+						<Styled.ChevronIcon />
+					</Styled.ChevronIconWrapper>
 				)}
 			</Styled.DropdownTitleContainer>
 			{children && (

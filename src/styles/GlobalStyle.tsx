@@ -78,15 +78,13 @@ const CustomGlobalStyle = createGlobalStyle`
     ${tw`
       outline-none
       focus:outline-none
-      light:bg-light-200
+      light:bg-light-700
       dark:bg-dark-500
       bg-opacity-50
       hover:bg-opacity-80
       duration-200
       dark:text-white
-      light:text-black
-      dark:border-white
-      light:border-black
+      light:text-white
       p-2
       shadow-lg
       transform
@@ -117,7 +115,7 @@ const CustomGlobalStyle = createGlobalStyle`
       w-3.5
       bg-red-700
       rounded-full
-      `}
+    `}
   }
   
   ::-webkit-scrollbar-track {

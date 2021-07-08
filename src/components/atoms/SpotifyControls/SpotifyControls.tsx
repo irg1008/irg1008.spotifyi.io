@@ -73,6 +73,8 @@ const SpotifyControls = () => {
 	// CONTAINER HEIGHT.
 	const [containerRef, containerHeight] = useRefHeight<HTMLDivElement>();
 
+	const listenHere = () => transferPlayback(device?.deviceId);
+
 	return (
 		<>
 			<PopUp isOpen={isOpenSong} onBGClick={toggleIsOpenSong}>
@@ -155,12 +157,10 @@ const SpotifyControls = () => {
 						<>
 							<Styled.Text>
 								{!!activeDevice
-									? `Dispositivo activo: ${activeDevice?.name}`
-									: "No hay dispositivos activos"}
+									? `Active device: ${activeDevice?.name}`
+									: "There is no active device"}
 							</Styled.Text>
-							<button onClick={() => transferPlayback(device?.deviceId)}>
-								Escuchar aquí
-							</button>
+							<button onClick={listenHere}>Listen here</button>
 						</>
 					)}
 				</Styled.Wrapper>

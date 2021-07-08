@@ -1,5 +1,6 @@
 import tw from "twin.macro";
 import { StarIcon, EmojiSadIcon } from "@heroicons/react/solid";
+import styled from "styled-components";
 
 const Home = tw.div`
   text-xl
@@ -53,8 +54,7 @@ const Navbar = tw.div`
 
 const Button = tw.button`
   transition-colors
-  dark:border-white
-  light:border-black
+  border-white
   border-b-2
 `;
 
@@ -71,27 +71,42 @@ const Name = tw.p`
   text-white
 `;
 
-const PremiumIcon = tw(StarIcon)`
-  h-7
-  w-7
-  text-yellow-300
+const Avatar = tw.a`
+  relative
 `;
 
-const PoorIcon = tw(EmojiSadIcon)`
+const Icon = tw`
   h-7
   w-7
-  text-blue-500
+  absolute
+  -bottom-2
+  -right-2
 `;
+
+const PremiumIcon = styled(StarIcon)(() => [
+  Icon,
+  tw`
+    text-yellow-300
+  `,
+]);
+
+const PoorIcon = styled(EmojiSadIcon)(() => [
+  Icon,
+  tw`
+  text-blue-500
+  `,
+]);
 
 const Styled = {
-	Home,
-	Title,
-	Navbar,
-	Button,
-	Tracks,
-	Img,
-	Name,
-	PremiumIcon,
-	PoorIcon,
+  Home,
+  Title,
+  Navbar,
+  Button,
+  Tracks,
+  Img,
+  Name,
+  Avatar,
+  PremiumIcon,
+  PoorIcon,
 };
 export default Styled;
