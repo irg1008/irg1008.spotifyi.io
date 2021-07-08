@@ -1,9 +1,9 @@
 import tw from "twin.macro";
 
 const NotificationsHolder = tw.div`
-	absolute
-  bottom-0
-  right-0
+	fixed
+  bottom-20
+  right-20
   z-40
 `;
 

@@ -3,39 +3,66 @@ import create from "zustand";
 type TNotificationId = string;
 
 interface INotification {
-  id: TNotificationId;
   type: "error" | "warning" | "success";
   component: React.ReactNode;
 }
 
+interface INotifications {
+  [id: TNotificationId]: INotification;
+}
+
 interface INotificationStore {
-  notificationMap: INotification[];
-  addNotification: (notification: INotification) => void;
-  removeNotificationWithId: (id: TNotificationId) => void;
+  notifications: INotifications;
+  addNotification: (id: TNotificationId, notification: INotification) => void;
+  removeNotification: (id: TNotificationId) => void;
   removeAllNotifications: () => void;
 }
 
-const useNotificationsStore = create<INotificationStore>((set, get) => ({
-  notificationMap: [],
-  addNotification: (notification) => {
-    const { notificationMap: oldMap } = get();
-    const isIncluded = oldMap.some((not) => not.id === notification.id);
-    !isIncluded && oldMap.push(notification);
-    console.log(oldMap);
-    set(() => ({ notificationMap: oldMap }));
-  },
-  removeNotificationWithId: (id: TNotificationId) => {
-    const { notificationMap: oldMap } = get();
-    oldMap.filter((not) => not.id !== id);
-    set(() => ({ notificationMap: oldMap }));
-  },
-  removeAllNotifications: () => {
-    set(() => ({ notificationMap: [] }));
-  },
-}));
+const useNotificationsStore = create<INotificationStore>((set, get) => {
+  const notifications: INotifications = {};
+
+  const updateNotifications = (newNots: INotifications) =>
+    set(({ notifications: old }) => ({
+      notifications: { ...old, ...newNots },
+    }));
+
+  const addNotification = (
+    id: TNotificationId,
+    notification: INotification
+  ) => {
+    const { notifications } = get();
+    notifications[id] = notification;
+    updateNotifications(notifications);
+  };
+
+  const removeNotification = (id: TNotificationId) => {
+    const { notifications } = get();
+    delete notifications[id];
+    updateNotifications(notifications);
+  };
+
+  const removeAllNotifications = () => {
+    set(() => ({ notifications: {} }));
+  };
+
+  return {
+    notifications,
+    addNotification,
+    removeAllNotifications,
+    removeNotification,
+  };
+});
 
 const useNotifications = () => {
-  return useNotificationsStore();
+  const { notifications, ...store } = useNotificationsStore();
+
+  const mapNotifications = () =>
+    Object.entries(notifications).map(([id, notification]) => ({
+      id,
+      notification,
+    }));
+
+  return { notifications, ...store, mapNotifications };
 };
 
 export default useNotifications;

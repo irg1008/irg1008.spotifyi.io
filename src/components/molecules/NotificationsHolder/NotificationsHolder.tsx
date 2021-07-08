@@ -1,19 +1,26 @@
 import useNotifications from "hooks/useNotifications";
+import { entries } from "lodash";
 import { useEffect, useState } from "react";
 import Styled from "./NotificationsHolder.styles";
 
 interface INotificationsHolderProps {}
 
+const Comp = ({ text }: { text: string }) => {
+	return <p>{text}</p>;
+};
+
 const NotificationsHolder = (props: INotificationsHolderProps) => {
-	const { notificationMap, addNotification } = useNotifications();
+	const {
+		notifications,
+		addNotification,
+		removeAllNotifications,
+		removeNotification,
+		mapNotifications,
+	} = useNotifications();
 
 	useEffect(() => {
-		console.log(notificationMap);
-	}, [notificationMap]);
-
-	const Comp = ({ text }: { text: string }) => {
-		return <p>{text}</p>;
-	};
+		console.log(notifications);
+	}, [notifications]);
 
 	const [value, setValue] = useState("");
 
@@ -21,27 +28,49 @@ const NotificationsHolder = (props: INotificationsHolderProps) => {
 		<Styled.NotificationsHolder>
 			<button
 				onClick={() => {
-					addNotification({
-						id: "1",
-						component: <p>Holi</p>,
+					addNotification("1", {
+						component: <Comp text={"holi"} />,
 						type: "error",
 					});
 				}}
 			>
-				Dame aquí
+				Añade 1
 			</button>
 			<button
 				onClick={() => {
-					addNotification({
-						id: "2",
+					addNotification("2", {
 						component: <Comp text={value} />,
-						type: "error",
+						type: "success",
 					});
 				}}
 			>
-				Dame aquí
+				Añade 2
+			</button>
+			<button
+				onClick={() => {
+					removeNotification("1");
+				}}
+			>
+				Quita 1
+			</button>
+			<button
+				onClick={() => {
+					removeNotification("2");
+				}}
+			>
+				Quita 2
+			</button>
+			<button
+				onClick={() => {
+					removeAllNotifications();
+				}}
+			>
+				Quita todos
 			</button>
 			<input type="text" onChange={(e) => setValue(e.target.value)}></input>
+			{mapNotifications().map(({ id, notification }) => (
+				<div key={id}>{notification.component}</div>
+			))}
 		</Styled.NotificationsHolder>
 	);
 };
