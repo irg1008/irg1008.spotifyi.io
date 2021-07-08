@@ -11,7 +11,11 @@ const NotificationsHolder = tw.div`
   z-40
   px-8
   py-8
-  max-w-full
+  min-h-full
+  flex
+  flex-col
+  justify-end
+  items-end
 `;
 
 const typeStyles: Record<TNotificationType, TwStyle> = {
@@ -51,7 +55,7 @@ const Notification = styled(motion.div)(
       shadow-lg
       border-2
       relative
-      cursor-move
+      cursor[grab]
       mt-6
       ml-6
       overflow-hidden

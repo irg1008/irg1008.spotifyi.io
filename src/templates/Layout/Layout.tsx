@@ -13,7 +13,7 @@ import idGen from "util/idGen";
 const Comp = ({ value }: { value: string }) => <p>{value}</p>;
 
 const NotificationTest = () => {
-	const { addNotification } = useNotifications();
+	const { addNotification, removeAllNotifications } = useNotifications();
 
 	const addNewNotification = ({
 		type,
@@ -94,6 +94,7 @@ const NotificationTest = () => {
 			>
 				Add notification with button
 			</button>
+			<button onClick={removeAllNotifications}>Remove all notifications</button>
 		</Dropdown>
 	);
 };

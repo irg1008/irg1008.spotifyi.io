@@ -40,12 +40,6 @@ const Notification = ({
 	notification: { type, component, timeout },
 	onClose,
 }: INotificationProps) => {
-	const variants: Variants = {
-		initial: { opacity: 0, scale: 0.8, x: 300 },
-		animate: { opacity: 1, scale: 1, x: 0 },
-		exit: { opacity: 0, scale: 0.8, x: 300 },
-	};
-
 	// Remove after given time if setted.
 	useEffect(() => {
 		if (!!timeout) {
@@ -55,9 +49,11 @@ const Notification = ({
 		}
 	}, [timeout, onClose]);
 
-	const velocityToClose = 30;
-	const offsetToCloseOnVelocity = 300;
-	const offsetToClose = 500;
+	const variants: Variants = {
+		initial: { opacity: 0, scale: 0.8, x: 300 },
+		animate: { opacity: 1, scale: 1, x: 0 },
+		exit: { opacity: 0, scale: 0.8, x: 300 },
+	};
 
 	const onDragClose = (info: PanInfo) => {
 		const {
@@ -65,9 +61,12 @@ const Notification = ({
 			offset: { x: xOffset },
 		} = info;
 
-		const surpasesVelocity =
-			xOffset > offsetToCloseOnVelocity && xVelocity > velocityToClose;
-		const surpasesCloseLimit = xOffset > offsetToClose;
+		const minVel = 30;
+		const minOffsetOnVel = 200;
+		const minOffset = 500;
+
+		const surpasesVelocity = xOffset > minOffsetOnVel && xVelocity > minVel;
+		const surpasesCloseLimit = xOffset > minOffset;
 
 		if (surpasesVelocity || surpasesCloseLimit) {
 			onClose();
@@ -83,8 +82,8 @@ const Notification = ({
 			exit="exit"
 			transition={{
 				type: "spring",
-				stiffness: 500,
-				damping: 40,
+				stiffness: 400,
+				damping: 30,
 			}}
 			layout="position"
 			drag="x"
