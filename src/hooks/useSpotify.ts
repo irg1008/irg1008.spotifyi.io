@@ -60,7 +60,6 @@ const useSpotifyDevice = () => {
   }, [spotify, withSpotify]);
 
   const transferPlayback = async (deviceId: string) => {
-    console.log(deviceId);
     await withSpotify(async () => await spotify.transferMyPlayback([deviceId]));
   };
 
