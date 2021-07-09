@@ -20,6 +20,8 @@ const SideNav = styled.div(({ isOpen }: { isOpen: boolean }) => [
     ease-in-out
     max-w-full
     flex
+    dark:border-dark-200
+    light:border-light-200
   `,
 ]);
 
@@ -44,8 +46,6 @@ const TreeView = tw.div`
   light:bg-light-500
   p-4
   border-r-2
-  dark:border-dark-200
-  light:border-light-200
   overflow-y-auto
   space-y-4
 `;
