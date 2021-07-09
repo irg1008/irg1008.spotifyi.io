@@ -41,9 +41,6 @@ const ChildrenWrapper = tw.div`
 	dark:bg-dark-500
 	light:bg-opacity-90
 	dark:bg-opacity-90
-	flex
-	flex-col
-	flex-wrap
 	space-y-4
 `;
 
