@@ -1,10 +1,7 @@
 import Styled from "./Dropdown.styles";
-import { ChevronDownIcon } from "@heroicons/react/outline";
 import useToggle from "hooks/useToggle";
 import React from "react";
-import useRefHeight from "hooks/useRefHeight";
-
-// NOTE FOR FUTURE IVÁN: Dropdown needs the children directly passed. A react fragment will be just ONE child.
+import { AnimatePresence, Variant, Variants } from "framer-motion";
 
 interface IBaseDropdownProps {
 	title: string;
@@ -23,19 +20,20 @@ type IDropdownProps = IBaseDropdownProps &
 		  }
 	);
 
-const Dropdown = ({
+interface IVariants extends Variants {
+	open?: Variant;
+	collapsed?: Variant;
+}
+
+const Dropdown: React.FC<IDropdownProps> = ({
 	children,
+	openOnLoad,
 	title,
 	onTitleClick,
-	openOnLoad,
-}: IDropdownProps) => {
-	const [isOpen, toggleIsOpen] = useToggle(openOnLoad);
-	const [contentRef, contentHeight] = useRefHeight<HTMLDivElement>();
-
+}) => {
+	// 1st: Map the children and add separator.
 	const isLast = (index: number) =>
 		index === React.Children.count(children) - 1;
-
-	// 1st: Map the children and add separator.
 	const childrenMap = React.Children.map(children, (child, index) => (
 		<>
 			{child}
@@ -43,27 +41,48 @@ const Dropdown = ({
 		</>
 	));
 
+	const sectionVariants: IVariants = {
+		open: {
+			opacity: 1,
+			height: "auto",
+		},
+		collapsed: {
+			opacity: 0,
+			height: 0,
+		},
+	};
+
+	const [isOpen, toggleIsOpen] = useToggle(openOnLoad);
+
 	return (
-		<Styled.Dropdown>
-			<Styled.DropdownTitleContainer
+		<Styled.Container>
+			<Styled.Header
+				onClick={!!children ? toggleIsOpen : onTitleClick}
 				{...{ isOpen }}
-				onClick={children ? toggleIsOpen : onTitleClick}
 			>
-				<Styled.DropdownTitle>{title}</Styled.DropdownTitle>
-				{children && (
+				<Styled.Title>{title}</Styled.Title>
+				{!!children && (
 					<Styled.ChevronIconWrapper {...{ isOpen }}>
 						<Styled.ChevronIcon />
 					</Styled.ChevronIconWrapper>
 				)}
-			</Styled.DropdownTitleContainer>
-			{children && (
-				<Styled.ContentWrapper {...{ isOpen }} height={contentHeight}>
-					<Styled.Content ref={contentRef} {...{ isOpen }}>
-						{childrenMap}
-					</Styled.Content>
-				</Styled.ContentWrapper>
+			</Styled.Header>
+			{!!children && (
+				<AnimatePresence initial={false}>
+					{isOpen && (
+						<Styled.SectionWrapper
+							initial="collapsed"
+							animate="open"
+							exit="collapsed"
+							variants={sectionVariants}
+							transition={{ type: "tween" }}
+						>
+							<Styled.Section>{childrenMap}</Styled.Section>
+						</Styled.SectionWrapper>
+					)}
+				</AnimatePresence>
 			)}
-		</Styled.Dropdown>
+		</Styled.Container>
 	);
 };
 
