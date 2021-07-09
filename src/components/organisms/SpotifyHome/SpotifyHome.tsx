@@ -5,7 +5,6 @@ import Styled from "./SpotifyHome.styles";
 import SearchBar from "components/atoms/SearchBar";
 import SpotifyTracks from "components/molecules/SpotifyTracks";
 import Loading from "components/atoms/Loading";
-import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
 import Image from "next/image";
 import SpotifySDK from "components/atoms/SpotifySDK";
 import SideNavTest from "temp/SideNavTest";
@@ -31,10 +30,7 @@ const Tracks = () => {
 };
 
 const Navbar = () => {
-	const { dispatch } = useSpotifyConsumer();
-	const logOut = () => dispatch({ type: "LOG_OUT" });
-
-	const { spotify, withSpotify } = useSpotify();
+	const { spotify, withSpotify, logOut } = useSpotify();
 
 	// Get user pipeline.
 	const [user, setUser] = useState<SpotifyApi.CurrentUsersProfileResponse>();

@@ -5,7 +5,6 @@ import useSpotify from "hooks/useSpotify";
 
 const Home = () => {
 	const { isLogged } = useSpotify();
-
 	return (
 		<>
 			<Head title="Inicio" />

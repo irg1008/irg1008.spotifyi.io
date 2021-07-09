@@ -40,7 +40,7 @@ const Navbar = tw.div`
   justify-end
   items-center
   light:bg-light-600
-  dark:bg-dark-800
+  dark:bg-dark-600
   bg-opacity-70!
   p-4
   backdrop-filter
@@ -54,7 +54,8 @@ const Navbar = tw.div`
 
 const Button = tw.button`
   transition-colors
-  border-white
+  light:border-light-100
+  dark:border-dark-100
   border-b-2
 `;
 

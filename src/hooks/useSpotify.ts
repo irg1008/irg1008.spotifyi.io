@@ -1,13 +1,72 @@
-import { useSpotify as useSpotifyConsumer } from "providers/SpotifyProvider";
 import { getNewToken } from "middleware/spotify";
 import { getLocalData, ISpotifyTokenResponse } from "lib/spotify";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import create from "zustand";
+import SpotifyWebApi from "spotify-web-api-js";
+import { persist } from "zustand/middleware";
+
+type TTokenData = Pick<ISpotifyTokenResponse, "access_token" | "refresh_token">;
+
+interface ISpotifyState extends TTokenData {
+  spotify: SpotifyWebApi.SpotifyWebApiJs;
+  isLogged: boolean;
+  logIn: (payload: ISpotifyTokenResponse) => void;
+  logOut: () => void;
+}
+
+const useSpotifyStore = create<ISpotifyState>(
+  persist(
+    (set, get) => {
+      const initialTokenData: TTokenData = {
+        access_token: undefined,
+        refresh_token: undefined,
+      };
+
+      const setData = (data: TTokenData) => set(() => ({ ...data }));
+      const removeData = () =>
+        set(() => ({ ...initialTokenData, isLogged: false }));
+
+      const logIn = (payload: ISpotifyTokenResponse) => {
+        const { spotify } = get();
+        const { access_token } = payload;
+
+        spotify.setAccessToken(access_token);
+        setData(payload);
+        set(() => ({ isLogged: true }));
+      };
+
+      const logOut = () => removeData();
+
+      return {
+        ...initialTokenData,
+        spotify: new SpotifyWebApi(),
+        isLogged: false,
+        logIn,
+        logOut,
+      };
+    },
+    {
+      name: "spotify_tokens",
+      whitelist: ["access_token", "refresh_token"],
+    }
+  )
+);
 
 const useSpotify = () => {
   const {
-    state: { spotify, isLogged },
-    dispatch,
-  } = useSpotifyConsumer();
+    spotify,
+    isLogged,
+    logIn,
+    refresh_token,
+    access_token,
+    ...store
+  } = useSpotifyStore();
+
+  useEffect(() => {
+    if (!isLogged && !!refresh_token && !!access_token) {
+      logIn({ refresh_token, access_token });
+    }
+  }, [isLogged, logIn, refresh_token, access_token]);
 
   const withSpotify = useMemo(
     () => async <T>(fn: () => Promise<T>): Promise<T> => {
@@ -27,11 +86,8 @@ const useSpotify = () => {
           } else if (res) {
             const { access_token }: Partial<ISpotifyTokenResponse> = res.data;
 
-            // Set new token.
-            dispatch({
-              type: "LOG_IN",
-              payload: { access_token, refresh_token },
-            });
+            // Log in with new token.
+            logIn({ access_token, refresh_token });
 
             // Call function again.
             return await withSpotify(fn);
@@ -39,10 +95,10 @@ const useSpotify = () => {
         }
       }
     },
-    [dispatch]
+    [logIn]
   );
 
-  return { withSpotify, spotify, isLogged };
+  return { withSpotify, spotify, isLogged, logIn, ...store };
 };
 
 const useSpotifyDevice = () => {

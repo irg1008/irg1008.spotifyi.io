@@ -2,10 +2,10 @@ import Head from "components/atoms/Head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { getToken } from "middleware/spotify";
-import { useSpotify } from "providers/SpotifyProvider";
 import { ISpotifyTokenResponse, ISpotifyError } from "lib/spotify";
 import { GetServerSideProps } from "next";
 import { useNotifications } from "hooks/useNotifications";
+import useSpotify from "hooks/useSpotify";
 
 type TSpotifyError = "access_denied";
 
@@ -20,7 +20,7 @@ interface IAuthProps {
 
 const Auth = ({ data, spotifyError }: IAuthProps) => {
 	const router = useRouter();
-	const { dispatch } = useSpotify();
+	const { logIn: spotifyLogIn } = useSpotify();
 	const { addNotification } = useNotifications();
 
 	useEffect(() => {
@@ -41,17 +41,14 @@ const Auth = ({ data, spotifyError }: IAuthProps) => {
 
 			// If data => Log in with data.
 			if (!!data) {
-				// Set access token to spotify object.
-				dispatch({
-					type: "LOG_IN",
-					payload: data,
-				});
+				// Log in with spotify.
+				spotifyLogIn(data);
 			}
 		};
 
 		logIn();
 		router.replace("/");
-	}, [data, dispatch, router, spotifyError, addNotification]);
+	}, [data, router, spotifyError, addNotification, spotifyLogIn]);
 
 	return (
 		<>
@@ -84,7 +81,7 @@ export const getServerSideProps: GetServerSideProps<IAuthProps> = async ({
 		if (!!error) return { props: { spotifyError } };
 
 		// If otherwise, return token data.
-		return { props: { data: res.data } };
+		return { props: { data: res?.data } };
 	}
 
 	// If no query params recieved => 404.
