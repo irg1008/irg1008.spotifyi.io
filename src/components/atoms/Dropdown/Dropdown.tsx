@@ -71,6 +71,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
 				<AnimatePresence initial={false}>
 					{isOpen && (
 						<Styled.SectionWrapper
+							key="wrapper"
 							initial="collapsed"
 							animate="open"
 							exit="collapsed"
