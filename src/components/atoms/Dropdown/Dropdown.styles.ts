@@ -56,14 +56,13 @@ const Header = styled.header(({ isOpen }: IDropdown) => [
     justify-between
     items-center
     text-white
-    light:bg-light-700
-    dark:bg-dark-700
-    bg-opacity-50!
-    hover:bg-opacity-100!
+    light:bg-light-600
+    dark:bg-dark-600
+    hover:light:bg-light-900
+    hover:dark:bg-dark-900
   `,
   isOpen &&
     tw`
-      bg-opacity-100!
   `,
 ]);
 
