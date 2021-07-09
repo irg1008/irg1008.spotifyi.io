@@ -100,7 +100,7 @@ const Progress = tw(motion.div)`
 `;
 
 const Text = tw.p`
-  dark:text-dark-900
+  dark:text-dark-200
   light:text-light-100
 `;
 
