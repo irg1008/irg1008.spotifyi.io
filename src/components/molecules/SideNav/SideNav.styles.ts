@@ -28,6 +28,13 @@ const Button = tw.button`
   w-10
   h-10
   mt-4
+  border-2
+  border-l-0
+  -ml-0.5
+  bg-opacity-100!
+  dark:bg-dark-500
+  light:bg-light-500
+  shadow-none
 `;
 
 const TreeView = tw.div`

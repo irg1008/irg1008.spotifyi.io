@@ -37,8 +37,8 @@ const Container = styled.div(
 const Wrapper = tw.div`
   w-full
   space-y-2
+  dark:bg-dark-500
   light:bg-light-500
-  dark:bg-dark-300
   p-6
   border-t-2
   text-center

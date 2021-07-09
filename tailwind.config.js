@@ -1,7 +1,4 @@
-const {
-	trueGray: darkColor,
-	sky: lightColor,
-} = require("tailwindcss/colors");
+const { blueGray: darkColor, teal: lightColor } = require("tailwindcss/colors");
 
 module.exports = {
 	purge: [
@@ -37,6 +34,11 @@ module.exports = {
 					700: lightColor[700],
 					800: lightColor[800],
 					900: lightColor[900],
+				},
+				gold: {
+					light: "#ddbf5f",
+					base: "#d4af37",
+					dark: "#aa8c2c",
 				},
 			},
 			boxShadow: {

@@ -39,8 +39,9 @@ const Navbar = tw.div`
   flex
   justify-end
   items-center
-  bg-black
-  bg-opacity-50
+  light:bg-light-600
+  dark:bg-dark-800
+  bg-opacity-70!
   p-4
   backdrop-filter
   backdrop-blur-md

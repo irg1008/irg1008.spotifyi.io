@@ -1,8 +1,14 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const useRefHeight = <T extends HTMLElement>() => {
+  const [height, setHight] = useState<number>();
+  
   const ref = useRef<T>();
-  const height = ref.current?.clientHeight;
+  const refHeight = ref.current?.clientHeight;
+
+  useEffect(() => {
+    setHight(refHeight);
+  }, [refHeight]);
 
   return [ref, height] as const;
 };

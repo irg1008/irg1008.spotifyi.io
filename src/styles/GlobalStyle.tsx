@@ -79,7 +79,7 @@ const CustomGlobalStyle = createGlobalStyle`
       outline-none
       focus:outline-none
       light:bg-light-700
-      dark:bg-dark-500
+      dark:bg-dark-700
       bg-opacity-50
       hover:bg-opacity-80
       duration-200
