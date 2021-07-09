@@ -32,7 +32,13 @@ const SpotifyTracks = ({ tracks }: ISpotifyTracks) => {
 			loader={
 				<Loading text={`Fetching more songs (${offset}/${tracksLength})`} />
 			}
-			endMessage={<Loading text={`${partials.length} songs`} />}
+			endMessage={
+				<Loading
+					text={`${partials.length} ${
+						partials.length === 1 ? "song" : "songs"
+					}`}
+				/>
+			}
 		>
 			<Styled.Songs>
 				{partials?.map((track) => (
