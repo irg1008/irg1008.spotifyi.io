@@ -11,6 +11,10 @@ const NotificationsHolder = tw(motion.div)`
   z-40
   px-8
   py-8
+  flex
+  flex-col
+  justify-end
+  items-end
 `;
 
 const typeStyles: Record<TNotificationType, TwStyle> = {
