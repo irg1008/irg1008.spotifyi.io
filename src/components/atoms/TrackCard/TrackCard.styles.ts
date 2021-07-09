@@ -7,10 +7,10 @@ const Buttons = tw.div`
 
 const Button = tw.button`
   flex-1
-  rounded-full
+  dark:rounded-full
+  light:rounded-2xl
   text-lg
-  border-2
-  light:border-light-100
+  dark:border-2
   dark:border-dark-100
 `;
 
