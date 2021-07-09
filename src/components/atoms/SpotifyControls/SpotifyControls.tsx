@@ -8,7 +8,7 @@ import Range from "components/atoms/Range";
 import { parseMills } from "util/time";
 import { useSpotifyDevice } from "hooks/useSpotify";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import useRefHeight from "hooks/useRefHeight";
+import useRefData from "hooks/useRefData";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -71,7 +71,8 @@ const SpotifyControls = () => {
 	const { activeDevice, transferPlayback } = useSpotifyDevice();
 
 	// CONTAINER HEIGHT.
-	const [containerRef, containerHeight] = useRefHeight<HTMLDivElement>();
+	const [containerRef, { height: containerHeight }] =
+		useRefData<HTMLDivElement>();
 
 	const listenHere = () => transferPlayback(device?.deviceId);
 
