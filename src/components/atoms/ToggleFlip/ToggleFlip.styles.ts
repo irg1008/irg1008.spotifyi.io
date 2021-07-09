@@ -43,17 +43,26 @@ const Back = tw(Side)`
   transform[rotateY(180deg)]
 `;
 
-const Moon = tw(MoonIcon)`
+const Icon = tw`
   h-5
   w-5
-  text-indigo-400
 `;
 
-const Sun = tw(SunIcon)`
-  h-5
-  w-5
-  text-yellow-500
-`;
+const Moon = styled(MoonIcon)(() => [
+  Icon,
+  tw`
+    text-indigo-400
+  `,
+]);
+
+const Sun = styled(SunIcon)(() => [
+  Icon,
+  tw`
+    text-yellow-500
+    animate-spin
+    animation-duration[15s]
+  `,
+]);
 
 const Styled = { Flip, InnerFlip, Front, Back, Moon, Sun };
 export default Styled;
