@@ -9,10 +9,8 @@ const Layout: React.FC = ({ children }) => {
 	return (
 		<Styled.Layout>
 			<header></header>
-			<Styled.Main>
-				<NotificationsHolder />
-				{children}
-			</Styled.Main>
+			<NotificationsHolder />
+			<Styled.Main>{children}</Styled.Main>
 			<footer></footer>
 		</Styled.Layout>
 	);
