@@ -37,10 +37,10 @@ const Dropdown = ({
 
 	// 1st: Map the children and add separator.
 	const childrenMap = React.Children.map(children, (child, index) => (
-		<>
+		<option>
 			{child}
 			{!isLast(index) && <Styled.Separator />}
-		</>
+		</option>
 	));
 
 	return (

@@ -2,7 +2,7 @@ import tw from "twin.macro";
 import styled, { css } from "styled-components";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
-const Dropdown = tw.div`
+const Dropdown = tw.select`
   transition-colors
   rounded-lg
   overflow-hidden
