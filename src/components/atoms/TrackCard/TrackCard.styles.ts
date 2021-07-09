@@ -9,19 +9,22 @@ const Button = tw.button`
   flex-1
   rounded-full
   text-lg
+  border-2
+  light:border-light-100
+  dark:border-dark-100
 `;
 
 const Card = tw.div`
   w-80
   h-96
-  space-y-4
+  space-y-3
   flex
   flex-col
   justify-between
   p-4
   m-6
-  bg-white
-  bg-opacity-70
+  light:bg-light-100
+  dark:bg-dark-600
   rounded-3xl
   shadow-lg
   overflow-auto
@@ -29,12 +32,14 @@ const Card = tw.div`
 
 const SongTitle = tw.p`
   font-normal
-  text-black
+  light:text-light-900
+  dark:text-dark-100
 `;
 
 const SongArtist = tw(SongTitle)`
   text-sm
-  text-gray-800
+  light:text-light-800
+  dark:text-dark-300
 `;
 
 const SongImg = tw.div`
