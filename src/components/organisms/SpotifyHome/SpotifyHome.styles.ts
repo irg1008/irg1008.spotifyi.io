@@ -43,7 +43,6 @@ const Navbar = tw.div`
   bg-opacity-50
   p-4
   backdrop-filter
-  backdrop-grayscale
   backdrop-blur-md
   shadow-md
   border-b-2

@@ -98,7 +98,6 @@ const Link = tw.a`
 `;
 
 const SideNavTest = () => {
-	const underline = { textDecoration: "underline" };
 	return (
 		<SideNav>
 			<NotificationTest />
@@ -129,6 +128,17 @@ const SideNavTest = () => {
 				<button>Five</button>
 				<Link href="#">Two</Link>
 				<Link href="#">Three</Link>
+				<Dropdown title="¡And text! Or Anything You Want">
+					Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+					hic beatae aut sapiente ducimus voluptates soluta deserunt autem unde
+					non rem delectus tempora, quam odio earum qui nulla magni enim?
+					<button>Two</button>
+					<button>Three</button>
+					<button>Four</button>
+					<button>Five</button>
+					<Link href="#">Two</Link>
+					<Link href="#">Three</Link>
+				</Dropdown>
 			</Dropdown>
 		</SideNav>
 	);
