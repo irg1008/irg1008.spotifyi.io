@@ -74,7 +74,10 @@ const SpotifyControls = () => {
 	const [containerRef, { height: containerHeight }] =
 		useRefData<HTMLDivElement>();
 
-	const listenHere = () => transferPlayback(device?.deviceId);
+	const listenHere = () => {
+		// Transfer playback
+		transferPlayback(device?.deviceId);
+	};
 
 	return (
 		<>

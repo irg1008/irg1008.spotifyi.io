@@ -124,14 +124,14 @@ const useSpotifySDK = () => {
 
     // Ready.
     player.addListener("ready", ({ device_id }: IPlaybackPlayer) => {
-      console.log("Ready with Device ID", device_id);
+      //console.log("Ready with Device ID", device_id);
       setDevice({ deviceId: device_id });
       setPlayer(player);
     });
 
     // Not Ready.
     player.addListener("not_ready", ({ device_id }: IPlaybackPlayer) => {
-      console.log("Device ID has gone offline", device_id);
+      //console.log("Device ID has gone offline", device_id);
       return () => player.disconnect();
     });
 
@@ -142,7 +142,9 @@ const useSpotifySDK = () => {
     });
 
     // Error Handling.
-    const errorHandler = ({ message }: IError) => console.log(message);
+    const errorHandler = (error: IError) => {
+      console.log(error);
+    };
     player.addListener("initialization_error", errorHandler);
     player.addListener("authentication_error", errorHandler);
     player.addListener("account_error", errorHandler);
