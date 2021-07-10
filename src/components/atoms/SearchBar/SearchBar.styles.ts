@@ -3,12 +3,11 @@ import styled from "styled-components";
 import { SearchIcon as HeroSearchIcon, XIcon } from "@heroicons/react/solid";
 
 const Container = tw.div`
-  text-gray-500
   h-10
   w-80
   relative
-  focus-within:light:text-light-600
-  focus-within:dark:text-dark-700
+  text-gray-400
+  focus-within:text-medium-dark
 `;
 
 const Input = tw.input`
@@ -18,9 +17,10 @@ const Input = tw.input`
   text-base
   rounded-full
   outline-none
-  focus:ring-2
-  focus:light:ring-light-600
-  focus:dark:ring-dark-700
+  focus:(
+    ring-2
+    ring-large-dark
+  )
   transition-all
   duration-300
 `;

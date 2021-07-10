@@ -1,5 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 import tw, { GlobalStyles as TwinGlobalStyle } from "twin.macro";
+import {
+	coolGray as darkColor,
+	teal as lightColor,
+	emerald,
+	blueGray as nord,
+} from "tailwindcss/colors";
+import theme from "tailwindcss/defaultTheme";
 
 const thumb = tw`
   dark:bg-dark-800
@@ -10,8 +17,7 @@ const thumb = tw`
   rounded-full
   transform
   -webkit-appearance[none]
-  light:shadow-track-light
-  dark:shadow-track-dark
+  shadow-track
 `;
 
 const track = tw`
@@ -27,6 +33,63 @@ const track = tw`
 `;
 
 const CustomGlobalStyle = createGlobalStyle`
+  .light {
+    --bg-primary: ${lightColor[300]};
+    --bg-secondary: ${lightColor[100]};
+    --bg-tertiary: ${lightColor[700]};
+
+    --text-primary: ${lightColor[900]};
+    --text-secondary: ${lightColor[700]};
+    --text-tertiary: ${lightColor[50]};
+
+    --button-border-width: 0;
+    --button-border-color: transparent;
+
+
+    --custom-radius: 1rem;
+    --custom-shadow: ${`-99999px 0 0 99993px ${lightColor[400]}`};
+
+    --accent-lighter: ${lightColor[100]};
+    --accent-light: ${lightColor[300]};
+    --accent-medium: ${lightColor[600]};
+    --accent-dark: ${lightColor[800]};
+  }
+  
+  .dark {
+    --bg-primary: ${darkColor[500]};
+    --bg-secondary: ${darkColor[600]};
+    --bg-tertiary: ${darkColor[700]};
+
+    --text-primary: ${darkColor[100]};
+    --text-secondary: ${darkColor[300]};
+    --text-tertiary: ${darkColor[50]};
+
+    --button-border-width: 2px;
+    --button-border-color: ${darkColor[100]};
+    
+    --custom-radius: 9999px;
+    --custom-shadow: ${`-99999px 0 0 99993px ${darkColor[400]}`};
+
+    --accent-lighter: ${darkColor[100]};
+    --accent-light: ${darkColor[300]};
+    --accent-medium: ${darkColor[600]};
+    --accent-dark: ${darkColor[900]};
+  }
+
+  .emerald {
+    --bg-primary: ${emerald[500]};
+    --bg-secondary: ${emerald[600]};
+    --bg-tertiary: ${emerald[700]};
+    --text-primary: ${emerald[600]};
+    --text-primary: ${emerald[100]};
+    --text-tertiary: ${emerald[50]};
+    --custom-radius: 9999px;
+    --custom-shadow: ${`-99999px 0 0 99993px ${emerald[400]}`};
+  }
+
+  .nord {
+
+  }
 
   body {
     ${tw`

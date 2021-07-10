@@ -1,19 +1,18 @@
-import { config } from "process";
 import { useEffect } from "react";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
-type Theme = "light" | "dark";
+type TTheme = "light" | "dark" | "emerald" | "pink" | "nord";
 
 interface ITheme {
-  theme: Theme;
+  theme: TTheme;
   toggleTheme: () => void;
 }
 
-const getToggledTheme = (oldTheme: Theme): Theme =>
+const getToggledTheme = (oldTheme: TTheme): TTheme =>
   oldTheme === "dark" ? "light" : "dark";
 
-const applyTailwindTheme = (theme: Theme) => {
+const applyTailwindTheme = (theme: TTheme) => {
   if (window) {
     const root = document.documentElement;
     root.classList.remove(getToggledTheme(theme));
@@ -42,8 +41,7 @@ const useTheme = () => {
     applyTailwindTheme(theme);
   }, [theme]);
 
-  return [theme, toggleTheme] as const;
+  return { theme, toggleTheme };
 };
 
 export default useTheme;
-export type { Theme };

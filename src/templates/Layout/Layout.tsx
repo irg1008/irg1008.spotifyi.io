@@ -4,7 +4,6 @@ import GlobalStyle from "styles/GlobalStyle";
 import Styled from "./Layout.styles";
 import useTheme from "hooks/useTheme";
 import NotificationsHolder from "components/molecules/NotificationsHolder/NotificationsHolder";
-import tw from "twin.macro";
 
 const Layout: React.FC = ({ children }) => {
 	return (
@@ -21,7 +20,7 @@ const DynamicLayout: React.FC = ({ children }) => {
 	const [loading, setLoading] = useState(false);
 
 	// Theme store.
-	const [theme] = useTheme();
+	const { theme, toggleTheme } = useTheme();
 
 	const pageLoading = () => setLoading(true);
 	const pageLoaded = () => setLoading(false);

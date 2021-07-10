@@ -2,7 +2,7 @@ import useTheme from "hooks/useTheme";
 import Styled from "./ToggleFlip.styles";
 
 const ToggleFlip = () => {
-	const [theme, toggleTheme] = useTheme();
+	const { theme, toggleTheme } = useTheme();
 	const isDark = theme === "dark";
 
 	return (

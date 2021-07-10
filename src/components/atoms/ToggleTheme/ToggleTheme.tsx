@@ -3,7 +3,7 @@ import Styled from "./ToggleTheme.styles";
 import { AnimatePresence } from "framer-motion";
 
 const ToggleTheme = () => {
-	const [theme, toggleTheme] = useTheme();
+	const { theme, toggleTheme } = useTheme();
 	const isDark = theme === "dark";
 
 	return (

@@ -42,6 +42,7 @@
 		"@types/lodash": "^4.14.171",
 		"@types/react-is": "^17.0.1",
 		"@types/react-test-renderer": "^17.0.1",
+		"@types/tailwindcss": "^2.2.1",
 		"babel-jest": "^27.0.6",
 		"babel-plugin-macros": "^3.1.0",
 		"babel-plugin-styled-components": "^1.13.2",
@@ -52,15 +53,12 @@
 		"prettier": "^2.3.2",
 		"react-test-renderer": "^17.0.2",
 		"tailwindcss": "^2.2.4",
-		"tailwindcss-theme-swapper": "^0.4.1",
-		"tailwindcss-theming": "3.0.0-beta.3",
 		"ts-jest": "^27.0.3",
 		"twin.macro": "^2.6.2"
 	},
 	"babelMacros": {
 		"twin": {
-			"preset": "styled-components",
-			"autoCssProp": true
+			"preset": "styled-components"
 		}
 	}
 }

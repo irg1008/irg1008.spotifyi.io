@@ -39,7 +39,7 @@ const Container = tw.div`
   border-2
   light:border-light-700
   dark:border-dark-700
-  text-base
+  font-size[initial]
   font-normal
   max-w-md
 `;

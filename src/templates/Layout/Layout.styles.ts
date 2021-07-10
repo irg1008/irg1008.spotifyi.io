@@ -13,8 +13,7 @@ const Main = tw.main`
   justify-center
   items-center
   space-y-4
-  light:bg-light-300
-  dark:bg-dark-500
+  bg-primary
 `;
 
 const Styled = { Layout, Main };
