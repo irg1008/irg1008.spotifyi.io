@@ -48,7 +48,11 @@ module.exports = {
 		},
 	},
 	variants: {
-		extend: {},
+		extend: {
+			borderColor: ["group-focus"],
+			backgroundColor: ["group-focus"],
+			textColor: ["group-focus"],
+		},
 	},
 	plugins: [require("@tailwindcss/typography")],
 };
