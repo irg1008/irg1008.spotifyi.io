@@ -1,9 +1,9 @@
 import { getNewToken } from "middleware/spotify";
-import { getLocalData, ISpotifyTokenResponse } from "lib/spotify";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import create from "zustand";
 import SpotifyWebApi from "spotify-web-api-js";
 import { persist } from "zustand/middleware";
+import { ISpotifyTokenResponse } from "lib/spotify";
 
 type TTokenData = Pick<ISpotifyTokenResponse, "access_token" | "refresh_token">;
 
@@ -47,7 +47,7 @@ const useSpotifyStore = create<ISpotifyState>(
     },
     {
       name: "spotify_tokens",
-      whitelist: ["access_token", "refresh_token"],
+      whitelist: ["access_token", "refresh_token", "isLogged"],
     }
   )
 );
@@ -76,9 +76,6 @@ const useSpotify = () => {
         const spotifyError = JSON.parse(error.response).error;
         // If expired token.
         if (spotifyError.status === 401) {
-          // Get refresh token from local data.
-          const { refresh_token } = getLocalData();
-
           // Ask for new token.
           const { res, error } = await getNewToken(refresh_token);
           if (error) {
@@ -95,7 +92,7 @@ const useSpotify = () => {
         }
       }
     },
-    [logIn]
+    [logIn, refresh_token]
   );
 
   return { withSpotify, spotify, isLogged, logIn, ...store };
