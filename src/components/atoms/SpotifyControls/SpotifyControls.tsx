@@ -9,6 +9,7 @@ import { parseMills } from "util/time";
 import { useSpotifyDevice } from "hooks/useSpotify";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import useRefData from "hooks/useRefData";
+import { useCallback, useEffect } from "react";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -47,7 +48,7 @@ const button: CustomVariants = {
 };
 
 const SpotifyControls = () => {
-	const { state, useVolume, useController, useProgress, device } =
+	const { state, useVolume, useController, useProgress, device, isReady } =
 		useSpotifySDK();
 
 	// VOLUME.
@@ -74,10 +75,10 @@ const SpotifyControls = () => {
 	const [containerRef, { height: containerHeight }] =
 		useRefData<HTMLDivElement>();
 
-	const listenHere = () => {
+	const listenHere = useCallback(() => {
 		// Transfer playback
 		transferPlayback(device?.deviceId);
-	};
+	}, [device?.deviceId, transferPlayback]);
 
 	return (
 		<>
@@ -164,7 +165,9 @@ const SpotifyControls = () => {
 									? `Active device: ${activeDevice?.name}`
 									: "There is no active device"}
 							</Styled.Text>
-							<button onClick={listenHere}>Listen here</button>
+							<Styled.ConnectButton disabled={!isReady} onClick={listenHere}>
+								{isReady ? "Listen here" : "Loading"}
+							</Styled.ConnectButton>
 						</>
 					)}
 				</Styled.Wrapper>

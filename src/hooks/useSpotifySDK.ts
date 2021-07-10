@@ -15,11 +15,11 @@ const useSpotifySDKStore = create<ISpotifySDK>((set) => ({
   player: undefined,
   state: undefined,
   device: undefined,
+  isReady: false,
   setPlayer: (newPlayer) => set(() => ({ player: newPlayer })),
   setState: (newState) => set(() => ({ state: newState })),
-  setDevice: (newDevice) => {
-    set(({ device: old }) => ({ device: { ...old, ...newDevice } }));
-  },
+  setDevice: (newDevice) => set(() => ({ device: newDevice })),
+  setIsReady: (isReady: boolean) => set(() => ({ isReady })),
 }));
 
 // VOLUME HOOK.
@@ -89,9 +89,11 @@ const useSpotifySDK = () => {
     player,
     state,
     device,
+    isReady,
     setPlayer,
     setState,
     setDevice,
+    setIsReady,
   } = useSpotifySDKStore();
   const { withSpotify, spotify } = useSpotify();
 
@@ -117,21 +119,29 @@ const useSpotifySDK = () => {
     }
   }, [player, setState]);
 
+  const connect = useCallback(async () => {
+    if (!!player) {
+      await player.connect();
+    }
+  }, [player]);
+
   const onSpotifySDKLoad = useCallback(() => {
     // @ts-ignore
     const player: ISpotifyPlayer = new Spotify.Player(initPlayer);
-    setDevice({ deviceName: initPlayer.name });
+    setIsReady(false);
 
     // Ready.
     player.addListener("ready", ({ device_id }: IPlaybackPlayer) => {
-      //console.log("Ready with Device ID", device_id);
-      setDevice({ deviceId: device_id });
+      console.log("Ready with Device ID", device_id);
+      setDevice({ deviceId: device_id, deviceName: initPlayer.name });
       setPlayer(player);
+      setIsReady(true);
     });
 
     // Not Ready.
     player.addListener("not_ready", ({ device_id }: IPlaybackPlayer) => {
       //console.log("Device ID has gone offline", device_id);
+      setIsReady(false);
       return () => player.disconnect();
     });
 
@@ -152,7 +162,7 @@ const useSpotifySDK = () => {
 
     // Connect to the player!
     player.connect();
-  }, [initPlayer, setPlayer, setState, setDevice]);
+  }, [initPlayer, setPlayer, setState, setDevice, setIsReady]);
 
   // On player change => Update state.
   useEffect(() => {
@@ -173,12 +183,14 @@ const useSpotifySDK = () => {
 
   return {
     onSpotifySDKLoad,
-    player,
     state,
     device,
     useVolume,
     useController,
     useProgress,
+    updateState,
+    isReady,
+    connect,
   };
 };
 

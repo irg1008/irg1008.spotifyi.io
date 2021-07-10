@@ -123,9 +123,9 @@ type TTracks = SpotifyApi.TrackObjectFull[];
 
 const useTracks = (value: string = "") => {
   const { spotify, withSpotify } = useSpotify();
-  const [tracks, setTracks] = useState<SpotifyApi.TrackObjectFull[]>();
+  const [tracks, setTracks] = useState<TTracks>();
 
-  const addTracks = (newTracks: SpotifyApi.TrackObjectFull[]) =>
+  const addTracks = (newTracks: TTracks) =>
     setTracks((old) => (!!old ? [...old, ...newTracks] : newTracks));
 
   // Filter tracks.

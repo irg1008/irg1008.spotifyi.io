@@ -106,8 +106,10 @@ declare module "SpotifySDK" {
     player: ISpotifyPlayer;
     state: ISpotifyState;
     device: IDevice;
+    isReady: boolean;
     setPlayer: (newPlayer: ISpotifyPlayer) => void;
     setState: (newState: ISpotifyState) => void;
-    setDevice: (newDevice: Partial<IDevice>) => void;
+    setDevice: (newDevice: IDevice) => void;
+    setIsReady: (isReady: boolean) => void;
   }
 }

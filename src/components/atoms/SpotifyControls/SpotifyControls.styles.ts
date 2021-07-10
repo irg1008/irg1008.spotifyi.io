@@ -104,6 +104,13 @@ const Text = tw.p`
   light:text-light-100
 `;
 
+const ConnectButton = tw.button`
+  disabled:pointer-events-none
+  disabled:bg-opacity-20
+  disabled:cursor-not-allowed
+  transition-colors
+`;
+
 const iconHeight = tw`h-8`;
 
 const Previous = styled(ArrowCircleLeftIcon)(() => [iconHeight]);
@@ -128,5 +135,6 @@ const Styled = {
   UnMuted,
   Progress,
   Text,
+  ConnectButton,
 };
 export default Styled;

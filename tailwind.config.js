@@ -1,12 +1,54 @@
-const { blueGray: darkColor, teal: lightColor } = require("tailwindcss/colors");
+const themeSwapper = require("tailwindcss-theme-swapper");
+const {
+	blueGray: darkColor,
+	teal: lightColor,
+	emerald,
+	fuchsia,
+} = require("tailwindcss/colors");
+
+const themeSwapperConfig = {
+	themes: [
+		{
+			name: "light",
+			selector: [":root"],
+			theme: {
+				colors: {
+					primary: lightColor[100],
+				},
+			},
+		},
+		{
+			name: "dark",
+			selectors: [".dark", "[dark]", '[data-theme="dark"]'],
+			theme: {
+				colors: {
+					primary: darkColor[100],
+				},
+			},
+		},
+		{
+			name: "emerald",
+			selector: [".emerald"],
+			theme: {
+				colors: {
+					primary: emerald[100],
+				},
+			},
+		},
+		{
+			name: "high-contrast",
+			theme: {
+				colors: {
+					primary: "#ddd",
+				},
+			},
+		},
+	],
+};
 
 module.exports = {
-	purge: [
-		"./src/pages/**/*.{js,ts,jsx,tsx}",
-		"./src/components/**/*.{js,ts,jsx,tsx}",
-		"./src/templates/**/*.{js,ts,jsx,tsx}",
-		"./src/providers/**/*.{js,ts,jsx,tsx}",
-	],
+	// mode: "jit",
+	purge: ["./src/**/*.{js,jsx,ts,tsx}"],
 	darkMode: "class", // or 'media' or 'class'
 	theme: {
 		extend: {
@@ -35,6 +77,8 @@ module.exports = {
 					800: lightColor[800],
 					900: lightColor[900],
 				},
+				emerald,
+				fuchsia,
 				gold: {
 					light: "#ddbf5f",
 					base: "#d4af37",
@@ -47,12 +91,15 @@ module.exports = {
 			},
 		},
 	},
-	/*variants: {
+	variants: {
 		extend: {
 			borderColor: ["group-focus"],
 			backgroundColor: ["group-focus"],
 			textColor: ["group-focus"],
 		},
-	},*/
-	plugins: [require("@tailwindcss/typography")],
+	},
+	plugins: [
+		require("@tailwindcss/typography"),
+		themeSwapper(themeSwapperConfig),
+	],
 };
