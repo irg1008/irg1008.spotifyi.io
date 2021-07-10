@@ -22,7 +22,7 @@ const Input = tw.input`
   focus:light:ring-light-600
   focus:dark:ring-dark-700
   transition-all
-  duration-200
+  duration-300
 `;
 
 const icon = tw`
@@ -32,6 +32,7 @@ const icon = tw`
   top-0
   h-full
   transition-colors
+  duration-300
 `;
 
 const SearchIcon = styled(HeroSearchIcon)(() => [
