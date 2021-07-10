@@ -31,8 +31,6 @@ const useThemeStore = create<ITheme>(
     }),
     {
       name: "theme",
-      serialize: ({ state: { theme } }) => JSON.stringify(theme),
-      deserialize: (theme) => ({ state: { theme: JSON.parse(theme) } }),
     }
   )
 );
