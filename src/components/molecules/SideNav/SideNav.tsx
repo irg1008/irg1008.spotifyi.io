@@ -1,16 +1,14 @@
 import Styled from "./SideNav.styles";
 import { MenuIcon, XIcon } from "@heroicons/react/solid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-interface IHeaderProps {}
+interface IHeaderProps {
+	openOnLoad?: boolean;
+}
 
-const SideNav: React.FC<IHeaderProps> = ({ children }) => {
-	const [isOpen, setIsOpen] = useState<boolean>();
+const SideNav: React.FC<IHeaderProps> = ({ children, openOnLoad = false }) => {
+	const [isOpen, setIsOpen] = useState<boolean>(openOnLoad);
 	const toggleIsOpen = () => setIsOpen(!isOpen);
-
-	useEffect(() => {
-		setIsOpen(false);
-	}, []);
 
 	return (
 		<Styled.SideNav {...{ isOpen }}>
