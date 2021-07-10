@@ -7,22 +7,22 @@ const Container = tw.div`
   h-10
   w-80
   relative
+  focus-within:light:text-light-600
+  focus-within:dark:text-dark-700
 `;
 
 const Input = tw.input`
   px-12
   w-full
   h-full
-  shadow-md
   text-base
   rounded-full
   outline-none
-  border-2
-  border-transparent
-  focus:light:border-light-600
-  focus:dark:border-dark-700
-  transition-colors
-  duration-500
+  focus:ring-2
+  focus:light:ring-light-600
+  focus:dark:ring-dark-700
+  transition-all
+  duration-200
 `;
 
 const icon = tw`
@@ -31,6 +31,7 @@ const icon = tw`
   absolute
   top-0
   h-full
+  transition-colors
 `;
 
 const SearchIcon = styled(HeroSearchIcon)(() => [
