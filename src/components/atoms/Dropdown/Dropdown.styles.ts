@@ -58,8 +58,10 @@ const Header = styled.header(({ isOpen }: IDropdown) => [
     text-white
     light:bg-light-600
     dark:bg-dark-600
-    hover:light:bg-light-900
-    hover:dark:bg-dark-900
+    hover:(
+      light:bg-light-900
+      dark:bg-dark-900
+    )
   `,
   isOpen &&
     tw`
@@ -79,7 +81,6 @@ const Section = tw.section`
   flex-col
   space-y-4
   p-2
-  text-black
   light:bg-light-200
   dark:bg-dark-200
 `;

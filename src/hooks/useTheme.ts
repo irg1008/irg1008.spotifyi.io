@@ -15,7 +15,7 @@ const getToggledTheme = (oldTheme: Theme): Theme =>
 
 const applyTailwindTheme = (theme: Theme) => {
   if (window) {
-    const root = window.document.documentElement;
+    const root = document.documentElement;
     root.classList.remove(getToggledTheme(theme));
     root.classList.add(theme);
   }

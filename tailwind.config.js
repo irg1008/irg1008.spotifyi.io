@@ -1,48 +1,71 @@
-const themeSwapper = require("tailwindcss-theme-swapper");
 const {
 	blueGray: darkColor,
 	teal: lightColor,
 	emerald,
 	fuchsia,
 } = require("tailwindcss/colors");
+const typography = require("@tailwindcss/typography");
+const themeSwapper = require("tailwindcss-theme-swapper");
+
+const baseTheme = {
+	colors: {
+		primary: "#384cff",
+		"primary-active": "#0014c7",
+		surface: "#ddd",
+		base: "#eee",
+		dark: "#222",
+	},
+	spacing: {
+		small: "4px",
+		medium: "8px",
+		large: "16px",
+	},
+	borderRadius: {
+		default: "5px",
+	},
+};
+
+const darkTheme = {
+	colors: {
+		primary: "#e320b6",
+		"primary-active": "#ff00c4",
+		surface: "#111",
+		base: "#000",
+		dark: "#ccc",
+	},
+};
+
+const geocitiesTheme = {
+	colors: {
+		primary: "#7f9e0e",
+		"primary-active": "#70a300",
+		surface: "#2f4d2f",
+		base: "#243b24",
+		dark: "#66a663",
+	},
+};
+
+const spacierTheme = {
+	spacing: {
+		small: "8px",
+		medium: "16px",
+		large: "32px",
+	},
+};
+
+const squarierTheme = {
+	borderRadius: {
+		default: "0",
+	},
+};
 
 const themeSwapperConfig = {
 	themes: [
-		{
-			name: "light",
-			selector: [":root"],
-			theme: {
-				colors: {
-					primary: lightColor[100],
-				},
-			},
-		},
-		{
-			name: "dark",
-			selectors: [".dark", "[dark]", '[data-theme="dark"]'],
-			theme: {
-				colors: {
-					primary: darkColor[100],
-				},
-			},
-		},
-		{
-			name: "emerald",
-			selector: [".emerald"],
-			theme: {
-				colors: {
-					primary: emerald[100],
-				},
-			},
-		},
-		{
-			name: "high-contrast",
-			theme: {
-				colors: {
-					primary: "#ddd",
-				},
-			},
-		},
+		{ name: "base", selectors: [":root"], theme: baseTheme },
+		{ name: "dark", selectors: [".dark"], theme: darkTheme },
+		{ name: "geocities", selectors: [".geocities"], theme: geocitiesTheme },
+		{ name: "spacier", selectors: [".spacier"], theme: spacierTheme },
+		{ name: "squarier", selectors: [".squarier"], theme: squarierTheme },
 	],
 };
 
@@ -98,8 +121,5 @@ module.exports = {
 			textColor: ["group-focus"],
 		},
 	},
-	plugins: [
-		require("@tailwindcss/typography"),
-		themeSwapper(themeSwapperConfig),
-	],
+	plugins: [typography, themeSwapper(themeSwapperConfig)],
 };
