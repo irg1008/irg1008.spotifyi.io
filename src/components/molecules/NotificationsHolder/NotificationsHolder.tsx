@@ -4,7 +4,7 @@ import {
 	INotification,
 	TNotificationType,
 } from "hooks/useNotifications";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import Styled from "./NotificationsHolder.styles";
 import { AnimatePresence, PanInfo, Variant } from "framer-motion";
 import {
@@ -109,27 +109,14 @@ const Notification = ({
 
 const NotificationsHolder = () => {
 	const notifications = useNotificationsValue();
-
-	const [exitComplete, setExitComplete] = useState<boolean>();
-
-	useEffect(() => {
-		if (notifications.length > 0) {
-			setExitComplete(false);
-		}
-	}, [notifications]);
-
 	return (
-		<AnimatePresence>
-			{(notifications.length > 0 || !exitComplete) && (
-				<Styled.NotificationsHolder>
-					<AnimatePresence onExitComplete={() => setExitComplete(true)}>
-						{notifications.map((not) => (
-							<Notification key={not.id} notification={not} />
-						))}
-					</AnimatePresence>
-				</Styled.NotificationsHolder>
-			)}
-		</AnimatePresence>
+		<Styled.NotificationsHolder>
+			<AnimatePresence>
+				{notifications.map((not) => (
+					<Notification key={not.id} notification={not} />
+				))}
+			</AnimatePresence>
+		</Styled.NotificationsHolder>
 	);
 };
 
