@@ -15,7 +15,6 @@ const Main = tw.main`
   space-y-4
   light:bg-light-300
   dark:bg-dark-500
-  transition-colors
 `;
 
 const Styled = { Layout, Main };
