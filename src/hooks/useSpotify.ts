@@ -22,7 +22,8 @@ const useSpotifyStore = create<ISpotifyState>(
         refresh_token: undefined,
       };
 
-      const setData = (data: TTokenData) => set(() => ({ ...data }));
+      const setData = (data: TTokenData) =>
+        set(() => ({ ...data, isLogged: true }));
       const removeData = () =>
         set(() => ({ ...initialTokenData, isLogged: false }));
 
@@ -32,7 +33,6 @@ const useSpotifyStore = create<ISpotifyState>(
 
         spotify.setAccessToken(access_token);
         setData(payload);
-        set(() => ({ isLogged: true }));
       };
 
       const logOut = () => removeData();
@@ -47,7 +47,7 @@ const useSpotifyStore = create<ISpotifyState>(
     },
     {
       name: "spotify_tokens",
-      whitelist: ["access_token", "refresh_token", "isLogged"],
+      whitelist: ["access_token", "refresh_token"],
     }
   )
 );
