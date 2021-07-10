@@ -16,7 +16,13 @@ const Input = tw.input`
   shadow-md
   text-base
   rounded-full
-  focus:outline-none
+  outline-none
+  border-2
+  border-transparent
+  focus:light:border-light-600
+  focus:dark:border-dark-700
+  transition-colors
+  duration-500
 `;
 
 const icon = tw`
