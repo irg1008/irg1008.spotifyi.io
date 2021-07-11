@@ -8,7 +8,7 @@ const {
 
 module.exports = {
 	purge: ["./src/**/*.{js,jsx,ts,tsx}"],
-	darkMode: "media",
+	darkMode: "class",
 	theme: {
 		extend: {
 			backgroundColor: {
@@ -106,8 +106,6 @@ module.exports = {
 		require("@mertasan/tailwindcss-variables")({
 			colorVariables: true,
 			forceRGB: true,
-			darkToRoot: false,
-			darkSelector: ".theme-dark",
 		}),
 	],
 };
