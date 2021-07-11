@@ -51,7 +51,7 @@ const Audio = tw.audio`
 // EMPTY CARD
 
 const EmptyContainer = tw.div`
-  bg-small-dark
+  bg-accent-light
   rounded-full
   animate-pulse
 `;

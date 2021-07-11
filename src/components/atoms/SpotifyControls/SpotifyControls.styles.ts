@@ -37,8 +37,7 @@ const Container = styled.div(
 const Wrapper = tw.div`
   w-full
   space-y-2
-  dark:bg-dark-500
-  light:bg-light-500
+  bg-accent-medium
   p-6
   border-t-2
   text-center
@@ -100,8 +99,7 @@ const Progress = tw(motion.div)`
 `;
 
 const Text = tw.p`
-  dark:text-dark-200
-  light:text-light-100
+  bg-accent-light
 `;
 
 const ConnectButton = tw.button`

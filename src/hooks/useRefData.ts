@@ -27,7 +27,12 @@ const useRefData = <T extends HTMLElement>() => {
       x: offsetLeft,
       y: offsetTop,
     });
-  }, []);
+  }, [
+    ref.current?.clientHeight,
+    ref.current?.clientWidth,
+    ref.current?.offsetTop,
+    ref.current?.offsetLeft,
+  ]);
 
   return [ref, data] as const;
 };

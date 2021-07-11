@@ -1,16 +1,45 @@
 import { createGlobalStyle } from "styled-components";
 import tw, { GlobalStyles as TwinGlobalStyle } from "twin.macro";
+import { TailwindColorGroup } from "tailwindcss/tailwind-config";
+import Color from "color";
 import {
 	coolGray as darkColor,
 	teal as lightColor,
-	emerald,
-	blueGray as nord,
+	emerald as emeraldColor,
+	blueGray as nordColor,
 } from "tailwindcss/colors";
-import theme from "tailwindcss/defaultTheme";
 
+/*
+// CONVERT THEMES TO RGB.
+const colorToRGB = (color: TailwindColorGroup) => {
+	const hexToRGB = (hex: string) => {
+		const colorRGB = Color(hex, "hex").array().join(", ");
+		return colorRGB;
+	};
+
+	interface IRGBObject {
+		[key: string]: string;
+	}
+
+	const RGB: IRGBObject = {};
+
+	Object.entries(color).map((entrie) => {
+		const key = entrie[0];
+		const hex = entrie[1];
+		RGB[key] = hexToRGB(hex);
+	});
+
+	return RGB;
+};
+
+const lightColor = colorToRGB(lightColor);
+const darkColor = colorToRGB(darkColor);
+const emeralTheme = colorToRGB(emeraldColor);
+const nordTheme = colorToRGB(nordColor);*/
+
+// RANGE INPUT VARIABLES.
 const thumb = tw`
-  dark:bg-dark-800
-  light:bg-light-800
+  bg-accent-darker
   w-3
   h-3
   cursor[ew-resize]
@@ -24,8 +53,7 @@ const track = tw`
   h-3
   w-full
   rounded-2xl
-  dark:bg-dark-100
-  light:bg-light-100
+  bg-accent-lighter
   overflow-hidden
   focus:outline-none
   -webkit-appearance[none]
@@ -45,14 +73,14 @@ const CustomGlobalStyle = createGlobalStyle`
     --button-border-width: 0;
     --button-border-color: transparent;
 
-
     --custom-radius: 1rem;
     --custom-shadow: ${`-99999px 0 0 99993px ${lightColor[400]}`};
 
     --accent-lighter: ${lightColor[100]};
     --accent-light: ${lightColor[300]};
-    --accent-medium: ${lightColor[600]};
-    --accent-dark: ${lightColor[800]};
+    --accent-medium: ${lightColor[500]};
+    --accent-dark: ${lightColor[700]};
+    --accent-darker: ${lightColor[900]};
   }
   
   .dark {
@@ -72,23 +100,15 @@ const CustomGlobalStyle = createGlobalStyle`
 
     --accent-lighter: ${darkColor[100]};
     --accent-light: ${darkColor[300]};
-    --accent-medium: ${darkColor[600]};
-    --accent-dark: ${darkColor[900]};
+    --accent-medium: ${darkColor[500]};
+    --accent-dark: ${darkColor[700]};
+    --accent-darker: ${darkColor[900]};
   }
 
   .emerald {
-    --bg-primary: ${emerald[500]};
-    --bg-secondary: ${emerald[600]};
-    --bg-tertiary: ${emerald[700]};
-    --text-primary: ${emerald[600]};
-    --text-primary: ${emerald[100]};
-    --text-tertiary: ${emerald[50]};
-    --custom-radius: 9999px;
-    --custom-shadow: ${`-99999px 0 0 99993px ${emerald[400]}`};
   }
 
   .nord {
-
   }
 
   body {
@@ -141,13 +161,11 @@ const CustomGlobalStyle = createGlobalStyle`
     ${tw`
       outline-none
       focus:outline-none
-      light:bg-light-700
-      dark:bg-dark-700
-      bg-opacity-50
-      hover:bg-opacity-80
+      bg-accent-dark
+      bg-opacity-80
+      hover:bg-opacity-100
       duration-200
-      dark:text-white
-      light:text-white
+      text-white
       p-2
       shadow-lg
       transform

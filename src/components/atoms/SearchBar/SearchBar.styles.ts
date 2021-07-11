@@ -7,7 +7,7 @@ const Container = tw.div`
   w-80
   relative
   text-gray-400
-  focus-within:text-medium-dark
+  focus-within:text-accent-dark
 `;
 
 const Input = tw.input`
@@ -19,7 +19,7 @@ const Input = tw.input`
   outline-none
   focus:(
     ring-2
-    ring-large-dark
+    ring-accent-darker
   )
   transition-all
   duration-300

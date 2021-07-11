@@ -40,8 +40,7 @@ const getTypeStyle = (type: TNotificationType) =>
   !!type
     ? typeStyles[type]
     : tw`
-        light:bg-light-500
-        dark:bg-dark-400
+        bg-primary
         text-gray-100
         border-gray-200
       `;

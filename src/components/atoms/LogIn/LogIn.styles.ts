@@ -47,8 +47,7 @@ const Container = tw.div`
   flex-col
   p-2
   text-center
-  light:text-light-800
-  dark:text-dark-200
+  text-primary
 `;
 
 const InfoText = tw.p`

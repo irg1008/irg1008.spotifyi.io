@@ -37,8 +37,7 @@ const Container = tw.div`
   overflow-hidden
   shadow-lg
   border-2
-  light:border-light-700
-  dark:border-dark-700
+  border-accent-dark
   font-size[initial]
   font-normal
   max-w-md
@@ -50,17 +49,14 @@ const Header = styled.header(({ isOpen }: IDropdown) => [
     px-3
     py-2
     cursor-pointer
-    transition-colors
     duration-300
     flex
     justify-between
     items-center
     text-white
-    light:bg-light-600
-    dark:bg-dark-600
+    bg-accent-dark
     hover:(
-      light:bg-light-900
-      dark:bg-dark-900
+      bg-accent-darker
     )
   `,
   isOpen &&
@@ -81,8 +77,7 @@ const Section = tw.section`
   flex-col
   space-y-4
   p-2
-  light:bg-light-200
-  dark:bg-dark-200
+  bg-accent-light
 `;
 
 const Styled = {

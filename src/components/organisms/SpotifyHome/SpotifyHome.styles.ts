@@ -39,8 +39,7 @@ const Navbar = tw.div`
   flex
   justify-end
   items-center
-  light:bg-light-600
-  dark:bg-dark-600
+  bg-accent-dark
   bg-opacity-70!
   p-4
   backdrop-filter
@@ -53,8 +52,7 @@ const Navbar = tw.div`
 `;
 
 const Button = tw.button`
-  light:border-light-100
-  dark:border-dark-100
+  bg-accent-lighter
   border-b-2
 `;
 

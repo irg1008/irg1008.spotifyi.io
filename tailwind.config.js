@@ -1,5 +1,27 @@
 const { blueGray: darkColor, teal: lightColor } = require("tailwindcss/colors");
-const typography = require("@tailwindcss/typography");
+const colorVariable = require("@mertasan/tailwindcss-variables/colorVariable");
+
+/*const colorFn = (varName, { opacityVariable, opacityValue }) => {
+	if (opacityValue !== undefined)
+		return `rgba(var(--${varName}), ${opacityValue})`;
+
+	if (opacityVariable !== undefined)
+		return `rgba(var(--${varName}), var(${opacityVariable}, 1))`;
+
+	return `rgb(var(--${varName}))`;
+};
+
+const customColors = (varNames, classNames) => {
+	const varWithOpacity = {};
+
+	varNames.map((varName, i) => {
+		const className = !!classNames ? classNames[i] : varName;
+		varWithOpacity[className] = ({ opacityVariable, opacityValue }) =>
+			addOpacity(varName, opacityVariable, opacityValue);
+	});
+
+	return varWithOpacity;
+};*/
 
 module.exports = {
 	// mode: "jit",
@@ -11,28 +33,30 @@ module.exports = {
 				custom: "var(--custom-radius)",
 			},
 			backgroundColor: {
-				primary: "var(--bg-primary)",
-				secondary: "var(--bg-secondary)",
-				tertiary: "var(--bg-tertiary)",
+				primary: colorVariable("var(--bg-primary)"),
+				secondary: colorVariable("var(--bg-secondary)"),
+				tertiary: colorVariable("var(--bg-tertiary)"),
 			},
 			textColor: {
-				primary: "var(--text-primary)",
-				secondary: "var(--text-secondary)",
-				tertiary: "var(--text-tertiary)",
+				primary: colorVariable("var(--text-primary)"),
+				secondary: colorVariable("var(--text-primary)"),
+				tertiary: colorVariable("var(--text-primary)"),
+			},
+			borderColor: {
+				buton: colorVariable("var(--button-border-color)"),
 			},
 			boxShadow: {
 				track: "var(--custom-shadow)",
-			},
-			borderColor: {
-				button: "var(--button-border-color)",
 			},
 			borderWidth: {
 				button: "var(--button-border-width)",
 			},
 			colors: {
-				"small-dark": "var(--small-dark)",
-				"medium-dark": "var(--medium-dark)",
-				"large-dark": "var(--large-dark)",
+				"accent-lighter": colorVariable("var(--accent-lighter)"),
+				"accent-light": colorVariable("var(--accent-light)"),
+				"accent-medium": colorVariable("var(--accent-medium)"),
+				"accent-dark": colorVariable("var(--accent-dark)"),
+				"accent-darker": colorVariable("var(--accent-darker)"),
 				dark: {
 					50: darkColor[50],
 					100: darkColor[100],
@@ -67,5 +91,10 @@ module.exports = {
 			textColor: ["group-focus"],
 		},
 	},
-	plugins: [typography],
+	plugins: [
+		require("@tailwindcss/typography"),
+		require("@mertasan/tailwindcss-variables")({
+			colorVariables: true,
+		}),
+	],
 };
