@@ -1,49 +1,37 @@
-const { blueGray: darkColor, teal: lightColor } = require("tailwindcss/colors");
-const colorVariable = require("@mertasan/tailwindcss-variables/colorVariable");
-
-/*const colorFn = (varName, { opacityVariable, opacityValue }) => {
-	if (opacityValue !== undefined)
-		return `rgba(var(--${varName}), ${opacityValue})`;
-
-	if (opacityVariable !== undefined)
-		return `rgba(var(--${varName}), var(${opacityVariable}, 1))`;
-
-	return `rgb(var(--${varName}))`;
-};
-
-const customColors = (varNames, classNames) => {
-	const varWithOpacity = {};
-
-	varNames.map((varName, i) => {
-		const className = !!classNames ? classNames[i] : varName;
-		varWithOpacity[className] = ({ opacityVariable, opacityValue }) =>
-			addOpacity(varName, opacityVariable, opacityValue);
-	});
-
-	return varWithOpacity;
-};*/
+const colors = require("tailwindcss/colors");
+const {
+	coolGray: darkColor,
+	teal: lightColor,
+	emerald: emeraldColor,
+	blueGray: nordColor,
+} = require("tailwindcss/colors");
 
 module.exports = {
-	// mode: "jit",
-	purge: ["./src/**/*.{js,jsx,ts,tsx}"],
-	darkMode: "class", // or 'media' or 'class'
+	darkMode: "class",
 	theme: {
 		extend: {
-			borderRadius: {
-				custom: "var(--custom-radius)",
-			},
 			backgroundColor: {
-				primary: colorVariable("var(--bg-primary)"),
-				secondary: colorVariable("var(--bg-secondary)"),
-				tertiary: colorVariable("var(--bg-tertiary)"),
+				primary: "var(--bg-primary)",
+				secondary: "var(--bg-secondary)",
+				tertiary: "var(--bg-tertiary)",
 			},
 			textColor: {
-				primary: colorVariable("var(--text-primary)"),
-				secondary: colorVariable("var(--text-primary)"),
-				tertiary: colorVariable("var(--text-primary)"),
+				primary: "var(--text-primary)",
+				secondary: "var(--text-secondary)",
+				tertiary: "var(--text-tertiary)",
 			},
 			borderColor: {
-				buton: colorVariable("var(--button-border-color)"),
+				buton: "var(--button-border-color)",
+			},
+			colors: {
+				"accent-lighter": "var(--accent-lighter)",
+				"accent-light": "var(--accent-light)",
+				"accent-medium": "var(--accent-medium)",
+				"accent-dark": "var(--accent-dark)",
+				"accent-darker": "var(--accent-darker)",
+			},
+			borderRadius: {
+				custom: "var(--custom-radius)",
 			},
 			boxShadow: {
 				track: "var(--custom-shadow)",
@@ -51,50 +39,67 @@ module.exports = {
 			borderWidth: {
 				button: "var(--button-border-width)",
 			},
-			colors: {
-				"accent-lighter": colorVariable("var(--accent-lighter)"),
-				"accent-light": colorVariable("var(--accent-light)"),
-				"accent-medium": colorVariable("var(--accent-medium)"),
-				"accent-dark": colorVariable("var(--accent-dark)"),
-				"accent-darker": colorVariable("var(--accent-darker)"),
-				dark: {
-					50: darkColor[50],
-					100: darkColor[100],
-					200: darkColor[200],
-					300: darkColor[300],
-					400: darkColor[400],
-					500: darkColor[500],
-					600: darkColor[600],
-					700: darkColor[700],
-					800: darkColor[800],
-					900: darkColor[900],
+			variables: {
+				DEFAULT: {
+					backgroundColor: {
+						primary: lightColor[300],
+						secondary: lightColor[100],
+						tertiary: lightColor[700],
+					},
+					textColor: {
+						primary: lightColor[900],
+						secondary: lightColor[700],
+						tertiary: lightColor[50],
+					},
+					borderColor: {
+						buton: "transparent",
+					},
+					colors: {
+						"accent-lighter": lightColor[100],
+						"accent-light": lightColor[300],
+						"accent-medium": lightColor[500],
+						"accent-dark": lightColor[700],
+						"accent-darker": lightColor[900],
+					},
+					borderRadius: {
+						custom: "1rem",
+					},
+					boxShadow: {
+						track: `-99999px 0 0 99993px ${lightColor[400]}`,
+					},
+					borderWidth: {
+						button: 0,
+					},
 				},
-				light: {
-					50: lightColor[50],
-					100: lightColor[100],
-					200: lightColor[200],
-					300: lightColor[300],
-					400: lightColor[400],
-					500: lightColor[500],
-					600: lightColor[600],
-					700: lightColor[700],
-					800: lightColor[800],
-					900: lightColor[900],
+			},
+			darkVariables: {
+				DEFAULT: {
+					backgroundColor: {
+						primary: lightColor[500],
+						secondary: lightColor[600],
+						tertiary: lightColor[700],
+					},
+					textColor: {
+						primary: lightColor[100],
+						secondary: lightColor[300],
+						tertiary: lightColor[50],
+					},
+					borderColor: {
+						buton: darkColor[100],
+					},
+					borderRadius: {
+						custom: "9999px",
+					},
+					boxShadow: {
+						track: `-99999px 0 0 99993px ${darkColor[400]}`,
+					},
+					borderWidth: {
+						button: "2px",
+					},
 				},
 			},
 		},
 	},
-	variants: {
-		extend: {
-			borderColor: ["group-focus"],
-			backgroundColor: ["group-focus"],
-			textColor: ["group-focus"],
-		},
-	},
-	plugins: [
-		require("@tailwindcss/typography"),
-		require("@mertasan/tailwindcss-variables")({
-			colorVariables: true,
-		}),
-	],
+	variants: {},
+	plugins: [],
 };

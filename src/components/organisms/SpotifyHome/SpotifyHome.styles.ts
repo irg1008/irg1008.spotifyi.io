@@ -52,7 +52,7 @@ const Navbar = tw.div`
 `;
 
 const Button = tw.button`
-  bg-accent-lighter
+  bg-accent-medium
   border-b-2
 `;
 

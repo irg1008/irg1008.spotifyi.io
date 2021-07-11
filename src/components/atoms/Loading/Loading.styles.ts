@@ -22,7 +22,7 @@ const LoadingIcon = tw(RefreshIcon)`
   animation-direction[reverse]
   h-10
   w-10
-  text-light-900
+  text-accent-darker
 `;
 
 const Styled = { Loading, LoadingIcon, Text };

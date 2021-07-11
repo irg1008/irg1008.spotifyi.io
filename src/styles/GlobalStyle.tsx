@@ -1,41 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 import tw, { GlobalStyles as TwinGlobalStyle } from "twin.macro";
-import { TailwindColorGroup } from "tailwindcss/tailwind-config";
-import Color from "color";
 import {
 	coolGray as darkColor,
 	teal as lightColor,
 	emerald as emeraldColor,
 	blueGray as nordColor,
 } from "tailwindcss/colors";
-
-/*
-// CONVERT THEMES TO RGB.
-const colorToRGB = (color: TailwindColorGroup) => {
-	const hexToRGB = (hex: string) => {
-		const colorRGB = Color(hex, "hex").array().join(", ");
-		return colorRGB;
-	};
-
-	interface IRGBObject {
-		[key: string]: string;
-	}
-
-	const RGB: IRGBObject = {};
-
-	Object.entries(color).map((entrie) => {
-		const key = entrie[0];
-		const hex = entrie[1];
-		RGB[key] = hexToRGB(hex);
-	});
-
-	return RGB;
-};
-
-const lightColor = colorToRGB(lightColor);
-const darkColor = colorToRGB(darkColor);
-const emeralTheme = colorToRGB(emeraldColor);
-const nordTheme = colorToRGB(nordColor);*/
 
 // RANGE INPUT VARIABLES.
 const thumb = tw`

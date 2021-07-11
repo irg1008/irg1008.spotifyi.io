@@ -99,7 +99,7 @@ const Progress = tw(motion.div)`
 `;
 
 const Text = tw.p`
-  bg-accent-light
+  text-accent-light
 `;
 
 const ConnectButton = tw.button`
