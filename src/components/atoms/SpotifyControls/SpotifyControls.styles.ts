@@ -78,6 +78,7 @@ const Controls = tw(motion.div)`
 
 const Button = tw(motion.button)`
   bg-white
+  text-accent-darker
   rounded-md
   shadow-md
   text-4xl

@@ -30,8 +30,7 @@ const track = tw`
   shadow-sm
 `;
 
-const CustomGlobalStyle = createGlobalStyle`
-  .light {
+/*.light {
     --bg-primary: ${lightColor[300]};
     --bg-secondary: ${lightColor[100]};
     --bg-tertiary: ${lightColor[700]};
@@ -79,10 +78,14 @@ const CustomGlobalStyle = createGlobalStyle`
   }
 
   .nord {
-  }
+  }*/
+
+const CustomGlobalStyle = createGlobalStyle`
 
   body {
     ${tw`
+      bg-opacity-100
+      text-opacity-100
     `}
   }
 
