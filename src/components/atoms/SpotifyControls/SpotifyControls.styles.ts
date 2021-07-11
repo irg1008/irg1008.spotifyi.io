@@ -1,5 +1,4 @@
-import tw from "twin.macro";
-import styled, { css } from "styled-components";
+import tw, { styled, css } from "twin.macro";
 import { motion } from "framer-motion";
 
 import {
@@ -99,7 +98,7 @@ const Progress = tw(motion.div)`
 `;
 
 const Text = tw.p`
-  text-accent-light
+  text-accent-lighter
 `;
 
 const ConnectButton = tw.button`

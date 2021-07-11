@@ -104,7 +104,7 @@ const useSpotifySDK = () => {
 
   const initPlayer: IInitPlayer = useMemo(
     () => ({
-      name: "La web chula del chulo de Iván",
+      name: "Spotify API",
       getOAuthToken: async (cb) => {
         cb(await getToken());
       },

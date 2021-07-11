@@ -1,6 +1,5 @@
-import tw from "twin.macro";
+import tw, { styled } from "twin.macro";
 import { StarIcon, EmojiSadIcon } from "@heroicons/react/solid";
-import styled from "styled-components";
 
 const Home = tw.div`
   text-xl

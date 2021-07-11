@@ -1,8 +1,11 @@
 import Dropdown from "components/atoms/Dropdown";
+import PopUp from "components/atoms/PopUp";
 import SideNav from "components/molecules/SideNav";
 import { INotification, useNotifications } from "hooks/useNotifications";
 import tw from "twin.macro";
 import idGen from "util/idGen";
+import Range from "components/atoms/Range";
+import { useState } from "react";
 
 const Comp = ({ value }: { value: string }) => <p>{value}</p>;
 
@@ -98,6 +101,7 @@ const Link = tw.a`
 `;
 
 const SideNavTest = () => {
+	const [value, setValue] = useState(0);
 	return (
 		<SideNav>
 			<NotificationTest />

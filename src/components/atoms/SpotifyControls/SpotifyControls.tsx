@@ -89,7 +89,7 @@ const SpotifyControls = () => {
 				</Styled.Text>
 			</PopUp>
 			<PopUp isOpen={isOpenVolume} onBGClick={togglePopUpVolume}>
-				<Styled.Progress variants={button}>
+				<Styled.Progress>
 					<Range
 						min={0}
 						max={1}

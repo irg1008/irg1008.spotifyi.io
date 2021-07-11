@@ -1,5 +1,4 @@
-import tw from "twin.macro";
-import styled from "styled-components";
+import tw, { styled } from "twin.macro";
 import { SearchIcon as HeroSearchIcon, XIcon } from "@heroicons/react/solid";
 
 const Container = tw.div`

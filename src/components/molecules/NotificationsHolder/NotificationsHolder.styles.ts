@@ -1,5 +1,4 @@
-import tw, { TwStyle } from "twin.macro";
-import styled from "styled-components";
+import tw, { TwStyle, styled } from "twin.macro";
 import { TNotificationType } from "hooks/useNotifications";
 import { XIcon } from "@heroicons/react/solid";
 import { motion } from "framer-motion";

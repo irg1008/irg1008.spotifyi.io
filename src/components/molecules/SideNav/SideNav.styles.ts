@@ -1,15 +1,14 @@
-import tw from "twin.macro";
-import styled from "styled-components";
+import tw, { styled } from "twin.macro";
 
 const SideNav = styled.div(({ isOpen }: { isOpen: boolean }) => [
-	isOpen
-		? tw`
+  isOpen
+    ? tw`
       transform[translateX(0)]
     `
-		: tw`
+    : tw`
       transform[translateX(-25rem)]
     `,
-	tw`
+  tw`
     fixed
     left-0
     top-0
@@ -46,7 +45,6 @@ const TreeView = tw.div`
   overflow-y-auto
   space-y-4
 `;
-
 
 const Styled = { SideNav, Button, TreeView };
 export default Styled;

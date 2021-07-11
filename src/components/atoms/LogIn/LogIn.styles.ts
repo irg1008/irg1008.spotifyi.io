@@ -1,7 +1,6 @@
-import tw from "twin.macro";
+import tw, { styled } from "twin.macro";
 import { motion } from "framer-motion";
 import { ArrowUpIcon } from "@heroicons/react/outline";
-import styled from "styled-components";
 
 const LogIn = tw.div`
   bg-white
@@ -13,9 +12,9 @@ const LogIn = tw.div`
 `;
 
 const Title = styled.h1`
-	text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
-	border-radius: 0ch;
-	${tw`
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  border-radius: 0ch;
+  ${tw`
     max-w-4xl
     mb-20
     text-2xl
