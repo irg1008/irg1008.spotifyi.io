@@ -36,7 +36,7 @@ const colorToRGB = (color: TailwindColorGroup): IRGBObject => {
   return RGB;
 };
 
-const themes = ["light", "dark", "emerald", "nord"] as const;
+const themes = ["light", "dark", "emerald", "red"] as const;
 type TTheme = typeof themes[number];
 
 // THEMES PARSED FROM HEX TO RGB.

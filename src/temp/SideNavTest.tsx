@@ -4,7 +4,7 @@ import { INotification, useNotifications } from "hooks/useNotifications";
 import tw from "twin.macro";
 import idGen from "util/idGen";
 import useTheme from "hooks/useTheme";
-import { themes } from "styles/theme";
+import { themes, TTheme } from "styles/theme";
 
 const Comp = ({ value }: { value: string }) => <p>{value}</p>;
 
@@ -97,6 +97,22 @@ const NotificationTest = () => {
 
 const ThemeDropdown = () => {
 	const { theme: currentTheme, setTheme } = useTheme();
+
+	const { addNotification } = useNotifications();
+
+	const changeTheme = (newTheme: TTheme) => {
+		addNotification({
+			id: idGen(),
+			component: (
+				<p>
+					Theme changed from {currentTheme} to {newTheme}
+				</p>
+			),
+			timeout: 3000,
+		});
+		setTheme(newTheme);
+	};
+
 	return (
 		<Dropdown title="Chose theme">
 			<p>Current theme: {currentTheme}</p>
@@ -104,7 +120,7 @@ const ThemeDropdown = () => {
 				<button
 					key={theme}
 					disabled={theme === currentTheme}
-					onClick={() => setTheme(theme)}
+					onClick={() => changeTheme(theme)}
 				>
 					Apply {theme} theme
 				</button>
