@@ -30,9 +30,12 @@ const CustomGlobalStyle = createGlobalStyle`
 
   body {
     ${tw`
-      bg-opacity-100 // DEFAULT
-      text-opacity-100 // DEFAULT
+      // DEFAULT
+      bg-opacity-100
+      text-opacity-100
       border-opacity-100
+      transition-colors
+      duration-300
     `}
   }
 

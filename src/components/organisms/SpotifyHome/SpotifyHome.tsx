@@ -48,7 +48,6 @@ const Navbar = () => {
 		<Styled.Navbar>
 			{user && (
 				<>
-					<Styled.Name>{user?.display_name}</Styled.Name>
 					<Styled.Avatar
 						href={user?.uri}
 						target="_blank"
@@ -70,6 +69,7 @@ const Navbar = () => {
 							<Styled.PoorIcon />
 						)}
 					</Styled.Avatar>
+					<Styled.Name>{user?.display_name}</Styled.Name>
 					<Styled.Button onClick={logOut}>Log Out</Styled.Button>
 				</>
 			)}
