@@ -1,4 +1,4 @@
-const { tailwindTheme } = require("./src/styles/theme/theme.config");
+const { tailwindTheme } = require("./src/theme/theme.config");
 
 module.exports = {
 	// mode: "jit",
