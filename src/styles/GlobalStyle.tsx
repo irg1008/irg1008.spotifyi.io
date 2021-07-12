@@ -92,7 +92,6 @@ const CustomGlobalStyle = createGlobalStyle`
       transition-colors
       disabled:pointer-events-none
       disabled:bg-opacity-30
-      disabled:cursor-not-allowed
     `}
   }
 

@@ -10,12 +10,7 @@ module.exports = {
 		},
 	},
 	variants: {
-		extend: {
-			borderColor: ["group-focus"],
-			backgroundColor: ["group-focus"],
-			textColor: ["group-focus"],
-			cursor: ["disabled"],
-		},
+		extend: {},
 	},
 	plugins: [require("@tailwindcss/typography")],
 };
