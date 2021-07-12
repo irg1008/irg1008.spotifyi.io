@@ -74,7 +74,6 @@ const useSpotify = () => {
         return await fn();
       } catch (error) {
         const spotifyError = JSON.parse(error.response).error;
-        console.log(spotifyError);
 
         // If expired token.
         if (spotifyError.status === 401) {

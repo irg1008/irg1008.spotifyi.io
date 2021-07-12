@@ -1,111 +1,65 @@
-const colorVariable = require("@mertasan/tailwindcss-variables/colorVariable");
-const {
-	coolGray: darkColor,
-	teal: lightColor,
-	emerald: emeraldColor,
-	blueGray: nordColor,
-} = require("tailwindcss/colors");
+const colorFn = (varName, { opacityVariable, opacityValue }) => {
+	if (opacityValue !== undefined)
+		return `rgba(var(--${varName}), ${opacityValue})`;
+	if (opacityVariable !== undefined)
+		return `rgba(var(--${varName}), var(${opacityVariable}, 1))`;
+	return `rgb(var(--${varName}))`;
+};
+
+const customColors = (varNames, classNames) => {
+	const varWithOpacity = {};
+	varNames.map((varName, i) => {
+		const className = !!classNames ? classNames[i] : varName;
+		varWithOpacity[className] = ({ opacityVariable, opacityValue }) =>
+			addOpacity(varName, opacityVariable, opacityValue);
+	});
+	return varWithOpacity;
+};
+
 
 module.exports = {
+	// mode: "jit",
 	purge: ["./src/**/*.{js,jsx,ts,tsx}"],
-	darkMode: "class",
+	darkMode: "class", // or 'media' or 'class'
 	theme: {
 		extend: {
-			backgroundColor: {
-				primary: colorVariable("--bg-primary", true),
-				secondary: colorVariable("--bg-secondary", true),
-				tertiary: colorVariable("--bg-tertiary", true),
-			},
-			textColor: {
-				primary: colorVariable("--text-primary", true),
-				secondary: colorVariable("--text-secondary", true),
-				tertiary: colorVariable("--text-tertiary", true),
-			},
-			colors: {
-				"accent-lighter": colorVariable("var(--accent-lighter)", true),
-				"accent-light": colorVariable("var(--accent-light)", true),
-				"accent-medium": colorVariable("var(--accent-medium)", true),
-				"accent-dark": colorVariable("var(--accent-dark)", true),
-				"accent-darker": colorVariable("var(--accent-darker)", true),
-			},
-			borderColor: {
-				button: colorVariable("var(--button-border-color)"),
-			},
-			borderWidth: {
-				button: "var(--button-border-width)",
-			},
 			borderRadius: {
 				custom: "var(--custom-radius)",
+			},
+			backgroundColor: {
+				primary: (data) => colorFn("bg-primary", data),
+				secondary: (data) => colorFn("bg-secondary", data),
+				tertiary: (data) => colorFn("bg-tertiary", data),
+			},
+			textColor: {
+				primary: (data) => colorFn("text-primary", data),
+				secondary: (data) => colorFn("text-primary", data),
+				tertiary: (data) => colorFn("text-primary", data),
+			},
+			colors: {
+				"accent-lighter": (data) => colorFn("accent-lighter", data),
+				"accent-light": (data) => colorFn("accent-light", data),
+				"accent-medium": (data) => colorFn("accent-medium", data),
+				"accent-dark": (data) => colorFn("accent-dark", data),
+				"accent-darker": (data) => colorFn("accent-darker", data),
+			},
+			borderColor: {
+				buton: (data) => colorFn("button-border-color", data),
 			},
 			boxShadow: {
 				track: "var(--custom-shadow)",
 			},
-		},
-		variables: {
-			DEFAULT: {
-				bg: {
-					primary: lightColor[300],
-					secondary: lightColor[100],
-					tertiary: lightColor[700],
-				},
-				text: {
-					primary: lightColor[900],
-					secondary: lightColor[700],
-					tertiary: lightColor[50],
-				},
-				accent: {
-					lighter: lightColor[100],
-					light: lightColor[300],
-					medium: lightColor[500],
-					dark: lightColor[700],
-					darker: lightColor[900],
-				},
-				button: {
-					border: {
-						color: "transparent",
-						width: 0,
-					},
-				},
-				custom: {
-					radius: "1rem",
-					shadow: `-99999px 0 0 99993px ${lightColor[400]}`,
-				},
-			},
-		},
-		darkVariables: {
-			DEFAULT: {
-				bg: {
-					primary: darkColor[500],
-					secondary: darkColor[600],
-					tertiary: darkColor[700],
-				},
-				text: {
-					primary: darkColor[100],
-					secondary: darkColor[300],
-					tertiary: darkColor[50],
-				},
-				accent: {
-					lighter: darkColor[100],
-					light: darkColor[300],
-					medium: darkColor[500],
-					dark: darkColor[700],
-					darker: darkColor[900],
-				},
-				button_border: {
-					color: darkColor[100],
-					width: "2px",
-				},
-				custom: {
-					radius: "9999px",
-					shadow: `-99999px 0 0 99993px ${darkColor[400]}`,
-				},
+			borderWidth: {
+				button: "var(--button-border-width)",
 			},
 		},
 	},
-	plugins: [
-		require("@mertasan/tailwindcss-variables")({
-			colorVariables: true,
-			forceRGB: true,
-		}),
-	],
+	variants: {
+		extend: {
+			borderColor: ["group-focus"],
+			backgroundColor: ["group-focus"],
+			textColor: ["group-focus"],
+		},
+	},
+	plugins: [require("@tailwindcss/typography")],
 };

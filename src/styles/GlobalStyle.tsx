@@ -6,6 +6,8 @@ import {
 	emerald as emeraldColor,
 	blueGray as nordColor,
 } from "tailwindcss/colors";
+import { TailwindColorGroup } from "tailwindcss/tailwind-config";
+import Color from "color";
 
 // RANGE INPUT VARIABLES.
 const thumb = tw`
@@ -80,7 +82,84 @@ const track = tw`
   .nord {
   }*/
 
+// CONVERT THEMES TO RGB.
+const colorToRGB = (color: TailwindColorGroup) => {
+	const hexToRGB = (hex: string) => {
+		const colorRGB = Color(hex, "hex").array().join(", ");
+		return colorRGB;
+	};
+
+	interface IRGBObject {
+		[key: string]: string;
+	}
+
+	const RGB: IRGBObject = {};
+
+	Object.entries(color).map((entrie) => {
+		const key = entrie[0];
+		const hex = entrie[1];
+		RGB[key] = hexToRGB(hex);
+	});
+
+	return RGB;
+};
+
+const lightTheme = colorToRGB(lightColor);
+const darkTheme = colorToRGB(darkColor);
+const emeralTheme = colorToRGB(emeraldColor);
+const nordTheme = colorToRGB(nordColor);
+
 const CustomGlobalStyle = createGlobalStyle`
+
+  .light {
+    --bg-primary: ${lightTheme[300]};
+    --bg-secondary: ${lightTheme[100]};
+    --bg-tertiary: ${lightTheme[700]};
+
+    --text-primary: ${lightTheme[900]};
+    --text-secondary: ${lightTheme[700]};
+    --text-tertiary: ${lightTheme[50]};
+
+    --button-border-width: 0;
+    --button-border-color: transparent;
+
+    --custom-radius: 1rem;
+    --custom-shadow: ${`-99999px 0 0 99993px ${lightColor[400]}`};
+
+    --accent-lighter: ${lightTheme[100]};
+    --accent-light: ${lightTheme[300]};
+    --accent-medium: ${lightTheme[500]};
+    --accent-dark: ${lightTheme[700]};
+    --accent-darker: ${lightTheme[900]};
+  }
+  
+  .dark {
+    --bg-primary: ${darkTheme[500]};
+    --bg-secondary: ${darkTheme[600]};
+    --bg-tertiary: ${darkTheme[700]};
+
+    --text-primary: ${darkTheme[100]};
+    --text-secondary: ${darkTheme[300]};
+    --text-tertiary: ${darkTheme[50]};
+
+    --button-border-width: 2px;
+    --button-border-color: ${darkTheme[100]};
+    
+    --custom-radius: 9999px;
+    --custom-shadow: ${`-99999px 0 0 99993px ${darkColor[400]}`};
+
+    --accent-lighter: ${darkTheme[100]};
+    --accent-light: ${darkTheme[300]};
+    --accent-medium: ${darkTheme[500]};
+    --accent-dark: ${darkTheme[700]};
+    --accent-darker: ${darkTheme[900]};
+  }
+
+  .emerald {
+  }
+
+  .nord {
+  }
 
   body {
     ${tw`
