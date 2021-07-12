@@ -14,6 +14,7 @@ module.exports = {
 			borderColor: ["group-focus"],
 			backgroundColor: ["group-focus"],
 			textColor: ["group-focus"],
+			cursor: ["disabled"],
 		},
 	},
 	plugins: [require("@tailwindcss/typography")],
