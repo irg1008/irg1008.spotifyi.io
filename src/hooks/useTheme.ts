@@ -29,7 +29,7 @@ const applyTailwindTheme = (newTheme: TTheme) => {
 const useThemeStore = create<ITheme>(
   persist(
     (set) => ({
-      theme: "dark",
+      theme: "emerald",
       toggleTheme: () => {
         set(({ theme: oldTheme }) => ({ theme: getToggledTheme(oldTheme) }));
       },
