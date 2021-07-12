@@ -5,7 +5,7 @@ import {
   blueGray as darkColor,
   teal as lightColor,
   emerald as emeraldColor,
-  red as redColor,
+  amber as amberColor,
 } from "tailwindcss/colors";
 
 /**
@@ -36,14 +36,14 @@ const colorToRGB = (color: TailwindColorGroup): IRGBObject => {
   return RGB;
 };
 
-const themes = ["light", "dark", "emerald", "red"] as const;
+const themes = ["light", "dark", "emerald", "amber"] as const;
 type TTheme = typeof themes[number];
 
 // THEMES PARSED FROM HEX TO RGB.
 const lightTheme = colorToRGB(lightColor);
 const darkTheme = colorToRGB(darkColor);
 const emeralTheme = colorToRGB(emeraldColor);
-const redTheme = colorToRGB(redColor);
+const amberTheme = colorToRGB(amberColor);
 
 // CSS VARIABLES FOR DIFFERENT THEMES.
 const cssThemes = css`
@@ -113,26 +113,26 @@ const cssThemes = css`
     --accent-darker: ${emeralTheme[900]};
   }
 
-  .red {
-    --bg-primary: ${redTheme[500]};
-    --bg-secondary: ${redTheme[600]};
-    --bg-tertiary: ${redTheme[700]};
+  .amber {
+    --bg-primary: ${amberTheme[500]};
+    --bg-secondary: ${amberTheme[600]};
+    --bg-tertiary: ${amberTheme[700]};
 
-    --text-primary: ${redTheme[100]};
-    --text-secondary: ${redTheme[300]};
-    --text-tertiary: ${redTheme[50]};
+    --text-primary: ${amberTheme[100]};
+    --text-secondary: ${amberTheme[300]};
+    --text-tertiary: ${amberTheme[50]};
 
     --button-border-width: 2px;
-    --button-border-color: ${redTheme[100]};
+    --button-border-color: ${amberTheme[100]};
 
-    --custom-radius: 9999px;
-    --custom-shadow: ${`-99999px 0 0 99993px ${redColor[400]}`};
+    --custom-radius: 0.5rem;
+    --custom-shadow: ${`-99999px 0 0 99993px ${amberColor[400]}`};
 
-    --accent-lighter: ${redTheme[100]};
-    --accent-light: ${redTheme[300]};
-    --accent-medium: ${redTheme[500]};
-    --accent-dark: ${redTheme[700]};
-    --accent-darker: ${redTheme[900]};
+    --accent-lighter: ${amberTheme[100]};
+    --accent-light: ${amberTheme[300]};
+    --accent-medium: ${amberTheme[500]};
+    --accent-dark: ${amberTheme[700]};
+    --accent-darker: ${amberTheme[900]};
   }
 `;
 
