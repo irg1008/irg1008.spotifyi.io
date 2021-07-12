@@ -32,6 +32,7 @@ const CustomGlobalStyle = createGlobalStyle`
     ${tw`
       bg-opacity-100 // DEFAULT
       text-opacity-100 // DEFAULT
+      border-opacity-100
     `}
   }
 
@@ -90,7 +91,7 @@ const CustomGlobalStyle = createGlobalStyle`
       transform
       transition-colors
       disabled:pointer-events-none
-      disabled:bg-opacity-20
+      disabled:bg-opacity-30
       disabled:cursor-not-allowed
     `}
   }

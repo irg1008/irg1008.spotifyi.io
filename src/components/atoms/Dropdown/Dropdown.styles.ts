@@ -36,7 +36,7 @@ const Container = tw.div`
   overflow-hidden
   shadow-lg
   border-2
-  border-accent-dark
+  border-accent-darker
   font-size[initial]
   font-normal
   max-w-md
@@ -60,6 +60,7 @@ const Header = styled.header(({ isOpen }: IDropdown) => [
   `,
   isOpen &&
     tw`
+    bg-accent-darker
   `,
 ]);
 

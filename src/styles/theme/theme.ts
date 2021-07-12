@@ -2,10 +2,10 @@ import { TailwindColorGroup } from "tailwindcss/tailwind-config";
 import Color from "color";
 import { css } from "twin.macro";
 import {
-  coolGray as darkColor,
+  blueGray as darkColor,
   teal as lightColor,
   emerald as emeraldColor,
-  blueGray as nordColor,
+  red as redColor,
 } from "tailwindcss/colors";
 
 /**
@@ -43,7 +43,7 @@ type TTheme = typeof themes[number];
 const lightTheme = colorToRGB(lightColor);
 const darkTheme = colorToRGB(darkColor);
 const emeralTheme = colorToRGB(emeraldColor);
-const nordTheme = colorToRGB(nordColor);
+const redTheme = colorToRGB(redColor);
 
 // CSS VARIABLES FOR DIFFERENT THEMES.
 const cssThemes = css`
@@ -113,26 +113,26 @@ const cssThemes = css`
     --accent-darker: ${emeralTheme[900]};
   }
 
-  .nord {
-    --bg-primary: ${nordTheme[500]};
-    --bg-secondary: ${nordTheme[600]};
-    --bg-tertiary: ${nordTheme[700]};
+  .red {
+    --bg-primary: ${redTheme[500]};
+    --bg-secondary: ${redTheme[600]};
+    --bg-tertiary: ${redTheme[700]};
 
-    --text-primary: ${nordTheme[100]};
-    --text-secondary: ${nordTheme[300]};
-    --text-tertiary: ${nordTheme[50]};
+    --text-primary: ${redTheme[100]};
+    --text-secondary: ${redTheme[300]};
+    --text-tertiary: ${redTheme[50]};
 
     --button-border-width: 2px;
-    --button-border-color: ${nordTheme[100]};
+    --button-border-color: ${redTheme[100]};
 
     --custom-radius: 9999px;
-    --custom-shadow: ${`-99999px 0 0 99993px ${nordColor[400]}`};
+    --custom-shadow: ${`-99999px 0 0 99993px ${redColor[400]}`};
 
-    --accent-lighter: ${nordTheme[100]};
-    --accent-light: ${nordTheme[300]};
-    --accent-medium: ${nordTheme[500]};
-    --accent-dark: ${nordTheme[700]};
-    --accent-darker: ${nordTheme[900]};
+    --accent-lighter: ${redTheme[100]};
+    --accent-light: ${redTheme[300]};
+    --accent-medium: ${redTheme[500]};
+    --accent-dark: ${redTheme[700]};
+    --accent-darker: ${redTheme[900]};
   }
 `;
 
