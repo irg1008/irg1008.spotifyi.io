@@ -22,8 +22,9 @@ const FilledCard = ({ track }: ITrackCardProps) => {
 
 	const addToSpotifyQueue = async () =>
 		await withSpotify(() => spotify.queue(track.uri));
+
 	const playOnSpotify = async () =>
-		await withSpotify(() => spotify.skipToNext());
+		await withSpotify(() => spotify.play({ uris: [track.uri] }));
 
 	const addToQueue = async () => {
 		addToSpotifyQueue();
@@ -31,7 +32,6 @@ const FilledCard = ({ track }: ITrackCardProps) => {
 	};
 
 	const playSong = async () => {
-		await addToSpotifyQueue();
 		await playOnSpotify();
 		addTrackNotification(`${track.name} playing now`);
 	};
