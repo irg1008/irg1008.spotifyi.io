@@ -1,11 +1,10 @@
 import Dropdown from "components/atoms/Dropdown";
-import PopUp from "components/atoms/PopUp";
 import SideNav from "components/molecules/SideNav";
 import { INotification, useNotifications } from "hooks/useNotifications";
 import tw from "twin.macro";
 import idGen from "util/idGen";
-import Range from "components/atoms/Range";
-import { useState } from "react";
+import useTheme from "hooks/useTheme";
+import { themes } from "styles/theme";
 
 const Comp = ({ value }: { value: string }) => <p>{value}</p>;
 
@@ -32,7 +31,7 @@ const NotificationTest = () => {
 	};
 
 	return (
-		<Dropdown title="Add notifications" openOnLoad>
+		<Dropdown title="Add notifications">
 			<button
 				onClick={() => addNewNotification({ type: "success" })}
 				title="Add notification"
@@ -96,14 +95,32 @@ const NotificationTest = () => {
 	);
 };
 
+const ThemeDropdown = () => {
+	const { theme: currentTheme, setTheme } = useTheme();
+	return (
+		<Dropdown title="Chose theme">
+			<p>Current theme: {currentTheme}</p>
+			{themes.map((theme) => (
+				<button
+					key={theme}
+					disabled={theme === currentTheme}
+					onClick={() => setTheme(theme)}
+				>
+					Apply {theme} theme
+				</button>
+			))}
+		</Dropdown>
+	);
+};
+
 const Link = tw.a`
 	hover:underline
 `;
 
 const SideNavTest = () => {
-	const [value, setValue] = useState(0);
 	return (
 		<SideNav>
+			<ThemeDropdown />
 			<NotificationTest />
 			<Dropdown title="Click My Links">
 				<Link href="#">One</Link>

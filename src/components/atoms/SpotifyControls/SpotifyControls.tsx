@@ -165,9 +165,9 @@ const SpotifyControls = () => {
 									? `Active device: ${activeDevice?.name}`
 									: "There is no active device"}
 							</Styled.Text>
-							<Styled.ConnectButton disabled={!isReady} onClick={listenHere}>
+							<button disabled={!isReady} onClick={listenHere}>
 								{isReady ? "Listen here" : "Loading"}
-							</Styled.ConnectButton>
+							</button>
 						</>
 					)}
 				</Styled.Wrapper>

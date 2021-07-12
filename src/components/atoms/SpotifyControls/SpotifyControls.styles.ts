@@ -77,7 +77,7 @@ const Controls = tw(motion.div)`
 `;
 
 const Button = tw(motion.button)`
-  bg-white
+  bg-accent-lighter
   text-accent-darker
   rounded-md
   shadow-md
@@ -100,13 +100,6 @@ const Progress = tw(motion.div)`
 
 const Text = tw.p`
   text-accent-lighter
-`;
-
-const ConnectButton = tw.button`
-  disabled:pointer-events-none
-  disabled:bg-opacity-20
-  disabled:cursor-not-allowed
-  transition-colors
 `;
 
 const iconHeight = tw`h-8`;
@@ -133,6 +126,5 @@ const Styled = {
   UnMuted,
   Progress,
   Text,
-  ConnectButton,
 };
 export default Styled;

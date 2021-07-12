@@ -46,7 +46,6 @@ const Navbar = () => {
 
 	return (
 		<Styled.Navbar>
-			<ToggleFlip />
 			{user && (
 				<>
 					<Styled.Name>{user?.display_name}</Styled.Name>

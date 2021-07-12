@@ -1,22 +1,28 @@
 import { useEffect } from "react";
 import create from "zustand";
 import { persist } from "zustand/middleware";
-
-type TTheme = "light" | "dark" | "emerald" | "pink" | "nord";
+import { TTheme, themes } from "styles/theme";
 
 interface ITheme {
   theme: TTheme;
   toggleTheme: () => void;
+  setTheme: (theme: TTheme) => void;
 }
 
 const getToggledTheme = (oldTheme: TTheme): TTheme =>
   oldTheme === "dark" ? "light" : "dark";
 
-const applyTailwindTheme = (theme: TTheme) => {
+const applyTailwindTheme = (newTheme: TTheme) => {
   if (window) {
     const root = document.documentElement;
-    root.classList.remove(getToggledTheme(theme));
-    root.classList.add(theme);
+
+    // Remove all previous themes:
+    themes.forEach((oldTheme) => {
+      if (newTheme !== oldTheme) root.classList.remove(oldTheme);
+    });
+
+    // Add new theme.
+    root.classList.add(newTheme);
   }
 };
 
@@ -27,6 +33,7 @@ const useThemeStore = create<ITheme>(
       toggleTheme: () => {
         set(({ theme: oldTheme }) => ({ theme: getToggledTheme(oldTheme) }));
       },
+      setTheme: (theme) => set(() => ({ theme })),
     }),
     {
       name: "theme",
@@ -35,13 +42,13 @@ const useThemeStore = create<ITheme>(
 );
 
 const useTheme = () => {
-  const { theme, toggleTheme } = useThemeStore();
+  const { theme, toggleTheme, setTheme } = useThemeStore();
 
   useEffect(() => {
     applyTailwindTheme(theme);
   }, [theme]);
 
-  return { theme, toggleTheme };
+  return { theme, toggleTheme, setTheme };
 };
 
 export default useTheme;

@@ -29,14 +29,15 @@ const colorToRGB = (color: TailwindColorGroup): IRGBObject => {
 
   const RGB: IRGBObject = {};
 
-  Object.entries(color).map((entrie) => {
-    const key = entrie[0];
-    const hex = entrie[1];
+  Object.entries(color).map(([key, hex]) => {
     RGB[key] = hexToRGB(hex);
   });
 
   return RGB;
 };
+
+const themes = ["light", "dark", "emerald", "nord"] as const;
+type TTheme = typeof themes[number];
 
 // THEMES PARSED FROM HEX TO RGB.
 const lightTheme = colorToRGB(lightColor);
@@ -91,11 +92,50 @@ const cssThemes = css`
   }
 
   .emerald {
+    --bg-primary: ${emeralTheme[500]};
+    --bg-secondary: ${emeralTheme[600]};
+    --bg-tertiary: ${emeralTheme[700]};
+
+    --text-primary: ${emeralTheme[100]};
+    --text-secondary: ${emeralTheme[300]};
+    --text-tertiary: ${emeralTheme[50]};
+
+    --button-border-width: 2px;
+    --button-border-color: ${emeralTheme[100]};
+
+    --custom-radius: 9999px;
+    --custom-shadow: ${`-99999px 0 0 99993px ${emeraldColor[400]}`};
+
+    --accent-lighter: ${emeralTheme[100]};
+    --accent-light: ${emeralTheme[300]};
+    --accent-medium: ${emeralTheme[500]};
+    --accent-dark: ${emeralTheme[700]};
+    --accent-darker: ${emeralTheme[900]};
   }
 
   .nord {
+    --bg-primary: ${nordTheme[500]};
+    --bg-secondary: ${nordTheme[600]};
+    --bg-tertiary: ${nordTheme[700]};
+
+    --text-primary: ${nordTheme[100]};
+    --text-secondary: ${nordTheme[300]};
+    --text-tertiary: ${nordTheme[50]};
+
+    --button-border-width: 2px;
+    --button-border-color: ${nordTheme[100]};
+
+    --custom-radius: 9999px;
+    --custom-shadow: ${`-99999px 0 0 99993px ${nordColor[400]}`};
+
+    --accent-lighter: ${nordTheme[100]};
+    --accent-light: ${nordTheme[300]};
+    --accent-medium: ${nordTheme[500]};
+    --accent-dark: ${nordTheme[700]};
+    --accent-darker: ${nordTheme[900]};
   }
 `;
 
 // EXPORT OF TAILWIND THEME AND CSS THEMES.
-export { cssThemes };
+export { cssThemes, themes };
+export type { TTheme };
