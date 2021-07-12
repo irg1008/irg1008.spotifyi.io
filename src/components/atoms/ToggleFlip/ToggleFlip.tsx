@@ -1,4 +1,4 @@
-import useTheme from "hooks/useTheme";
+import { useTheme } from "theme";
 import Styled from "./ToggleFlip.styles";
 
 const ToggleFlip = () => {

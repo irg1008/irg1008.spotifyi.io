@@ -3,8 +3,7 @@ import SideNav from "components/molecules/SideNav";
 import { INotification, useNotifications } from "hooks/useNotifications";
 import tw from "twin.macro";
 import idGen from "util/idGen";
-import useTheme from "hooks/useTheme";
-import { themes, TTheme } from "styles/theme";
+import { themes, TTheme, useTheme } from "theme";
 
 const Comp = ({ value }: { value: string }) => <p>{value}</p>;
 

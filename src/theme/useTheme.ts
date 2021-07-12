@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import create from "zustand";
 import { persist } from "zustand/middleware";
-import { TTheme, themes } from "styles/theme";
+import { TTheme, themes } from "./theme";
 
 interface ITheme {
   theme: TTheme;

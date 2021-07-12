@@ -1,3 +1,4 @@
 import { cssThemes, TTheme, themes } from "./theme";
-export { cssThemes, themes };
+import useTheme from "./useTheme";
+export { cssThemes, themes, useTheme };
 export type { TTheme };

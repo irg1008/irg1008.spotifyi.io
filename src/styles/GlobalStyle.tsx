@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import tw, { GlobalStyles as TwinGlobalStyle } from "twin.macro";
-import { cssThemes } from "styles/theme";
+import { cssThemes } from "theme";
 
 // RANGE INPUT VARIABLES.
 const thumb = tw`
