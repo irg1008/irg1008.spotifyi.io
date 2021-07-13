@@ -4,9 +4,7 @@ import { INotification, useNotifications } from "hooks/useNotifications";
 import tw from "twin.macro";
 import idGen from "util/idGen";
 import { themes, TTheme, useTheme } from "theme";
-import { useTimeout } from "hooks/useTime";
-import ToggleFlip from "components/atoms/ToggleFlip";
-import ToggleTheme from "components/atoms/ToggleTheme";
+import Styled from "./SideNavTest.styles";
 
 const Comp = ({ value }: { value: string }) => <p>{value}</p>;
 
@@ -139,54 +137,11 @@ const ThemeDropdown = () => {
 	);
 };
 
-const Link = tw.a`
-	hover:underline
-`;
-
 const SideNavTest = () => {
-	const { start, stop, percentage } = useTimeout({
-		mills: 10000,
-		cb: () => console.log("finish"),
-	});
 	return (
 		<SideNav>
 			<ThemeDropdown />
 			<NotificationTest />
-			<Dropdown title="Click My Links">
-				<Link href="#">One</Link>
-				<Link href="#">Two</Link>
-				<Link href="#">Three</Link>
-			</Dropdown>
-			<Dropdown title="I Store Buttons!">
-				<button>One</button>
-				<button>Two</button>
-				<button>Three</button>
-				<button>Four</button>
-				<button>Five</button>
-				<button>One</button>
-			</Dropdown>
-			<Dropdown
-				title="Click me"
-				onTitleClick={() => alert("I just alerted you!")}
-			/>
-			<Dropdown title="¡And text! Or Anything You Want">
-				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
-				hic beatae aut sapiente ducimus voluptates soluta deserunt autem unde
-				non rem delectus tempora, quam odio earum qui nulla magni enim?
-				<button>Two</button>
-				<button>Three</button>
-				<button>Four</button>
-				<button>Five</button>
-				<Link href="#">Two</Link>
-				<>
-					<ToggleTheme />
-					<ToggleFlip />
-				</>
-				<Dropdown title="A dropdown inside a dropdown! Hell yeah">
-					<button>Two</button>
-					<Link href="#">Two</Link>
-				</Dropdown>
-			</Dropdown>
 		</SideNav>
 	);
 };

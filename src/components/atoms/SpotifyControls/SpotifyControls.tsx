@@ -8,8 +8,9 @@ import Range from "components/atoms/Range";
 import { parseMills } from "util/time";
 import { useSpotifyDevice } from "hooks/useSpotify";
 import { HiChevronDown as ChevronDownIcon } from "react-icons/hi";
+import { MdDevices } from "react-icons/md";
 import useRefData from "hooks/useRefData";
-import { useCallback, useEffect } from "react";
+import Tooltip from "components/atoms/Tooltip";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -47,9 +48,32 @@ const button: CustomVariants = {
 	},
 };
 
+const SpotifyDevices = () => {
+	// CURRENT DEVICES.
+	const { activeDevice, transferPlayback, devices } = useSpotifyDevice();
+
+	return (
+		<Tooltip
+			content={
+				<Styled.Devices>
+					{devices?.map((device) => (
+						<Styled.Device key={device.id} active={device.is_active}>
+							{device.name}
+						</Styled.Device>
+					))}
+				</Styled.Devices>
+			}
+			onHoverOutclose={false}
+		>
+			<Styled.Button>
+				<MdDevices />
+			</Styled.Button>
+		</Tooltip>
+	);
+};
+
 const SpotifyControls = () => {
-	const { state, useVolume, useController, useProgress, device, isReady } =
-		useSpotifySDK();
+	const { state, useVolume, useController, useProgress } = useSpotifySDK();
 
 	// VOLUME.
 	const { isMuted, toggleMuted, currentVolume, setVolume } = useVolume();
@@ -57,28 +81,20 @@ const SpotifyControls = () => {
 	// CONTROLLERS.
 	const { nextTrack, prevTrack, togglePlay, goTo } = useController();
 
-	// SONG.
-	const song = state?.track_window.current_track;
-
 	// PROGRESS.
 	const { progress, setProgress, setPaused } = useProgress();
+
+	// SONG.
+	const song = state?.track_window.current_track;
 
 	// Pop Ups.
 	const [isOpenSong, toggleIsOpenSong] = useToggle();
 	const [isOpenVolume, togglePopUpVolume] = useToggle();
 	const [showControls, toggleShowControls] = useToggle(true);
 
-	// CURRENT DEVICES.
-	const { activeDevice, transferPlayback } = useSpotifyDevice();
-
 	// CONTAINER HEIGHT.
 	const [containerRef, { height: containerHeight }] =
 		useRefData<HTMLDivElement>();
-
-	const listenHere = useCallback(() => {
-		// Transfer playback
-		transferPlayback(device?.deviceId);
-	}, [device?.deviceId, transferPlayback]);
 
 	return (
 		<>
@@ -106,7 +122,8 @@ const SpotifyControls = () => {
 					</Styled.Chevron>
 				</Styled.Down>
 				<Styled.Wrapper ref={containerRef}>
-					{!!state ? (
+					<SpotifyDevices />
+					{!!state && (
 						<>
 							<Styled.Progress variants={button}>
 								<Range
@@ -157,17 +174,6 @@ const SpotifyControls = () => {
 									{isMuted ? <Styled.Muted /> : <Styled.UnMuted />}
 								</Styled.Button>
 							</Styled.Controls>
-						</>
-					) : (
-						<>
-							<Styled.Text>
-								{!!activeDevice
-									? `Active device: ${activeDevice?.name}`
-									: "There is no active device"}
-							</Styled.Text>
-							<button disabled={!isReady} onClick={listenHere}>
-								{isReady ? "Listen here" : "Loading"}
-							</button>
 						</>
 					)}
 				</Styled.Wrapper>

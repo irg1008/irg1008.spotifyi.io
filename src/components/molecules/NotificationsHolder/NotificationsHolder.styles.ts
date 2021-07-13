@@ -14,6 +14,7 @@ const NotificationsHolder = tw(motion.div)`
   flex-col
   justify-end
   items-end
+  pointer-events-none
 `;
 
 const notificationStyles: Record<TNotificationType, TwStyle> = {
@@ -62,6 +63,7 @@ const Notification = styled(motion.div)(
       ml-6
       overflow-hidden
       leading-6
+      pointer-events-auto
     `,
   ]
 );

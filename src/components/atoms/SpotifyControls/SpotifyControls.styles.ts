@@ -40,6 +40,10 @@ const Wrapper = tw.div`
   p-6
   border-t-2
   text-center
+  flex
+  flex-col
+  items-center
+  justify-center
 `;
 
 const Down = tw.div`
@@ -92,9 +96,11 @@ const Button = tw(motion.button)`
   justify-center
   items-center
   overflow-hidden
+  m-0!
 `;
 
 const Progress = tw(motion.div)`
+  w-full
   flex
   items-center
   justify-between
@@ -104,6 +110,16 @@ const Progress = tw(motion.div)`
 
 const Text = tw.p`
   text-accent-lighter
+`;
+
+const Device = styled.p(({ active }: { active: boolean }) => [
+  tw`
+    
+  `,
+]);
+
+const Devices = tw.div`
+    
 `;
 
 const iconHeight = tw`h-8`;
@@ -130,5 +146,7 @@ const Styled = {
   UnMuted,
   Progress,
   Text,
+  Devices,
+  Device,
 };
 export default Styled;

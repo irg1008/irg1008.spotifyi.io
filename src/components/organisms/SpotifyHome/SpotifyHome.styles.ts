@@ -2,8 +2,6 @@ import tw, { styled } from "twin.macro";
 import { HiStar as StarIcon, HiEmojiSad as EmojiSadIcon } from "react-icons/hi";
 
 const Home = tw.div`
-  text-xl
-  font-semibold
   w-full
   h-full
   pb-40

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import useSpotify from "hooks/useSpotify";
+import useSpotify, { useSpotifyDevice } from "hooks/useSpotify";
 import create from "zustand";
 import {
   ISpotifySDK,
@@ -142,6 +142,7 @@ const useSpotifySDK = () => {
     player.addListener("not_ready", ({ device_id }: IPlaybackPlayer) => {
       //console.log("Device ID has gone offline", device_id);
       setIsReady(false);
+      setDevice(undefined);
       return () => player.disconnect();
     });
 
@@ -178,8 +179,18 @@ const useSpotifySDK = () => {
   // CONTROLLER HOOK.
   const useController = () => useSpotifyController(player);
 
-  // PROGRESS
+  // PROGRESS.
   const useProgress = () => useSpotifyProgress(state);
+
+  // ACTIVE DEVICE.
+  const { activeDevice, transferPlayback } = useSpotifyDevice();
+
+  useEffect(() => {
+    if (!!activeDevice && !!device && activeDevice?.id === device?.deviceId) {
+      updateState();
+      console.log("el mismo")
+    }
+  }, [activeDevice, device, updateState]);
 
   return {
     onSpotifySDKLoad,

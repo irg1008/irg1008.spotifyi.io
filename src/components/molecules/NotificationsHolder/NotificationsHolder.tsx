@@ -73,7 +73,6 @@ const Notification = ({
 	const variants: Variants = {
 		initial: { opacity: 0, scale: 0.8, x: 300 },
 		animate: { opacity: 1, scale: 1, x: 0 },
-		exit: { opacity: 0, scale: 0.8, x: 300 },
 	};
 
 	const swipeVelocityThreshold = 15;
@@ -100,12 +99,12 @@ const Notification = ({
 			variants={variants}
 			initial="initial"
 			animate="animate"
-			exit="exit"
+			exit="initial"
 			transition={{
 				type: "spring",
 				duration: 0.4,
 			}}
-			layout={true}
+			layout
 			drag="x"
 			dragConstraints={{ left: 0, right: 0 }}
 			dragElastic={{ left: 0.02, right: 0.2 }}

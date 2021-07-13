@@ -75,6 +75,8 @@ const useSpotify = () => {
       } catch (error) {
         const spotifyError = JSON.parse(error.response).error;
 
+        console.log(spotifyError);
+
         // If expired token.
         if (spotifyError.status === 401) {
           // Ask for new token.
@@ -91,6 +93,9 @@ const useSpotify = () => {
             return await withSpotify(fn);
           }
         }
+        // Other errors
+        else {
+        }
       }
     },
     [logIn, refresh_token]
@@ -99,25 +104,35 @@ const useSpotify = () => {
   return { withSpotify, spotify, isLogged, logIn, ...store };
 };
 
+type TDevice = SpotifyApi.UserDevice;
+
 const useSpotifyDevice = () => {
   const { spotify, withSpotify } = useSpotify();
-  const [activeDevice, setActiveDevice] = useState<SpotifyApi.UserDevice>();
+  const [activeDevice, setActiveDevice] = useState<TDevice>();
+  const [devices, setDevices] = useState<TDevice[]>();
 
-  useEffect(() => {
-    const getActiveDevice = async () => {
-      const res = await withSpotify(
-        async () => await spotify.getMyCurrentPlaybackState()
+  const transferPlayback = useCallback(
+    async (deviceId: string) => {
+      await withSpotify(
+        async () => await spotify.transferMyPlayback([deviceId])
       );
-      setActiveDevice(res?.device);
-    };
-    getActiveDevice();
+    },
+    [spotify, withSpotify]
+  );
+
+  const getDevices = useCallback(async () => {
+    const res = await withSpotify(() => spotify.getMyDevices());
+    const devices = res?.devices;
+    const active = devices.find((device) => device.is_active);
+    setDevices(res?.devices);
+    setActiveDevice(active);
   }, [spotify, withSpotify]);
 
-  const transferPlayback = async (deviceId: string) => {
-    await withSpotify(async () => await spotify.transferMyPlayback([deviceId]));
-  };
+  useEffect(() => {
+    getDevices();
+  }, [getDevices]);
 
-  return { activeDevice, transferPlayback };
+  return { activeDevice, devices, transferPlayback };
 };
 
 type TTracks = SpotifyApi.TrackObjectFull[];

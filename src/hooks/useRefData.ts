@@ -20,13 +20,15 @@ const useRefData = <T extends HTMLElement>() => {
   const ref = useRef<T>();
 
   useEffect(() => {
-    const { clientHeight, clientWidth, offsetTop, offsetLeft } = ref.current;
-    setData({
-      height: clientHeight,
-      width: clientWidth,
-      x: offsetLeft,
-      y: offsetTop,
-    });
+    if (ref.current) {
+      const { clientHeight, clientWidth, offsetTop, offsetLeft } = ref.current;
+      setData({
+        height: clientHeight,
+        width: clientWidth,
+        x: offsetLeft + clientWidth / 2,
+        y: offsetTop + clientHeight / 2,
+      });
+    }
   }, [
     ref.current?.clientHeight,
     ref.current?.clientWidth,
