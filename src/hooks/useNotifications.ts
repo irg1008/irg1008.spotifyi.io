@@ -2,7 +2,7 @@ import create from "zustand";
 import _ from "lodash";
 
 type TNotificationId = string;
-type TNotificationType = "error" | "warning" | "success";
+type TNotificationType = "error" | "warning" | "success" | "info";
 
 interface INotification {
   id: TNotificationId;

@@ -9,7 +9,7 @@ import {
   IError,
   ISpotifyState,
 } from "SpotifySDK";
-import useInterval from "hooks/useInterval";
+import { useInterval } from "hooks/useTime";
 
 const useSpotifySDKStore = create<ISpotifySDK>((set) => ({
   player: undefined,

@@ -4,6 +4,7 @@ import { INotification, useNotifications } from "hooks/useNotifications";
 import tw from "twin.macro";
 import idGen from "util/idGen";
 import { themes, TTheme, useTheme } from "theme";
+import { useTimeout } from "hooks/useTime";
 
 const Comp = ({ value }: { value: string }) => <p>{value}</p>;
 
@@ -43,26 +44,34 @@ const NotificationTest = () => {
 			<button onClick={() => addNewNotification({ type: "warning" })}>
 				Add warning notification
 			</button>
+			<button onClick={() => addNewNotification({ type: "info" })}>
+				Add info notification
+			</button>
 			<button onClick={() => addNewNotification({})}>
 				Add normal notification
 			</button>
 			<button
-				onClick={() => addNewNotification({ type: "success", timeout: 2000 })}
+				onClick={() => addNewNotification({ type: "success", timeout: 10000 })}
 			>
-				Add success notification with 2000 timeout
+				Add success notification with 10000 timeout
 			</button>
 			<button
-				onClick={() => addNewNotification({ type: "error", timeout: 2000 })}
+				onClick={() => addNewNotification({ type: "error", timeout: 10000 })}
 			>
-				Add error notification with 2000 timeout
+				Add error notification with 10000 timeout
 			</button>
 			<button
-				onClick={() => addNewNotification({ type: "warning", timeout: 2000 })}
+				onClick={() => addNewNotification({ type: "warning", timeout: 10000 })}
 			>
-				Add warning notification with 2000 timeout
+				Add warning notification with 10000 timeout
 			</button>
-			<button onClick={() => addNewNotification({ timeout: 2000 })}>
-				Add normal notification with 2000 timeout
+			<button
+				onClick={() => addNewNotification({ type: "info", timeout: 10000 })}
+			>
+				Add info notification with 10000 timeout
+			</button>
+			<button onClick={() => addNewNotification({ timeout: 10000 })}>
+				Add normal notification with 10000 timeout
 			</button>
 			<button
 				onClick={() =>
@@ -133,6 +142,10 @@ const Link = tw.a`
 `;
 
 const SideNavTest = () => {
+	const { start, stop, percentage } = useTimeout({
+		mills: 10000,
+		cb: () => console.log("finish"),
+	});
 	return (
 		<SideNav>
 			<ThemeDropdown />

@@ -4,14 +4,16 @@ import {
 	INotification,
 	TNotificationType,
 } from "hooks/useNotifications";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import Styled from "./NotificationsHolder.styles";
 import { AnimatePresence, PanInfo, Variant } from "framer-motion";
 import {
 	ExclamationIcon as WarningIcon,
 	ExclamationCircleIcon as ErrorIcon,
 	CheckCircleIcon as SuccessIcon,
+	InformationCircleIcon as InfoIcon,
 } from "@heroicons/react/outline";
+import { useTimeout } from "hooks/useTime";
 
 interface INotificationProps {
 	notification: INotification;
@@ -30,6 +32,7 @@ const NotificationIcon = ({ type }: INotificationIconProps) => {
 		success: <SuccessIcon />,
 		warning: <WarningIcon />,
 		error: <ErrorIcon />,
+		info: <InfoIcon />,
 	};
 
 	return !!type && <Styled.Icon>{typeIcon[type]}</Styled.Icon>;
@@ -40,19 +43,32 @@ const Notification = ({
 }: INotificationProps) => {
 	const { removeNotification } = useNotifications();
 
+	const hasTimeout = useMemo(() => !!timeout, [timeout]);
+
 	const onClose = useCallback(
 		() => removeNotification(id),
 		[id, removeNotification],
 	);
 
+	const { start, stop, percentage } = useTimeout({
+		mills: timeout,
+		startOnCall: false,
+		cb: onClose,
+	});
+
+	const stopTimeout = useCallback(
+		() => hasTimeout && stop(),
+		[stop, hasTimeout],
+	);
+	const startTimeout = useCallback(
+		() => hasTimeout && start(),
+		[hasTimeout, start],
+	);
+
 	// Remove after given time if setted.
 	useEffect(() => {
-		if (!!timeout) {
-			setTimeout(() => {
-				onClose();
-			}, timeout);
-		}
-	}, [timeout, onClose]);
+		startTimeout();
+	}, [startTimeout]);
 
 	const variants: Variants = {
 		initial: { opacity: 0, scale: 0.8, x: 300 },
@@ -97,11 +113,14 @@ const Notification = ({
 			dragMomentum={false}
 			onDragEnd={(_, info) => onDragClose(info)}
 			title="Click the x icon or drag right to close"
+			onMouseEnter={stopTimeout}
+			onMouseLeave={startTimeout}
 		>
 			<Styled.Wrapper>
 				<NotificationIcon {...{ type }} />
 				{component}
 			</Styled.Wrapper>
+			{hasTimeout && <Styled.Time style={{ width: `${percentage}%` }} />}
 			<Styled.CloseIcon onClick={onClose} />
 		</Styled.Notification>
 	);

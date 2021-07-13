@@ -1,4 +1,4 @@
-import tw, { TwStyle, styled } from "twin.macro";
+import tw, { TwStyle, styled, css } from "twin.macro";
 import { TNotificationType } from "hooks/useNotifications";
 import { XIcon } from "@heroicons/react/solid";
 import { motion } from "framer-motion";
@@ -16,7 +16,7 @@ const NotificationsHolder = tw(motion.div)`
   items-end
 `;
 
-const typeStyles: Record<TNotificationType, TwStyle> = {
+const notificationStyles: Record<TNotificationType, TwStyle> = {
   error: tw`
       bg-red-400!
       text-red-50
@@ -32,12 +32,17 @@ const typeStyles: Record<TNotificationType, TwStyle> = {
       text-green-50
       border-green-200
     `,
+  info: tw`
+    bg-blue-400!
+    text-blue-50
+    border-blue-200
+    `,
 };
 
 // Type styles if type is not undefined else default values.
-const getTypeStyle = (type: TNotificationType) =>
+const getNotificationStyle = (type: TNotificationType) =>
   !!type
-    ? typeStyles[type]
+    ? notificationStyles[type]
     : tw`
         bg-accent-dark
         text-gray-100
@@ -46,7 +51,7 @@ const getTypeStyle = (type: TNotificationType) =>
 
 const Notification = styled(motion.div)(
   ({ type }: { type: TNotificationType }) => [
-    getTypeStyle(type),
+    getNotificationStyle(type),
     tw`
       rounded-2xl
       shadow-lg
@@ -96,11 +101,18 @@ const Icon = tw.div`
   items-center
 `;
 
+const Time = tw.div`
+  h-1.5
+  bg-white
+  bg-opacity-50
+`;
+
 const Styled = {
   NotificationsHolder,
   Notification,
   CloseIcon,
   Wrapper,
   Icon,
+  Time,
 };
 export default Styled;
