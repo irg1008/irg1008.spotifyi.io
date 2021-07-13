@@ -1,6 +1,6 @@
 import tw, { styled } from "twin.macro";
 import { motion } from "framer-motion";
-import { ArrowUpIcon } from "@heroicons/react/outline";
+import { HiOutlineArrowUp } from "react-icons/hi";
 
 const LogIn = tw.div`
   bg-white
@@ -53,8 +53,8 @@ const InfoText = tw.p`
   text-xl
 `;
 
-const Arrow = tw(ArrowUpIcon)`
-  h-6
+const Arrow = tw(HiOutlineArrowUp)`
+  text-2xl
   animate-bounce
   mt-2
 `;

@@ -2,13 +2,13 @@ import tw, { styled, css } from "twin.macro";
 import { motion } from "framer-motion";
 
 import {
-  PlayIcon,
-  PauseIcon,
-  ArrowCircleRightIcon,
-  ArrowCircleLeftIcon,
-  VolumeOffIcon,
-  VolumeUpIcon,
-} from "@heroicons/react/solid";
+  HiPlay as PlayIcon,
+  HiPause as PauseIcon,
+  HiArrowCircleRight as ArrowCircleRightIcon,
+  HiArrowCircleLeft as ArrowCircleLeftIcon,
+  HiVolumeOff as VolumeOffIcon,
+  HiVolumeUp as VolumeUpIcon,
+} from "react-icons/hi";
 
 const Container = styled.div(
   ({ height, isOpen }: { height: number; isOpen: boolean }) => [
@@ -62,6 +62,10 @@ const Chevron = styled.div(({ isOpen }: { isOpen: boolean }) => [
     ease-in-out
     cursor-pointer
     delay-200
+    flex
+    items-center
+    justify-center
+    text-4xl
   `,
   isOpen === false &&
     tw`

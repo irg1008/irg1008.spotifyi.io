@@ -71,6 +71,10 @@ const borderRadius = { custom: "var(--custom-radius)" };
 const borderWidth = { button: "var(--button-border-width)" };
 const boxShadow = { track: "var(--custom-shadow)" };
 
+const keyframes = {};
+
+const animation = {};
+
 const tailwindTheme = {
 	backgroundColor,
 	textColor,
@@ -79,6 +83,8 @@ const tailwindTheme = {
 	borderRadius,
 	borderWidth,
 	boxShadow,
+	keyframes,
+	animation,
 };
 
 // EXPORT OF TAILWIND THEME.

@@ -1,6 +1,6 @@
 import tw, { TwStyle, styled, css } from "twin.macro";
 import { TNotificationType } from "hooks/useNotifications";
-import { XIcon } from "@heroicons/react/solid";
+import { HiX as XIcon } from "react-icons/hi";
 import { motion } from "framer-motion";
 
 const NotificationsHolder = tw(motion.div)`
@@ -94,11 +94,7 @@ const CloseIcon = tw(XIcon)`
 
 const Icon = tw.div`
   mr-4
-  w-8
-  h-8
-  flex
-  justify-center
-  items-center
+  text-3xl
 `;
 
 const Time = tw.div`

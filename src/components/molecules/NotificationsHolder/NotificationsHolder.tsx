@@ -8,11 +8,11 @@ import { useCallback, useEffect, useMemo } from "react";
 import Styled from "./NotificationsHolder.styles";
 import { AnimatePresence, PanInfo, Variant } from "framer-motion";
 import {
-	ExclamationIcon as WarningIcon,
-	ExclamationCircleIcon as ErrorIcon,
-	CheckCircleIcon as SuccessIcon,
-	InformationCircleIcon as InfoIcon,
-} from "@heroicons/react/outline";
+	HiExclamation as WarningIcon,
+	HiExclamationCircle as ErrorIcon,
+	HiCheckCircle as SuccessIcon,
+	HiInformationCircle as InfoIcon,
+} from "react-icons/hi";
 import { useTimeout } from "hooks/useTime";
 
 interface INotificationProps {
@@ -77,7 +77,7 @@ const Notification = ({
 	};
 
 	const swipeVelocityThreshold = 15;
-	const swipeOffsetThreshold = 200;
+	const swipeOffsetThreshold = 150;
 	const offsetThreshold = 350;
 
 	const canCloseWithOffset = (offset: number) => offset > offsetThreshold;
@@ -103,10 +103,9 @@ const Notification = ({
 			exit="exit"
 			transition={{
 				type: "spring",
-				stiffness: offsetThreshold,
-				damping: 30,
+				duration: 0.4,
 			}}
-			layout="position"
+			layout={true}
 			drag="x"
 			dragConstraints={{ left: 0, right: 0 }}
 			dragElastic={{ left: 0.02, right: 0.2 }}

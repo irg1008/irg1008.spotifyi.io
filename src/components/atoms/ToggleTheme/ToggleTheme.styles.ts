@@ -1,6 +1,6 @@
 import tw from "twin.macro";
 import { motion } from "framer-motion";
-import { MoonIcon, SunIcon } from "@heroicons/react/solid";
+import { HiMoon as MoonIcon, HiSun as SunIcon } from "react-icons/hi";
 
 const Container = tw.div`
   w-20
@@ -30,8 +30,7 @@ const Handle = tw.div`
 `;
 
 const Icon = tw(motion.div)`
-  h-5
-  w-5
+  text-lg
 `;
 
 const Moon = tw(MoonIcon)`
@@ -40,6 +39,8 @@ const Moon = tw(MoonIcon)`
 
 const Sun = tw(SunIcon)`
   text-yellow-500
+  animate-spin
+  animation-duration[15s]
 `;
 
 const Styled = { Container, Handle, HandlerWrapper, Icon, Moon, Sun };

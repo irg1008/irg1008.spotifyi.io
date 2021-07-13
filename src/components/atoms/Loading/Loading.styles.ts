@@ -1,5 +1,5 @@
 import tw from "twin.macro";
-import { RefreshIcon } from "@heroicons/react/solid";
+import { HiRefresh } from "react-icons/hi";
 
 const Loading = tw.div`
   w-full
@@ -17,7 +17,7 @@ const Text = tw.p`
   animate-pulse
 `;
 
-const LoadingIcon = tw(RefreshIcon)`
+const LoadingIcon = tw(HiRefresh)`
   animate-spin
   animation-direction[reverse]
   h-10

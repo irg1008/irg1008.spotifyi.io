@@ -7,7 +7,7 @@ import useToggle from "hooks/useToggle";
 import Range from "components/atoms/Range";
 import { parseMills } from "util/time";
 import { useSpotifyDevice } from "hooks/useSpotify";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { HiChevronDown as ChevronDownIcon } from "react-icons/hi";
 import useRefData from "hooks/useRefData";
 import { useCallback, useEffect } from "react";
 

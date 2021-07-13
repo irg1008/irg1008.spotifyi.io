@@ -1,5 +1,5 @@
 import tw, { styled } from "twin.macro";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { HiChevronDown } from "react-icons/hi";
 import { motion } from "framer-motion";
 
 interface IDropdown {
@@ -19,7 +19,7 @@ const ChevronIconWrapper = styled.div(({ isOpen }: IDropdown) => [
     `,
 ]);
 
-const ChevronIcon = tw(ChevronDownIcon)`
+const ChevronIcon = tw(HiChevronDown)`
   w-6
   h-6
 `;
@@ -77,7 +77,7 @@ const Section = tw.section`
   flex-col
   space-y-4
   p-2
-  bg-accent-light
+  bg-accent-lighter
 `;
 
 const Styled = {

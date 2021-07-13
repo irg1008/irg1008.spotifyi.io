@@ -1,5 +1,5 @@
 import tw, { styled } from "twin.macro";
-import { MoonIcon, SunIcon } from "@heroicons/react/solid";
+import { HiMoon as MoonIcon, HiSun as SunIcon } from "react-icons/hi";
 
 const Flip = tw.div`
   w-10
@@ -43,8 +43,7 @@ const Back = tw(Side)`
 `;
 
 const Icon = tw`
-  h-5
-  w-5
+  text-xl
 `;
 
 const Moon = styled(MoonIcon)(() => [

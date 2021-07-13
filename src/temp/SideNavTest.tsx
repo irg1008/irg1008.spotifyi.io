@@ -5,6 +5,8 @@ import tw from "twin.macro";
 import idGen from "util/idGen";
 import { themes, TTheme, useTheme } from "theme";
 import { useTimeout } from "hooks/useTime";
+import ToggleFlip from "components/atoms/ToggleFlip";
+import ToggleTheme from "components/atoms/ToggleTheme";
 
 const Comp = ({ value }: { value: string }) => <p>{value}</p>;
 
@@ -176,12 +178,13 @@ const SideNavTest = () => {
 				<button>Four</button>
 				<button>Five</button>
 				<Link href="#">Two</Link>
-				<Link href="#">Three</Link>
+				<>
+					<ToggleTheme />
+					<ToggleFlip />
+				</>
 				<Dropdown title="A dropdown inside a dropdown! Hell yeah">
 					<button>Two</button>
 					<Link href="#">Two</Link>
-					<button>Three</button>
-					<Link href="#">Three</Link>
 				</Dropdown>
 			</Dropdown>
 		</SideNav>
