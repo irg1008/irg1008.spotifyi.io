@@ -68,13 +68,21 @@ const TooltipContent = tw.div`
   justify-center
   items-center
   gap-4
+  text-accent-darker
 `;
 
 const Name = tw.p`
   text-white
 `;
 
-const Avatar = tw.a`
+const Link = tw.a`
+  hover:underline
+  flex
+  justify-center
+  items-center
+`;
+
+const Avatar = tw.div`
   relative
 `;
 
@@ -112,5 +120,6 @@ const Styled = {
   PremiumIcon,
   PoorIcon,
   TooltipContent,
+  Link,
 };
 export default Styled;

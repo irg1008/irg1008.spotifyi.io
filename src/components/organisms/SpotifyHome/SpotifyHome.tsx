@@ -10,6 +10,7 @@ import SpotifySDK from "components/atoms/SpotifySDK";
 import SideNavTest from "temp/SideNavTest";
 import Tooltip from "components/atoms/Tooltip";
 import Dropdown from "components/atoms/Dropdown";
+import { GrShare } from "react-icons/gr";
 
 const Tracks = () => {
 	const [value, setValue] = useState<string>();
@@ -55,18 +56,21 @@ const Navbar = () => {
 								<Styled.Name>{user?.display_name}</Styled.Name>
 								<Dropdown title="Options">
 									<Styled.Button onClick={logOut}>Log Out</Styled.Button>
+									<Styled.Link
+										href={user?.uri}
+										target="_blank"
+										rel="noreferrer"
+									>
+										<p>Visit profile</p>
+										<GrShare />
+									</Styled.Link>
 								</Dropdown>
 							</Styled.TooltipContent>
 						}
 						position="bottom"
 						onHoverOutclose={false}
 					>
-						<Styled.Avatar
-							href={user?.uri}
-							target="_blank"
-							rel="noreferrer"
-							title={`Visit profile (${user.product} user)`}
-						>
+						<Styled.Avatar>
 							<Styled.Img>
 								<Image
 									src={user.images[0].url}
