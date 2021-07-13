@@ -40,6 +40,7 @@ const Container = tw.div`
   font-size[initial]
   font-normal
   max-w-md
+  bg-accent-dark
 `;
 
 const Header = styled.header(({ isOpen }: IDropdown) => [
