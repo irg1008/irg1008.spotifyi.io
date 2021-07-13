@@ -17,7 +17,7 @@ const FilledCard = ({ track }: ITrackCardProps) => {
 			id: idGen(),
 			component: <p>{text}</p>,
 			timeout: 3000,
-			type: "success",
+			type: "info",
 		});
 
 	const addToSpotifyQueue = async () =>
