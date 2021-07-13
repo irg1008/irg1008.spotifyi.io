@@ -48,7 +48,16 @@ const Navbar = () => {
 		<Styled.Navbar>
 			{user && (
 				<>
-					<Tooltip content={user?.display_name} position="bottom">
+					<Tooltip
+						content={
+							<Styled.TooltipContent>
+								<Styled.Name>{user?.display_name}</Styled.Name>
+								<Styled.Button onClick={logOut}>Log Out</Styled.Button>
+							</Styled.TooltipContent>
+						}
+						position="bottom"
+						onHoverOutclose={false}
+					>
 						<Styled.Avatar
 							href={user?.uri}
 							target="_blank"
@@ -71,7 +80,6 @@ const Navbar = () => {
 							)}
 						</Styled.Avatar>
 					</Tooltip>
-					<Styled.Button onClick={logOut}>Log Out</Styled.Button>
 				</>
 			)}
 		</Styled.Navbar>

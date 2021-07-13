@@ -38,13 +38,13 @@ const Navbar = tw.div`
   items-center
   bg-accent-dark
   bg-opacity-70!
-  p-4
+  px-10
+  py-4
   backdrop-filter
   backdrop-blur-md
   shadow-md
   border-b-2
   left-0
-  space-x-4
   z-10
 `;
 
@@ -60,6 +60,14 @@ const Img = tw.div`
   overflow-hidden
   border-2
   border-white
+`;
+
+const TooltipContent = tw.div`
+  flex
+  flex-col
+  justify-center
+  items-center
+  gap-4
 `;
 
 const Name = tw.p`
@@ -103,5 +111,6 @@ const Styled = {
   Avatar,
   PremiumIcon,
   PoorIcon,
+  TooltipContent,
 };
 export default Styled;
