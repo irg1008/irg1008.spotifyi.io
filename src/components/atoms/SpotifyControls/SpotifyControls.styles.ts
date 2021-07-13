@@ -121,6 +121,7 @@ const Device = styled.p(({ active }: { active: boolean }) => [
     items-center
     gap-1
     transition-colors
+    m-2
   `,
   active
     ? tw`
@@ -142,7 +143,6 @@ const SoundIcon = tw(CgLoadbarSound)`
 `;
 
 const Devices = tw.div`
-    space-y-4
 `;
 
 const iconHeight = tw`h-8`;

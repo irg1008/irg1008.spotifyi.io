@@ -94,9 +94,9 @@ const Tooltip = tw.div`
   text-white
   rounded-lg
   shadow-lg
-  p-4
-  border-4
-  border-black
+  p-2
+  border[3px solid black]
+  text-base
 `;
 
 const tooltipTriangleStyles: Record<TPosition, TwStyle> = {
@@ -120,7 +120,7 @@ const tooltipTriangleStyles: Record<TPosition, TwStyle> = {
 
 const TooltipTriangle = styled.div(({ position }: { position: TPosition }) => [
   tw`
-    border-width[10px]
+    border-width[8px]
     border-transparent
   `,
   tooltipTriangleStyles[position],

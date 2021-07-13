@@ -64,6 +64,7 @@ const SpotifyDevices = () => {
 		<Tooltip
 			content={
 				<Styled.Devices>
+					Select device:
 					{devices?.map((device) => (
 						<Styled.Device
 							key={device.id}

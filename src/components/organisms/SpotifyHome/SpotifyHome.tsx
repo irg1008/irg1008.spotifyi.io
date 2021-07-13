@@ -8,7 +8,7 @@ import Loading from "components/atoms/Loading";
 import Image from "next/image";
 import SpotifySDK from "components/atoms/SpotifySDK";
 import SideNavTest from "temp/SideNavTest";
-import ToggleFlip from "components/atoms/ToggleFlip";
+import Tooltip from "components/atoms/Tooltip";
 
 const Tracks = () => {
 	const [value, setValue] = useState<string>();
@@ -48,28 +48,29 @@ const Navbar = () => {
 		<Styled.Navbar>
 			{user && (
 				<>
-					<Styled.Avatar
-						href={user?.uri}
-						target="_blank"
-						rel="noreferrer"
-						title={`Visit profile (${user.product} user)`}
-					>
-						<Styled.Img>
-							<Image
-								src={user.images[0].url}
-								width={10}
-								height={10}
-								layout="responsive"
-								alt={user?.display_name}
-							/>
-						</Styled.Img>
-						{user.product === "premium" ? (
-							<Styled.PremiumIcon />
-						) : (
-							<Styled.PoorIcon />
-						)}
-					</Styled.Avatar>
-					<Styled.Name>{user?.display_name}</Styled.Name>
+					<Tooltip content={user?.display_name} position="bottom">
+						<Styled.Avatar
+							href={user?.uri}
+							target="_blank"
+							rel="noreferrer"
+							title={`Visit profile (${user.product} user)`}
+						>
+							<Styled.Img>
+								<Image
+									src={user.images[0].url}
+									width={10}
+									height={10}
+									layout="responsive"
+									alt={user?.display_name}
+								/>
+							</Styled.Img>
+							{user.product === "premium" ? (
+								<Styled.PremiumIcon />
+							) : (
+								<Styled.PoorIcon />
+							)}
+						</Styled.Avatar>
+					</Tooltip>
 					<Styled.Button onClick={logOut}>Log Out</Styled.Button>
 				</>
 			)}

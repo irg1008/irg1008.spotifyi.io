@@ -3,7 +3,7 @@ import Styled from "./TrackCard.styles";
 import Image from "next/image";
 import { useNotifications } from "hooks/useNotifications";
 import idGen from "util/idGen";
-import Tooltip from "components/atoms/Tooltip";
+
 interface ITrackCardProps {
 	track: SpotifyApi.TrackObjectFull;
 }
