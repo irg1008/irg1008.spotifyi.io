@@ -11,6 +11,7 @@ import { HiChevronDown as ChevronDownIcon } from "react-icons/hi";
 import { MdDevices } from "react-icons/md";
 import useRefData from "hooks/useRefData";
 import Tooltip from "components/atoms/Tooltip";
+import { useEffect } from "react";
 
 interface CustomVariants extends Variants {
 	hide: Variant;
@@ -49,15 +50,25 @@ const button: CustomVariants = {
 };
 
 const SpotifyDevices = () => {
+	const { isReady } = useSpotifySDK();
+
 	// CURRENT DEVICES.
-	const { activeDevice, transferPlayback, devices } = useSpotifyDevice();
+	const { getDevices, devices, transferPlayback } = useSpotifyDevice();
+
+	useEffect(() => {
+		if (isReady) getDevices();
+	}, [isReady, getDevices]);
 
 	return (
 		<Tooltip
 			content={
 				<Styled.Devices>
 					{devices?.map((device) => (
-						<Styled.Device key={device.id} active={device.is_active}>
+						<Styled.Device
+							key={device.id}
+							active={device.is_active}
+							onClick={() => transferPlayback(device.id)}
+						>
 							{device.name}
 						</Styled.Device>
 					))}

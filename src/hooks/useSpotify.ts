@@ -111,15 +111,6 @@ const useSpotifyDevice = () => {
   const [activeDevice, setActiveDevice] = useState<TDevice>();
   const [devices, setDevices] = useState<TDevice[]>();
 
-  const transferPlayback = useCallback(
-    async (deviceId: string) => {
-      await withSpotify(
-        async () => await spotify.transferMyPlayback([deviceId])
-      );
-    },
-    [spotify, withSpotify]
-  );
-
   const getDevices = useCallback(async () => {
     const res = await withSpotify(() => spotify.getMyDevices());
     const devices = res?.devices;
@@ -128,11 +119,22 @@ const useSpotifyDevice = () => {
     setActiveDevice(active);
   }, [spotify, withSpotify]);
 
+  const transferPlayback = useCallback(
+    async (deviceId: string) => {
+      await withSpotify(
+        async () => await spotify.transferMyPlayback([deviceId])
+      );
+      // UPDATE activeDevice.
+      await getDevices();
+    },
+    [spotify, withSpotify, getDevices]
+  );
+
   useEffect(() => {
     getDevices();
   }, [getDevices]);
 
-  return { activeDevice, devices, transferPlayback };
+  return { activeDevice, devices, transferPlayback, getDevices };
 };
 
 type TTracks = SpotifyApi.TrackObjectFull[];

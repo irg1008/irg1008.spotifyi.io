@@ -185,13 +185,6 @@ const useSpotifySDK = () => {
   // ACTIVE DEVICE.
   const { activeDevice, transferPlayback } = useSpotifyDevice();
 
-  useEffect(() => {
-    if (!!activeDevice && !!device && activeDevice?.id === device?.deviceId) {
-      updateState();
-      console.log("el mismo")
-    }
-  }, [activeDevice, device, updateState]);
-
   return {
     onSpotifySDKLoad,
     state,

@@ -35,7 +35,6 @@ const Container = styled.div(
 
 const Wrapper = tw.div`
   w-full
-  space-y-2
   bg-accent-medium
   p-6
   border-t-2
@@ -44,6 +43,7 @@ const Wrapper = tw.div`
   flex-col
   items-center
   justify-center
+  space-y-4
 `;
 
 const Down = tw.div`
@@ -96,7 +96,7 @@ const Button = tw(motion.button)`
   justify-center
   items-center
   overflow-hidden
-  m-0!
+  my-0!
 `;
 
 const Progress = tw(motion.div)`
@@ -114,12 +114,17 @@ const Text = tw.p`
 
 const Device = styled.p(({ active }: { active: boolean }) => [
   tw`
-    
+    text-accent-lighter
+    cursor-pointer
   `,
+  active &&
+  tw`
+    text-yellow-400
+  `
 ]);
 
 const Devices = tw.div`
-    
+    space-y-4
 `;
 
 const iconHeight = tw`h-8`;
