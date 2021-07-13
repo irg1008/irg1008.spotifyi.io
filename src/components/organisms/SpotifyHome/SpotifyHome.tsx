@@ -61,7 +61,7 @@ const Navbar = () => {
 										target="_blank"
 										rel="noreferrer"
 									>
-										<p>Visit profile</p>
+										<p>Profile</p>
 										<GrShare />
 									</Styled.Link>
 								</Dropdown>

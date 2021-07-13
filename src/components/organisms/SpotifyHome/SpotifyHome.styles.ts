@@ -78,7 +78,7 @@ const Name = tw.p`
 const Link = tw.a`
   hover:underline
   flex
-  justify-center
+  justify-around
   items-center
 `;
 
