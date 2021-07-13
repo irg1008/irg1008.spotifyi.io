@@ -1,21 +1,92 @@
-import tw, { css, styled } from "twin.macro";
+import tw, { css, styled, TwStyle } from "twin.macro";
 import { motion } from "framer-motion";
+import { ITooltipPosition, TPosition } from "./Tooltip";
 
-const Container = styled.div(({ x, y }: { x: number; y: number }) => [
-  css`
-    top: ${y - 60}px;
-    left: ${x}px;
+const spacing = 25;
+
+const tooltipContainerPosition = ({
+  x,
+  y,
+  position,
+}: Pick<ITooltipPosition, "x" | "y" | "position">) => {
+  switch (position) {
+    case "left":
+      return css`
+        top: ${y}px;
+        left: ${x - spacing}px;
+      `;
+    case "right":
+      return css`
+        top: ${y}px;
+        left: ${x - spacing}px;
+      `;
+    case "top":
+      return css`
+        top: ${y - spacing}px;
+        left: ${x}px;
+      `;
+    case "bottom":
+      return css`
+        top: ${y - spacing}px;
+        left: ${x}px;
+      `;
+  }
+};
+
+const tooltipContainerStyles: Record<TPosition, TwStyle> = {
+  left: tw`
+    -translate-x-full
+    -translate-y-1/2
   `,
-  tw`
-    absolute
-    transform
+  right: tw`
+    -translate-y-1/2
+  `,
+  top: tw`
     -translate-x-1/2
     -translate-y-full
-    m-0!
+  `,
+  bottom: tw`
+    -translate-x-1/2
+  `,
+};
+
+const Container = styled.div(
+  (props: Pick<ITooltipPosition, "x" | "y" | "position">) => [
+    tw`
+      absolute
+      transform
+      m-0!
+  `,
+    tooltipContainerPosition(props),
+    tooltipContainerStyles[props.position],
+  ]
+);
+
+const tooltipWrapperStyles: Record<TPosition, TwStyle> = {
+  left: tw`
+    flex-row
+  `,
+  right: tw`
+    flex-row-reverse
+  `,
+  top: tw`
+    flex-col
+  `,
+  bottom: tw`
+    flex-col-reverse
+  `,
+};
+
+const Wrapper = styled(motion.div)(({ position }: { position: TPosition }) => [
+  tooltipWrapperStyles[position],
+  tw`
+    flex
+    justify-center
+    items-center
   `,
 ]);
 
-const Tooltip = tw(motion.div)`
+const Tooltip = tw.div`
   backdrop-filter
   backdrop-blur
   bg-opacity-80
@@ -26,21 +97,35 @@ const Tooltip = tw(motion.div)`
   p-4
   border-4
   border-black
-  relative
-  after:(
-    content
-    absolute
-    top-full
-    mt-1
-    transform
-    -translate-x-1/2
-    border-width[12px]
-    border-top-color[black]
-    border-right-color[transparent]
-    border-bottom-color[transparent]
-    border-left-color[transparent]
-  )
+  max-w-sm
 `;
 
-const Styled = { Tooltip, Container };
+const tooltipTriangleStyles: Record<TPosition, TwStyle> = {
+  left: tw`
+    -ml-0.5
+    border-left-color[black]
+  `,
+  right: tw`
+    -mr-0.5
+    border-right-color[black]
+  `,
+  top: tw`
+    -mt-0.5
+    border-top-color[black]
+  `,
+  bottom: tw`
+    -mb-0.5
+    border-bottom-color[black]
+  `,
+};
+
+const TooltipTriangle = styled.div(({ position }: { position: TPosition }) => [
+  tw`
+    border-width[10px]
+    border-transparent
+  `,
+  tooltipTriangleStyles[position],
+]);
+
+const Styled = { Tooltip, Container, TooltipTriangle, Wrapper };
 export default Styled;

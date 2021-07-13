@@ -8,7 +8,6 @@ import Range from "components/atoms/Range";
 import { parseMills } from "util/time";
 import { useSpotifyDevice } from "hooks/useSpotify";
 import { HiChevronDown as ChevronDownIcon } from "react-icons/hi";
-import { MdDevices } from "react-icons/md";
 import useRefData from "hooks/useRefData";
 import Tooltip from "components/atoms/Tooltip";
 import { useEffect } from "react";
@@ -50,14 +49,17 @@ const button: CustomVariants = {
 };
 
 const SpotifyDevices = () => {
-	const { isReady } = useSpotifySDK();
+	const { isReady, device, state } = useSpotifySDK();
 
 	// CURRENT DEVICES.
-	const { getDevices, devices, transferPlayback } = useSpotifyDevice();
+	const { getDevices, devices, transferPlayback, activeDevice } =
+		useSpotifyDevice();
 
 	useEffect(() => {
-		if (isReady) getDevices();
-	}, [isReady, getDevices]);
+		if (isReady) {
+			getDevices();
+		}
+	}, [isReady, getDevices, state]);
 
 	return (
 		<Tooltip
@@ -69,6 +71,7 @@ const SpotifyDevices = () => {
 							active={device.is_active}
 							onClick={() => transferPlayback(device.id)}
 						>
+							{device.is_active && <Styled.SoundIcon />}
 							{device.name}
 						</Styled.Device>
 					))}
@@ -77,45 +80,21 @@ const SpotifyDevices = () => {
 			onHoverOutclose={false}
 		>
 			<Styled.Button>
-				<MdDevices />
+				<Styled.DevicesIcon />
 			</Styled.Button>
 		</Tooltip>
 	);
 };
 
-const SpotifyControls = () => {
-	const { state, useVolume, useController, useProgress } = useSpotifySDK();
+const MuteButton = () => {
+	const { useVolume } = useSpotifySDK();
 
 	// VOLUME.
 	const { isMuted, toggleMuted, currentVolume, setVolume } = useVolume();
 
-	// CONTROLLERS.
-	const { nextTrack, prevTrack, togglePlay, goTo } = useController();
-
-	// PROGRESS.
-	const { progress, setProgress, setPaused } = useProgress();
-
-	// SONG.
-	const song = state?.track_window.current_track;
-
-	// Pop Ups.
-	const [isOpenSong, toggleIsOpenSong] = useToggle();
-	const [isOpenVolume, togglePopUpVolume] = useToggle();
-	const [showControls, toggleShowControls] = useToggle(true);
-
-	// CONTAINER HEIGHT.
-	const [containerRef, { height: containerHeight }] =
-		useRefData<HTMLDivElement>();
-
 	return (
-		<>
-			<PopUp isOpen={isOpenSong} onBGClick={toggleIsOpenSong}>
-				<Styled.Text>Name: {song?.name}</Styled.Text>
-				<Styled.Text>
-					Artists: {song?.artists.map((artist) => artist.name).join(" - ")}
-				</Styled.Text>
-			</PopUp>
-			<PopUp isOpen={isOpenVolume} onBGClick={togglePopUpVolume}>
+		<Tooltip
+			content={
 				<Styled.Progress>
 					<Range
 						min={0}
@@ -125,7 +104,64 @@ const SpotifyControls = () => {
 						onChangeEvent={(val) => setVolume(val)}
 					/>
 				</Styled.Progress>
-			</PopUp>
+			}
+			onHoverOutclose={false}
+			position="right"
+		>
+			<Styled.Button onClick={toggleMuted} variants={button}>
+				{isMuted ? <Styled.MutedIcon /> : <Styled.UnMutedIcon />}
+			</Styled.Button>
+		</Tooltip>
+	);
+};
+
+const TrackImage = () => {
+	const { state } = useSpotifySDK();
+
+	// SONG.
+	const song = state?.track_window.current_track;
+
+	return (
+		!!song && (
+			<Tooltip
+				content={
+					<>
+						<Styled.Text>
+							<h4>{song.name}</h4>
+							<span>
+								{song.artists.map((artist) => artist.name).join(" - ")}
+							</span>
+						</Styled.Text>
+					</>
+				}
+				position="left"
+			>
+				<Styled.Button variants={button}>
+					<Image src={song.album.images[1].url} layout="fill" alt={song.name} />
+				</Styled.Button>
+			</Tooltip>
+		)
+	);
+};
+
+const SpotifyControls = () => {
+	const { state, useController, useProgress } = useSpotifySDK();
+
+	// CONTROLLERS.
+	const { nextTrack, prevTrack, togglePlay, goTo } = useController();
+
+	// PROGRESS.
+	const { progress, setProgress, setPaused } = useProgress();
+
+	// Pop Ups.
+	const [showControls, toggleShowControls] = useToggle(true);
+
+	// CONTAINER HEIGHT.
+	const [containerRef, { height: containerHeight }] =
+		useRefData<HTMLDivElement>();
+
+	return (
+		<>
 			<Styled.Container height={containerHeight} isOpen={showControls}>
 				<Styled.Down onClick={toggleShowControls}>
 					<Styled.Chevron isOpen={showControls}>
@@ -157,33 +193,17 @@ const SpotifyControls = () => {
 								animate="show"
 								variants={buttonsCont}
 							>
-								<Styled.Button
-									onHoverStart={toggleIsOpenSong}
-									onHoverEnd={toggleIsOpenSong}
-									variants={button}
-								>
-									<Image
-										src={song?.album.images[0].url}
-										layout="fill"
-										alt={song?.name}
-									/>
-								</Styled.Button>
+								<TrackImage />
 								<Styled.Button onClick={prevTrack} variants={button}>
-									<Styled.Previous />
+									<Styled.PreviousIcon />
 								</Styled.Button>
 								<Styled.Button onClick={togglePlay} variants={button}>
-									{state?.paused ? <Styled.Play /> : <Styled.Pause />}
+									{state?.paused ? <Styled.PlayIcon /> : <Styled.PauseIcon />}
 								</Styled.Button>
 								<Styled.Button onClick={nextTrack} variants={button}>
-									<Styled.Next />
+									<Styled.NextIcon />
 								</Styled.Button>
-								<Styled.Button
-									onClick={toggleMuted}
-									onHoverStart={togglePopUpVolume}
-									variants={button}
-								>
-									{isMuted ? <Styled.Muted /> : <Styled.UnMuted />}
-								</Styled.Button>
+								<MuteButton />
 							</Styled.Controls>
 						</>
 					)}

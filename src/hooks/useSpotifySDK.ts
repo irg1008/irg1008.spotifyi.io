@@ -182,9 +182,6 @@ const useSpotifySDK = () => {
   // PROGRESS.
   const useProgress = () => useSpotifyProgress(state);
 
-  // ACTIVE DEVICE.
-  const { activeDevice, transferPlayback } = useSpotifyDevice();
-
   return {
     onSpotifySDKLoad,
     state,

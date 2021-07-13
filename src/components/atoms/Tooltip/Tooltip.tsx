@@ -7,29 +7,39 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { AnimatePresence, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 
 interface ITooltipPosition {
 	x: number;
 	y: number;
 	show: boolean;
 	children: React.ReactNode;
+	position: TPosition;
 }
 
 const StyledTooltip = forwardRef<HTMLDivElement, ITooltipPosition>(function fn(
-	{ x, y, show, children },
+	{ x, y, show, children, position },
 	ref,
 ) {
+	const horizontal: TPosition[] = ["right", "left"];
+	const positive: TPosition[] = ["left", "top"];
+
+	const variable = horizontal.includes(position) ? "x" : "y";
+	const number = positive.includes(position) ? 40 : -40;
+
 	const tooltipVariants: Variants = {
-		hide: { opacity: 0, y: 40 },
-		show: { opacity: 1, y: 0 },
+		hide: { opacity: 0, scale: 0.8 },
+		show: { opacity: 1, scale: 1 },
 	};
+
+	tooltipVariants.hide[variable] = number;
+	tooltipVariants.show[variable] = 0;
 
 	return (
 		<AnimatePresence>
 			{show && (
-				<Styled.Container {...{ x, y, ref }}>
-					<Styled.Tooltip
+				<Styled.Container {...{ x, y, ref, position }}>
+					<Styled.Wrapper
 						key="tooltip"
 						variants={tooltipVariants}
 						initial="hide"
@@ -40,20 +50,25 @@ const StyledTooltip = forwardRef<HTMLDivElement, ITooltipPosition>(function fn(
 							stiffness: 600,
 							damping: 25,
 						}}
+						{...{ position }}
 					>
-						{children}
-					</Styled.Tooltip>
+						<Styled.Tooltip>{children}</Styled.Tooltip>
+						<Styled.TooltipTriangle {...{ position }} />
+					</Styled.Wrapper>
 				</Styled.Container>
 			)}
 		</AnimatePresence>
 	);
 });
 
+type TPosition = "right" | "left" | "top" | "bottom";
+
 interface ITooltipProps {
 	content: React.ReactNode;
 	children: React.ReactElement;
 	onHoverOutclose?: boolean;
 	onOutsideClickClose?: boolean;
+	position?: TPosition;
 }
 
 const Tooltip = ({
@@ -61,13 +76,20 @@ const Tooltip = ({
 	content,
 	onHoverOutclose = true,
 	onOutsideClickClose = true,
+	position = "top",
 }: ITooltipProps) => {
-	const [show, setShow] = useState<boolean>(false);
+	const [show, setShow] = useState<boolean>();
 	const open = useCallback(() => setShow(true), []);
 	const close = useCallback(() => setShow(false), []);
 
 	// CHILD REF.
-	const [ref, { x, y }] = useRefData();
+	const [ref, { x, height, y, width }] = useRefData();
+
+	let finalX = x;
+	let finalY = y;
+
+	if (position === "right") finalX += width;
+	else if (position === "bottom") finalY += height;
 
 	// TOLTIP REF.
 	const [tooltipRef] = useRefData<HTMLDivElement>();
@@ -104,7 +126,12 @@ const Tooltip = ({
 
 	return (
 		<>
-			<StyledTooltip {...{ x, y, show }} ref={tooltipRef}>
+			<StyledTooltip
+				{...{ show, position }}
+				x={finalX}
+				y={finalY}
+				ref={tooltipRef}
+			>
 				{content}
 			</StyledTooltip>
 			{clonedChild}
@@ -112,5 +139,5 @@ const Tooltip = ({
 	);
 };
 
-export type { ITooltipPosition };
+export type { ITooltipPosition, TPosition };
 export default Tooltip;

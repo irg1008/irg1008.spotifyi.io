@@ -75,8 +75,6 @@ const useSpotify = () => {
       } catch (error) {
         const spotifyError = JSON.parse(error.response).error;
 
-        console.log(spotifyError);
-
         // If expired token.
         if (spotifyError.status === 401) {
           // Ask for new token.
@@ -114,7 +112,7 @@ const useSpotifyDevice = () => {
   const getDevices = useCallback(async () => {
     const res = await withSpotify(() => spotify.getMyDevices());
     const devices = res?.devices;
-    const active = devices.find((device) => device.is_active);
+    const active = devices?.find((device) => device.is_active);
     setDevices(res?.devices);
     setActiveDevice(active);
   }, [spotify, withSpotify]);

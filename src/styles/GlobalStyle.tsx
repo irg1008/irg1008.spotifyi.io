@@ -23,6 +23,8 @@ const track = tw`
   focus:outline-none
   -webkit-appearance[none]
   shadow-sm
+  border
+  border-accent-light
 `;
 
 const CustomGlobalStyle = createGlobalStyle`
