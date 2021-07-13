@@ -1,5 +1,5 @@
 import tw, { styled } from "twin.macro";
-import { StarIcon, EmojiSadIcon } from "@heroicons/react/solid";
+import { HiStar as StarIcon, HiEmojiSad as EmojiSadIcon } from "react-icons/hi";
 
 const Home = tw.div`
   text-xl

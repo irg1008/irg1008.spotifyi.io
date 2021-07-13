@@ -1,5 +1,5 @@
 import Styled from "./SideNav.styles";
-import { MenuIcon, XIcon } from "@heroicons/react/solid";
+import { HiMenu as MenuIcon, HiX as XIcon } from "react-icons/hi";
 import { useState } from "react";
 
 interface IHeaderProps {
