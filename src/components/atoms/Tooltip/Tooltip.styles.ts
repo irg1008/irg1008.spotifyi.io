@@ -97,7 +97,6 @@ const Tooltip = tw.div`
   p-4
   border-4
   border-black
-  max-w-sm
 `;
 
 const tooltipTriangleStyles: Record<TPosition, TwStyle> = {

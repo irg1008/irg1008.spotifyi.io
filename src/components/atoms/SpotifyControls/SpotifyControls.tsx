@@ -1,6 +1,5 @@
 import Styled from "./SpotifyControls.styles";
 import { Variants, Variant } from "framer-motion";
-import PopUp from "components/atoms/PopUp";
 import Image from "next/image";
 import useSpotifySDK from "hooks/useSpotifySDK";
 import useToggle from "hooks/useToggle";
