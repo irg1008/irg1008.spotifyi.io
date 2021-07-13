@@ -54,8 +54,8 @@ const Navbar = () => {
 						content={
 							<Styled.TooltipContent>
 								<Styled.Name>{user?.display_name}</Styled.Name>
+								<Styled.Button onClick={logOut}>Log Out</Styled.Button>
 								<Dropdown title="Options">
-									<Styled.Button onClick={logOut}>Log Out</Styled.Button>
 									<Styled.Link
 										href={user?.uri}
 										target="_blank"
