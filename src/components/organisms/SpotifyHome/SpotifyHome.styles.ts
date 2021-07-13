@@ -38,7 +38,7 @@ const Navbar = tw.div`
   items-center
   bg-accent-dark
   bg-opacity-70!
-  px-10
+  px-14
   py-4
   backdrop-filter
   backdrop-blur-md

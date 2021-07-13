@@ -9,6 +9,7 @@ import Image from "next/image";
 import SpotifySDK from "components/atoms/SpotifySDK";
 import SideNavTest from "temp/SideNavTest";
 import Tooltip from "components/atoms/Tooltip";
+import Dropdown from "components/atoms/Dropdown";
 
 const Tracks = () => {
 	const [value, setValue] = useState<string>();
@@ -52,7 +53,9 @@ const Navbar = () => {
 						content={
 							<Styled.TooltipContent>
 								<Styled.Name>{user?.display_name}</Styled.Name>
-								<Styled.Button onClick={logOut}>Log Out</Styled.Button>
+								<Dropdown title="Options">
+									<Styled.Button onClick={logOut}>Log Out</Styled.Button>
+								</Dropdown>
 							</Styled.TooltipContent>
 						}
 						position="bottom"
