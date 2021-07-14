@@ -6,6 +6,7 @@ const Songs = tw.div`
   justify-center
   items-center 
   p-5
+  gap-6
 `;
 
 const NotFoundText = tw.p`

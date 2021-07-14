@@ -1,8 +1,13 @@
 import tw from "twin.macro";
+import { motion } from "framer-motion";
+
+const ButtonsContainer = tw(motion.div)`
+`;
 
 const Buttons = tw.div`
+  mt-4
   flex
-  space-x-4
+  gap-4
 `;
 
 const Button = tw.button`
@@ -10,21 +15,20 @@ const Button = tw.button`
   rounded-custom
   text-lg
   border-button
+  overflow-hidden
 `;
 
 const Card = tw.div`
   w-80
-  h-96
-  space-y-3
+  h-80
   flex
   flex-col
   justify-between
   p-4
-  m-6
   bg-secondary
   rounded-3xl
   shadow-lg
-  overflow-auto
+  overflow-hidden
 `;
 
 const SongTitle = tw.p`
@@ -42,6 +46,9 @@ const SongImg = tw.div`
   shadow-md
   self-center
   overflow-hidden
+  flex
+  items-end
+  mt-3
 `;
 
 const Audio = tw.audio`
@@ -89,5 +96,6 @@ const Styled = {
   EmptyArtist,
   EmptyButton,
   EmptyImage,
+  ButtonsContainer,
 };
 export default Styled;

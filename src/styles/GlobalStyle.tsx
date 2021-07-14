@@ -85,7 +85,7 @@ const CustomGlobalStyle = createGlobalStyle`
   button {
     ${tw`
       outline-none
-      focus:outline-none
+      focus:outline-none!
       bg-accent-dark
       bg-opacity-80
       hover:bg-opacity-100
@@ -94,9 +94,10 @@ const CustomGlobalStyle = createGlobalStyle`
       p-2
       shadow-lg
       transform
-      transition-colors
+      transition-all
       disabled:pointer-events-none
       disabled:bg-opacity-30
+      active:scale-95
     `}
   }
 
