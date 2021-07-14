@@ -26,7 +26,7 @@ const Title = styled.h1`
   `}
 `;
 
-const Button = tw(motion.button)`
+const Button = tw(motion.div)`
   border-4
   p-10
   flex
@@ -36,6 +36,7 @@ const Button = tw(motion.button)`
   font-bold
   focus:outline-none
   text-xl
+  cursor-pointer
 `;
 
 const Container = tw.div`
