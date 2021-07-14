@@ -24,7 +24,7 @@ const buttonsCont: CustomVariants = {
 		translateY: 0,
 		transition: {
 			type: "spring",
-			duration: 2,
+			duration: 1,
 			bounce: 0,
 			staggerChildren: 0.2,
 		},
@@ -40,7 +40,7 @@ const button: CustomVariants = {
 		opacity: 1,
 		translateY: 0,
 		transition: {
-			duration: 2,
+			duration: 1,
 			type: "spring",
 			bounce: 0.15,
 		},
