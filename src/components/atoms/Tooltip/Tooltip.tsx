@@ -97,22 +97,23 @@ const Tooltip = ({
 	// GETTING REF FROM CHILDREN.
 	const clonedChild = cloneElement(children, { ref });
 
-	// ON ENTER EVENT.
-	ref.current?.addEventListener("mouseenter", open);
-	ref.current?.addEventListener("touchstart", open);
+	useEffect(() => {
+		// ON ENTER EVENT.
+		ref.current?.addEventListener("mouseenter", open);
+		ref.current?.addEventListener("touchstart", open);
 
-	// ON LEAVE EVENT when "closeOnHoverOut" is true.
-	if (onHoverOutclose) {
-		ref.current?.addEventListener("mouseleave", close);
-		ref.current?.addEventListener("touchend", close);
-	}
+		// ON LEAVE EVENT when "closeOnHoverOut" is true.
+		if (onHoverOutclose) {
+			ref.current?.addEventListener("mouseleave", close);
+			ref.current?.addEventListener("touchend", close);
+		}
+	}, [open, close, onHoverOutclose, ref]);
 
 	// ON CLICK OUTSIDE TOOLTIP AND CHILD => CLOSE. When "closeOnClickOutside" is true.
 	const backDropHandler = useCallback(
 		(e: MouseEvent) => {
 			if (onOutsideClickClose && !onHoverOutclose) {
 				const isTooltip = tooltipRef?.current?.contains(e.target as Node);
-
 				if (!isTooltip) close();
 			}
 		},

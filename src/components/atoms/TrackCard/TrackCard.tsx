@@ -16,7 +16,7 @@ const FilledCard = ({ track }: ITrackCardProps) => {
 		addNotification({
 			id: idGen(),
 			component: <p>{text}</p>,
-			timeout: 3000,
+			timeout: 1000,
 			type: "info",
 		});
 
