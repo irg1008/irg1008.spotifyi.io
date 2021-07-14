@@ -37,6 +37,7 @@ const Button = tw(motion.div)`
   focus:outline-none
   text-xl
   cursor-pointer
+  bg-accent-dark
 `;
 
 const Container = tw.div`
