@@ -97,7 +97,6 @@ const CustomGlobalStyle = createGlobalStyle`
       transition-all
       disabled:pointer-events-none
       disabled:bg-opacity-30
-      active:scale-95
     `}
   }
 
