@@ -27,31 +27,15 @@ const track = tw`
   border-accent-light
 `;
 
-const customButton = tw`
+const neuMorph = tw`
   box-shadow[
     3px 3px 5px rgba(0, 0, 0, 0.4),
     -3px -3px 5px rgba(255, 255, 255, 0.4)]
-  hover:(
-    animate-pulse
-  )
-  active:(
-    scale-95
-  )
-  disabled:(
-    pointer-events-none
-    bg-accent-light
-    text-accent-medium
-    box-shadow[
-      inset 3px 3px 8px rgba(0, 0, 0, 0.4),
-      inset -3px -3px 8px rgba(255, 255, 255, 0.4)]
-  )
+
   focus:outline-none
   transform
-  bg-accent-dark
-  duration-200
-  text-accent-lighter
-  p-2
   transition-all
+  duration-200
   outline-none
   rounded-lg
   border
@@ -70,6 +54,38 @@ const CustomGlobalStyle = createGlobalStyle`
       border-opacity-100
       transition-colors
       duration-300
+    `}
+  }
+
+  button {
+    ${neuMorph}
+    ${tw`
+      hover:(
+        animate-pulse
+      )
+      active:(
+        scale-95
+      )
+      disabled:(
+        pointer-events-none
+        bg-accent-light
+        text-accent-medium
+        box-shadow[
+          inset 3px 3px 8px rgba(0, 0, 0, 0.4),
+          inset -3px -3px 8px rgba(255, 255, 255, 0.4)]
+      )
+      bg-accent-dark
+      text-accent-lighter
+      p-2
+    `}
+  }
+
+  input {
+    ${neuMorph}
+    ${tw`
+      box-shadow[
+        inset 3px 3px 8px rgba(0, 0, 0, 0.4),
+        inset -3px -3px 8px rgba(255, 255, 255, 0.4)]
     `}
   }
 
@@ -112,10 +128,6 @@ const CustomGlobalStyle = createGlobalStyle`
     ${tw`
       ml-3
     `}
-  }
-
-  button {
-    ${customButton}
   }
 
   h1 {

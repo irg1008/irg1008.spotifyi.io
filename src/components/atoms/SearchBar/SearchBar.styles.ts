@@ -7,6 +7,8 @@ const Container = tw.div`
   relative
   text-gray-400
   focus-within:text-accent-dark
+  transition-all
+  duration-300
 `;
 
 const Input = tw.input`
@@ -15,13 +17,12 @@ const Input = tw.input`
   h-full
   text-base
   rounded-full
-  outline-none
+  border-2
+  border-accent-dark
+  border-opacity-60
   focus:(
-    ring-2
-    ring-accent-darker
+    border-opacity-100
   )
-  transition-all
-  duration-300
 `;
 
 const icon = tw`
@@ -30,8 +31,6 @@ const icon = tw`
   absolute
   top-0
   h-full
-  transition-colors
-  duration-300
 `;
 
 const SearchIcon = styled(HeroSearchIcon)(() => [
