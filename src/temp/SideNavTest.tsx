@@ -142,6 +142,7 @@ const SideNavTest = () => {
 		<SideNav>
 			<ThemeDropdown />
 			<NotificationTest />
+			<button>Holiwis</button>
 		</SideNav>
 	);
 };

@@ -50,7 +50,6 @@ const Navbar = tw.div`
 
 const Button = tw.button`
   bg-accent-medium
-  border-b-2
 `;
 
 const Img = tw.div`

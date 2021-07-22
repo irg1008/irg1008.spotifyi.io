@@ -27,6 +27,38 @@ const track = tw`
   border-accent-light
 `;
 
+const customButton = tw`
+  box-shadow[
+    3px 3px 5px rgba(0, 0, 0, 0.4),
+    -3px -3px 5px rgba(255, 255, 255, 0.4)]
+  hover:(
+    animate-pulse
+  )
+  active:(
+    scale-95
+  )
+  disabled:(
+    pointer-events-none
+    bg-accent-light
+    text-accent-medium
+    box-shadow[
+      inset 3px 3px 8px rgba(0, 0, 0, 0.4),
+      inset -3px -3px 8px rgba(255, 255, 255, 0.4)]
+  )
+  focus:outline-none
+  transform
+  bg-accent-dark
+  duration-200
+  text-accent-lighter
+  p-2
+  transition-all
+  outline-none
+  rounded-lg
+  border
+  border-color[rgba(255, 255, 255, 0.2)]
+  box-sizing[border-box]
+`;
+
 const CustomGlobalStyle = createGlobalStyle`
   ${cssThemes};
 
@@ -83,21 +115,7 @@ const CustomGlobalStyle = createGlobalStyle`
   }
 
   button {
-    ${tw`
-      outline-none
-      focus:outline-none!
-      bg-accent-dark
-      bg-opacity-80
-      hover:bg-opacity-100
-      duration-200
-      text-white
-      p-2
-      shadow-lg
-      transform
-      transition-all
-      disabled:pointer-events-none
-      disabled:bg-opacity-30
-    `}
+    ${customButton}
   }
 
   h1 {

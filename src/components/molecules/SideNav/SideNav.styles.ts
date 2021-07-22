@@ -23,7 +23,7 @@ const SideNav = styled.div(({ isOpen }: { isOpen: boolean }) => [
   `,
 ]);
 
-const Button = tw.button`
+const Button = tw.div`
   rounded-r-full
   w-10
   h-10
@@ -34,6 +34,11 @@ const Button = tw.button`
   bg-opacity-100!
   bg-accent-medium
   shadow-none
+  cursor-pointer
+  flex
+  items-center
+  justify-center
+  text-accent-lighter
 `;
 
 const TreeView = tw.div`
